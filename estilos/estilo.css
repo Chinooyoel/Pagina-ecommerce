@@ -1,0 +1,133 @@
+/*--------------------------------------ETIQUETAS GENERALES-----------------------------------*/
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+html body{
+    font-family: 'Roboto Slab', serif;
+    background-color: #dadada;
+}
+html header{
+    background: black;
+}
+/*--------------------------------------ID-----------------------------------*/
+#total{
+    padding: 5px;
+}
+#buscador{
+    width: 500px;
+    height: 40px;
+    border-radius: 4px;
+    border-style: none;
+    padding-left: 10px;
+}
+#iniciar_sesion{
+    color:white;
+}
+#registrarse{
+    color:#1eff00;
+}
+#buscar{
+    background: #50b942;
+    color:white;
+    height: 35px;
+    font-size: 1.3em;
+    border:none;
+    border-radius: 4px;
+
+    position: relative;
+    right: 41px;
+    top:4px
+}
+/*--------------------------------------CLASES GENERALES-----------------------------------*/
+.icono{
+    color: #50b942;
+    margin-right: 4px;
+}
+.carrito{
+    padding-left:20px;
+}
+    .carrito i{
+        font-size: 1.7em;
+    }
+.max1400{
+    max-width: 1400px;
+    margin: auto;
+    text-align: center;
+}
+/*--------------------------------------MENU CONTACTO-----------------------------------*/
+.menu_contacto ul{
+    background-color: #525252;
+
+    display: flex;
+    justify-content: flex-end;
+}
+    .menu_contacto a{
+        color:white;
+        padding: 8px;
+
+        display: block;
+    }
+    .menu_contacto a:hover{
+        text-decoration-line:underline ;
+    }
+
+/*--------------------------------------MENU SECUNDARIO-----------------------------------*/
+.menu_secundario{
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    display:flex;
+    justify-content: space-around;
+}
+    .menu_secundario .logo{
+        color: #1eff00;
+        font-size: 2.0em;
+    }
+
+
+/*--------------------------------------MENU-----------------------------------*/
+.menu ul{
+    background-color: black;
+
+    display: flex;
+    justify-content: center;
+}
+    .menu a{
+        color:white;
+        padding: 14px;
+
+        display: block;
+    }
+    .menu a:hover{
+        color: #1eff00;
+    }
+
+
+/*--------------------------------------USUARIO CARRITO-----------------------------------*/
+.usuario_carrito{
+    color:white;
+
+    display: flex;
+    justify-content: space-between;
+}
+/*--------------------------------------FOOTER-----------------------------------*/
+html footer{
+    background: black;
+    color:white;
+    padding: 20px;
+}
+footer h3, footer li{
+    padding: 4px;
+}
+footer a{
+    color:white;
+}
+footer a:hover{
+    text-decoration-line: underline;
+}
+footer img{
+    width: 50px;
+}

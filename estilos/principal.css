@@ -1,0 +1,144 @@
+/* **************************LISTA_MARCA*************************************** */
+.lista_marca{
+    background: white;
+    box-shadow: 5px 5px 5px black;
+
+    display:flex;
+    justify-content: center;
+}
+
+    .lista_marca img{
+        height: 20px;
+        padding:5px;
+        padding-right: 30px;
+
+    }
+
+    .lightbox img{
+        height: 400px;
+        width: 100%;
+    }
+/* **************************ARTICULO1*************************************** */
+.articulo1{
+    display: flex;
+}
+    .articulo1>div{
+        justify-content: center;
+        padding: 5px;
+        border-left: 1px solid grey;
+
+        flex-grow: 1;
+    }
+    .articulo1 p, .articulo1 h3{
+        text-align: center;
+        line-height: 25px;
+    }
+/* **************************LISTA_LIGHTBOX*************************************** */
+#lista_lightbox {
+    width: 95%;
+}
+    #lista_lightbox img{
+        width: 200px;
+    }
+/* **************************TITULO*************************************** */
+.titulo{
+    background: #50b942;
+    color: white;
+    font-size: 1.8em;
+    padding: 9px;
+
+    display: inline-block;
+    position: relative;
+}
+    .titulo::before, .titulo::after{
+        content: "";
+        height: 2px;
+        width: 300px;
+        background: #50b942;
+        position: absolute;
+        top: 0.8em;
+    }
+    .titulo::before{
+        left: -300px;
+    }
+    .titulo::after{
+        right: -300px;
+    }
+
+
+.flex-contenedor{
+    display: flex;
+    justify-content: space-around;
+}
+/* **************************ESPECIFICACION*************************************** */
+.especificacion {
+    max-width: 20%;
+    margin-top: 20px;
+    overflow: hidden;
+}
+    .especificacion img{
+        border-top: 1px solid grey;
+        border-left: 1px solid grey;
+        border-right: 1px solid grey;
+        width: 100%;
+        object-fit: contain;
+    }
+
+        .especificacion img:hover{
+            border-top: 1px solid #50b942;
+            border-right: 1px solid #50b942;
+            border-left: 1px solid #50b942;
+            opacity: 0.6;
+        }
+    .especificacion figcaption{
+        width: 100%;
+        background: black;
+        color: white;
+        font-size: 1.5em;
+        margin-top: -3px;
+        border: 1px solid black;
+    }
+/* **************************PRODUCTO*************************************** */
+
+.producto{
+    max-width: 19%;
+    margin-top: 20px;
+    border: 1px solid grey;
+    color: #50b942;
+    line-height: 20px;
+    background: white;
+}
+    .producto:hover{
+        border: 1px solid #50b942;
+    }
+
+    .producto a{
+        color:black;
+    }
+        .producto a:hover{
+            color: #50b942;
+        }
+
+.producto img{
+    width: 100%;
+}
+    .producto img:hover{
+        opacity: 0.6;
+    }
+    .producto .precio{
+        font-size: 1.5em;
+        padding: 4px;
+    }
+/* **************************BANNER*************************************** */
+.banner{
+    text-align: center;
+
+}
+    .banner img{
+        width: 80%;
+        padding: 20px;
+    }
+
+.banner2{
+    max-width: 50%;
+}

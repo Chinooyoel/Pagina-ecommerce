@@ -1,0 +1,31 @@
+.lista_lightbox{
+    width: 80%;
+    overflow: hidden;
+    margin:auto
+}
+.lista_lightbox ul{
+    width: 157.2%;
+    animation-name: cambio;
+    animation-duration: 11s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+.lista_lightbox li{
+    width: 14.3%;
+}
+.lista_lightbox img{
+    width: 100%;
+    height: 90px;
+}
+
+@keyframes cambio{
+    0% {margin-left: -28.6%;}
+    27% {margin-left: -28.6%;}
+
+    36% {margin-left: 0;}
+    63% {margin-left: 0;}
+
+    73% {margin-left:-42.9%;}
+    100% {margin-left:-42.9%;}
+
+}

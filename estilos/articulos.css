@@ -1,0 +1,45 @@
+/* ****************************************CLASES GENERALES*****************************************************/
+.categoria{
+    width: 20%;
+}
+.lista-productos{
+    width: 75%;
+    margin-top: 10px;
+}
+.grande{
+    font-size: 1.5em;
+}
+/* ****************************************ENCABEZADO*****************************************************/
+.encabezado{
+    background: black;
+    width: 100%;
+    color:white;
+    padding: 10px;
+    border-radius: 8px;
+
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .encabezado a{
+        padding: 5px;
+    }
+    .encabezado i{
+        color:#1eff00;
+    }
+/* ****************************************ENCABEZADO*****************************************************/
+
+.categoria{
+    text-align: start;
+    margin-top: 20px;
+}
+.categoria ul li{
+    padding: 5px;
+}
+
+.categoria ul li:first-child{
+    background: #50b942;
+    color:white;
+    padding: 8px;
+}

@@ -53,9 +53,15 @@ html header{
         font-size: 1.7em;
     }
 .max1400{
-    max-width: 1400px;
+    max-width: 1200px;
     margin: auto;
     text-align: center;
+    padding: 20px;
+}
+.flex-contenedor{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 /*--------------------------------------MENU CONTACTO-----------------------------------*/
 .menu_contacto ul{
@@ -117,7 +123,6 @@ html header{
 html footer{
     background: black;
     color:white;
-    padding: 20px;
 }
 footer h3, footer li{
     padding: 4px;

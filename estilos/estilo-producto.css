@@ -1,0 +1,49 @@
+/* **************************PRODUCTO*************************************** */
+
+.producto{
+    max-width: 24%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid grey;
+    color: #50b942;
+    line-height: 20px;
+    background: white;
+
+    /* position relative para el mas-info*/
+    position:relative;
+}
+    .producto:hover{
+        border: 1px solid #50b942;
+    }
+
+    .producto a{
+        color:black;
+    }
+        .producto a:hover{
+            color: #50b942;
+        }
+
+.producto img{
+    width: 100%;
+}
+    .producto img:hover{
+        opacity: 0.6;
+    }
+    .producto .precio{
+        font-size: 1.5em;
+        padding: 4px;
+    }
+
+.mas-info{
+    opacity: 0.9;
+    padding: 8px;
+    background: #cecece;
+    color: black;
+    font-weight: 700;
+    border-radius: 2px;
+
+
+    position: absolute;
+    top:30%;
+    left:30%;
+}

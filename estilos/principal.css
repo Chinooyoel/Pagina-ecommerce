@@ -65,11 +65,6 @@
         right: -300px;
     }
 
-
-.flex-contenedor{
-    display: flex;
-    justify-content: space-around;
-}
 /* **************************ESPECIFICACION*************************************** */
 .especificacion {
     max-width: 20%;
@@ -98,37 +93,7 @@
         margin-top: -3px;
         border: 1px solid black;
     }
-/* **************************PRODUCTO*************************************** */
 
-.producto{
-    max-width: 19%;
-    margin-top: 20px;
-    border: 1px solid grey;
-    color: #50b942;
-    line-height: 20px;
-    background: white;
-}
-    .producto:hover{
-        border: 1px solid #50b942;
-    }
-
-    .producto a{
-        color:black;
-    }
-        .producto a:hover{
-            color: #50b942;
-        }
-
-.producto img{
-    width: 100%;
-}
-    .producto img:hover{
-        opacity: 0.6;
-    }
-    .producto .precio{
-        font-size: 1.5em;
-        padding: 4px;
-    }
 /* **************************BANNER*************************************** */
 .banner{
     text-align: center;

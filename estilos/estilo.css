@@ -63,6 +63,13 @@ html header{
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.verde{
+    color: #1eff00;
+    padding: 4px;
+}
+.menu_secundario .logo a{
+    color: #1eff00;
+}
 /*--------------------------------------MENU CONTACTO-----------------------------------*/
 .menu_contacto ul{
     background-color: #525252;
@@ -118,6 +125,10 @@ html header{
 
     display: flex;
     justify-content: space-between;
+}
+.menu_contacto{
+    background: black;
+    color:white;
 }
 /*--------------------------------------FOOTER-----------------------------------*/
 html footer{

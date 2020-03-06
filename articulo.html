@@ -5,7 +5,7 @@
         <link href="estilos/resetEstilos.css" rel=StyleSheet>
         <link href="estilos/estilo-producto.css" rel="StyleSheet">
         <link href="estilos/articulos.css" rel="StyleSheet">
-
+        <script src="js/main.js"></script>
         <!--Actualizar estos para los iconos-->
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="ayuda.html"><i class='fas fa-question-circle icono'></i>Ayuda</a></li>
                     <li><a href="ubicacion.html"><i class='fas fa-map-marker-alt icono'></i>Ubicacion</a></li>
-                    <li><a href=""><i class='fas fa-phone icono'></i>Venta telefonica</a></li>
+                    <li><a class="abrirModalTelefonico"><i class='fas fa-phone icono'></i>Venta telefonica</a></li>
                     <li><a href=""><i class='fas fa-comments icono'></i>Whatsapp</a></li>
                 </ul>
             </section>
@@ -54,6 +54,46 @@
                 </ul>
             </nav>
         </header>
+        <!--*************************************MODAL-TELEFONICO*******************************************--> 
+        <section class="modal" id="modalTelefonico">
+            <section class="modal-ventana">
+                <i class="fas fa-times verde cerrar"></i>
+            
+                <h3 class="linea-separadora">Venta Telefónica</h3>
+            
+                <a><i class='fas fa-phone icono verde'></i>(011)0000-0000</a>
+                <p>Horario de atención: Lunes a Viernes: 9:30 hs. a 19:30 hs.</p>
+                <p class="linea-separadora">Sábados: 9:30 hs. a 15:00 hs.</p>
+            
+                <ul>
+                    <li>Mismos precios y ofertas que en el sitio web.</li>
+                    <li>Asesoramiento de especialistas.</li>
+                    <li>Pago con tarjetas de crédito o transferencia bancaria.</li>
+                    <li>Podés solicitar Factura A.</li>
+                </ul>
+            </section>
+        </section>
+        <!--*************************************MODAL-MEDIOS-DE-PAGO*******************************************--> 
+        <section class="modal" id="modalMediosDePago">
+            <section class="modal-ventana">
+                <i class="fas fa-times verde cerrar"></i>
+            
+                <h3 class="linea-separadora">MEDIOS DE PAGO</h3>
+                
+                <article>
+                    <p>PLAN AHORA 12 Y AHORA 18 EN EL LOCAL*</p>
+                    <p>2 Y 3 PAGOS CON TARJETA DE CREDITO EN EL LOCAL</p>
+                    <p>MERCADOPAGO VIA WEB</p>
+                    <p>EFECTIVO EN EL LOCAL</p>
+                    <p>TRANSFERENCIA BANCARIA O DEPOSITO</p>
+                </article>
+                <article>
+                    <p>*LOS PLANES AHORA 12 Y AHORA 18 SON PARA VISA Y MASTERCARD DE TODOS LOS BANCOS Y ESTAN DISPONIBLES TODOS LOS DIAS</p>
+                    <p>*AMERICAN EXPRESS DE BANCO MACRO, BANCO HSBC, BANCO SANTANDER RIO, BANCO GALICIA Y BANCO PATAGONIA</p>
+                </article>
+            </section>
+
+        </section>
         <section class="max1400 flex-contenedor">
             <section class="encabezado">
                 <div>
@@ -209,8 +249,8 @@
                 <ol>
                     <h3>Ayuda</h3>
                     <li><a href="ubicacion.html">Ubicacion</a></li>
-                    <li><a href="">Medios de pago</a></li>
-                    <li><a href="">Venta telefonica</a></li>
+                    <li><a class="abrirModalMediosDePago">Medios de pago</a></li>
+                    <li><a class="abrirModalTelefonico">Venta telefonica</a></li>
                     <li><a href="">Whatsapp</a></li>
                     <li><a href="">Email</a></li>
                     <li><a href="">FAQ</a></li>

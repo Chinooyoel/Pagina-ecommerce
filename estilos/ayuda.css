@@ -27,8 +27,21 @@
     color: #3bb441;
     padding: 5px;
 }
-.ayuda div{
+.info-ocultar-mostrar{
     background: rgb(231, 231, 231);
     padding: 10px;
     display: none;
+    opacity: 1;
+    animation-name: ayudaInfo;
+    animation-duration: 1s;
+    animation-fill-mode: initial;
+
+}
+
+@keyframes ayudaInfo{
+    from {
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
 }

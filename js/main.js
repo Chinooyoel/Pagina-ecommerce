@@ -1,6 +1,8 @@
 window.onload = () =>{
 
     funcionModal();
+    funcionMostrarYOcultarAyuda();
+    funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
 }
 
 // ----------------------------------------FUNCIONES------------------------------------
@@ -53,4 +55,50 @@ function cerrarModalCuandoSeClickeeAfueraDelModal(modalACerrar){
             cerrarModal( modalACerrar );
         }
     },false);
+}
+
+function funcionMostrarYOcultarAyuda(){
+    let botonMostrarYOcultar = document.getElementsByClassName("boton-ocultar-mostrar");
+    let ayudaInf = document.getElementsByClassName("info-ocultar-mostrar");
+
+
+    for( let i=0; i < botonMostrarYOcultar.length; i++ ){
+
+        ayudaInf[i].style.display="none";
+
+        botonMostrarYOcultar[i].addEventListener("click", () => {
+            if( ayudaInf[i].style.display === "block"){
+                ayudaInf[i].style.display="none";
+            }else{
+                ayudaInf[i].style.display="block";
+            }
+        });
+    }
+}
+
+function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
+    let elementoInteractivo = document.getElementsByClassName("interaccionArticulo");
+
+    for( let i = 0 ; i < elementoInteractivo.length; i++ ){
+        
+    //evento mouseenter, ocurre cuando el raton entra o esta encima del elemento
+    elementoInteractivo[i].addEventListener("mouseenter", () => {
+        let hijosDelElementoInteractivo = elementoInteractivo[i].children;
+        console.log(hijosDelElementoInteractivo)
+
+        hijosDelElementoInteractivo[0].style.opacity = 0.5;
+        hijosDelElementoInteractivo[1].style.display = "block";
+
+    })  
+    
+    //evento mouseenter, ocurre cuando el raton sale o no esta encima del elemento
+    elementoInteractivo[i].addEventListener("mouseleave", () => {
+        let hijosDelElementoInteractivo = elementoInteractivo[i].children;
+        hijosDelElementoInteractivo[0].style.opacity = 1;
+        hijosDelElementoInteractivo[1].style.display = "none";
+
+    })
+    }
+
+
 }

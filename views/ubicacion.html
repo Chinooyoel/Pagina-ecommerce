@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="estilos/estilo.css" rel=StyleSheet>
-        <link href="estilos/resetEstilos.css" rel=StyleSheet>
-        <link href="estilos/ayuda.css" rel="StyleSheet">
-        <script src="js/main.js"></script>
+        <link href="../public/assets/estilos/estilo.css" rel=StyleSheet>
+        <link href="../public/assets/estilos/resetEstilos.css" rel=StyleSheet>
+        <link href="../public/assets/estilos/estilo-producto.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/articulos.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/ayuda.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/lightbox.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/principal.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/ubicacion.css" rel="StyleSheet">
+        <script src="../public/assets/js/main.js"></script>
+        
         <!--Actualizar estos para los iconos-->
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -72,6 +78,9 @@
                 </ul>
             </section>
         </section>
+        <section class="max1400">
+            <h3 class="titular max1400"><i class="fas fa-question-circle verde"></i>CONTACTO</h3>
+        </section>
         <!--*************************************MODAL-MEDIOS-DE-PAGO*******************************************--> 
         <section class="modal" id="modalMediosDePago">
             <section class="modal-ventana">
@@ -93,27 +102,37 @@
             </section>
 
         </section>
-            <section class="max1400">
-                <h3 class="titular"><i class="fas fa-question-circle verde"></i>CENTRO DE AYUDA</h3>
+        <section class="max1400 flex-contenedor">
+            <article class="formulario">
+                <p>Para contactarse con nosotros, por favor complete el siguiente formulario.</p>
+                <p>Muchas Gracias.</p>
+                <form action="">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre">
+                    <label for="email">Email*</label>
+                    <input type="text" name="email" id="email">
+                    <label for="telefono">Telefono*</label>
+                    <input type="number" name="telefono" id="telefono">
+                    <label for="mensaje">Mensaje*</label>
+                    <textarea id="mensaje"></textarea>
+                    <input type="submit" value="Enviar">
+                </form>
+            </article>
+            <article class="ubicacion">
+                <h3 class="linea-separadora">NUESTRA UBICACION</h3>
+                <section>
+                    <p><a>Galería Jardín, Planta Baja, Local aaaa. Florida 537, CABA.</a></p>
+                    <p></p><span>Teléfono:</span> <a>(011)0000-0000</a></p>
+                    <p></p><span>Email:</span> <a>info@aaaaaaa.com.ar</a></p>
+                </section>
+
+                <section class="mapa">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d646.9594816943602!2d-58.37534441230717!3d-34.60168345766455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccacc66f274ed%3A0x66ea6e648f46a49a!2zR2FsZXLDrWEgSmFyZMOtbg!5e0!3m2!1ses-419!2sar!4v1583418817755!5m2!1ses-419!2sar" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </section>
+            </article>
             </section>
-            <section class="max1400 ayuda">
-                <article>
-                    <h3 class="boton-ocultar-mostrar"><i class="fas fa-info"></i>COMO COMPRAR</h3>
-                    <div class="info-ocultar-mostrar">
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                    </div>
-                </article>
-                <article>
-                    <h3 class="boton-ocultar-mostrar "><i class="fas fa-question-circle"></i>PREGUNTAS FRECUENTES</h3>
-                    <div class="info-ocultar-mostrar">
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                    </div>
-                </article>
-            </section>
+        </section>     
+
         <!--*************************************FOOTER*******************************************-->       
         <footer>
             <div class="max1400 flex-contenedor">
@@ -156,9 +175,9 @@
                 <div>
                     <h3>Seguinos en las Redes</h3>
                     <ol class="flex-contenedor">
-                    <li><a href=""><img src="img/facebook.ico"></a></li>
-                    <li><a href=""><img src="img/instagram.ico"></a></li>
-                    <li><a href=""><img src="img/youtube.ico"></a></li>
+                    <li><a href=""><img src="../public/assets/img/facebook.ico"></a></li>
+                    <li><a href=""><img src="../public/assets/img/instagram.ico"></a></li>
+                    <li><a href=""><img src="../public/assets/img/youtube.ico"></a></li>
                     </ol>
                 </div>
             </div>

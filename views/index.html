@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="estilos/estilo.css" rel=StyleSheet>
-        <link href="estilos/resetEstilos.css" rel=StyleSheet>
-        <link href="estilos/estilo-producto.css" rel="StyleSheet">
-        <link href="estilos/articulos.css" rel="StyleSheet">
-        <script src="js/main.js"></script>
+        <link href="../public/assets/estilos/estilo.css" rel=StyleSheet>
+        <link href="../public/assets/estilos/resetEstilos.css" rel=StyleSheet>
+        <link href="../public/assets/estilos/estilo-producto.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/articulos.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/ayuda.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/lightbox.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/principal.css" rel="StyleSheet">
+        <link href="../public/assets/estilos/ubicacion.css" rel="StyleSheet">
+        <script src="../public/assets/js/main.js"></script>
+        
         <!--Actualizar estos para los iconos-->
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +59,7 @@
                 </ul>
             </nav>
         </header>
+        </header>
         <!--*************************************MODAL-TELEFONICO*******************************************--> 
         <section class="modal" id="modalTelefonico">
             <section class="modal-ventana">
@@ -94,53 +100,112 @@
             </section>
 
         </section>
-        <section class="max1400 flex-contenedor">
-            <section class="encabezado">
+        <!--*******************SECCION LISTA-DE-MARCAS LIGHTBOX ARTICULOS Y LISTA-LIGHTBOX**********************-->
+        <section>
+            <ul class="lista_marca">
+                <li><a><img src="../public/assets/img/logo_amd.jpg"></a></li>
+                <li><a><img src="../public/assets/img/logo_intel.jpg"></a></li>
+                <li><a><img src="../public/assets/img/logo_logitech.png"></a></li>
+                <li><a><img src="../public/assets/img/logo_redragon.png"></a></li>
+                <li><a><img src="../public/assets/img/logo_nvidia.png"></a></li>
+                <li><a><img src="../public/assets/img/logo_viewsonic.png"></a></li>
+            </ul>
+            <article class="lightbox">
+                <img src="../public/assets/img/lightbox.png">
+            </article>
+            <article class="articulo1 max1400">
                 <div>
-                    <i class="fa fa-arrow-circle-right"></i>
-                    <a>Notebook</a> 
+                    <h3><i class="far fa-credit-card icono"></i>PAGA EN CUOTAS</h3>
+                    <p>Ver promociones</p>
                 </div>
                 <div>
-                    <select name="ordenar" size="1">
-                        <option value="mayor-precio">Mayor precio</option>
-                        <option value="menor-precio">Menor-precio</option>
-                        <option value="alfebaticamente-a-z">Nombre A - Z</option>
-                        <option value="alfebaticamente-z-a">Nombre Z - A</option>
-                    </select>
-                    <a><i class='fas fa-th grande verde'></i></a>
-                    <a><i class='fas fa-align-justify grande verde'></i></a>
+                    <h3><i class="far fa-calendar-alt icono"></i>HORARIOS</h3>
+                    <p>Lunes a viernes de 9:30 a 19:30 hs.</br>
+                    Sabados de 9:30 a 17hs.</p>
                 </div>
-            </section>
-            <!--************ASIDE CATEGORIA**********-->
-            <aside class="categoria">
-                <ul>
-                    <li>Notebook</li>
-                    <li>
-                        <input type="checkbox" id="notebook" name="">
-                        <label for="notebook">Notebook</label>
-                    </li>
+                <div>
+                    <h3><i class="fas fa-map-marker-alt icono"></i>RETIRA GRATIS</h3>
+                    <p>¿Donde estamos?</p>
+                </div>
+                <div>
+                    <h3><i class="fas fa-shipping-fast icono"></i>ENVIOS A TODO EL PAIS</h3>
+                    <p>Rapido y seguro</p>
+                </div>
+            </article>
+            <article class="lista_lightbox">
+                <ul class="flex-contenedor">
+                    <li><a href=""><img src="../public/assets/img/logo_cougar.png"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_samsung.jfif"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_kingston.png"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_amd2.jpg"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_asus.jpg"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_intel2.jpg"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_zotac.png"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_msi.jpg"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_evga.jpg"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_logitech2.png"></a></li>
+                    <li><a href=""><img src="../public/assets/img/logo_ballistic.jpg"></a></li>
                 </ul>
-                <ul>
-                    <li>Marca</li>
-                    <li>
-                        <input type="checkbox" id="msi" name="">
-                        <label for="msi">MSI</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="asus" name="">
-                        <label for="asus">Asus</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="lenovo" name="">
-                        <label for="lenovo">Lenovo</label>
-                    </li>
-                </ul>
-            </aside>
-            <!--************SECCION PRODUCTOS**********-->
-            <section class="flex-contenedor lista-productos">
+            </article>
+        </section>
+        <!--*****************************SECCION PC-GAMERS**********************************-->   
+        <section class="centro max1400">
+            <h3 class="titulo">PC GAMERS</h2>
+            <article class="flex-contenedor">
+                    <figure class="especificacion">
+                        <a href=""><img src="../public/assets/img/pcgamer1.png"></a>
+                        <figcaption>BASE</figcaption>
+                    </figure>
+
+                    <figure class="especificacion">
+                        <a href=""><img src="../public/assets/img/pcgamer2.jpg"></a>
+                        <figcaption>MEDIA</figcaption>
+                    </figure>
+
+                    <figure class="especificacion">
+                        <a href=""><img src="../public/assets/img/pcgamer3.png"></a>
+                        <figcaption>ALTA</figcaption>
+                    </figure>
+
+                    <figure class="especificacion">
+                        <a href=""><img src="../public/assets/img/pcgamer4.png"></a>
+                        <figcaption>PRO</figcaption>
+                    </figure>
+            </article>
+        </section>
+        <!--*****************************SECCION PC-RECOMENDADAS**********************************-->   
+        <section class="centro max1400">
+            <h3 class="titulo">PC RECOMENDADAS</h3>
+            <article class="flex-contenedor">
+                <figure class="especificacion">
+                    <a href=""><img src="../public/assets/img/notebook.png"></a>
+                    <figcaption>NOTEBOOK</figcaption>
+                </figure>
+
+                <figure class="especificacion">
+                    <a href=""><img src="../public/assets/img/diseño.jpg"></a>
+                    <figcaption>DISEÑO</figcaption>
+                </figure>
+
+                <figure class="especificacion">
+                    <a href=""><img src="../public/assets/img/streaming.png"></a>
+                    <figcaption>STREAMING</figcaption>
+                </figure>
+
+                <figure class="especificacion">
+                    <a href=""><img src="../public/assets/img/oficina.png"></a>
+                <figcaption>OFICINA</figcaption>
+            </figure>
+        </article>
+
+        </section>
+        <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
+        <section class="centro max1400">
+            <h3 class="titulo">PRODUCTOS DESTACADOS</h3>
+            <article class="flex-contenedor">
                 <figure class="producto">
                     <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
+                        <img src="../public/assets/img/hyperx.jpg">
                         <span class="mas-info">[MÁS INFO]</span>
                         AURICULARES HYPERX CLOUD ALPHA
                     </a>
@@ -148,7 +213,7 @@
                 </figure>
                 <figure class="producto">
                     <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
+                        <img src="../public/assets/img/hyperx.jpg">
                         <span class="mas-info">[MÁS INFO]</span>
                         AURICULARES HYPERX CLOUD ALPHA
                     </a>
@@ -156,7 +221,7 @@
                 </figure>
                 <figure class="producto">
                     <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
+                        <img src="../public/assets/img/hyperx.jpg">
                         <span class="mas-info">[MÁS INFO]</span>
                         AURICULARES HYPERX CLOUD ALPHA
                     </a>
@@ -164,61 +229,22 @@
                 </figure>
                 <figure class="producto">
                     <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
+                        <img src="../public/assets/img/hyperx.jpg">
                         <span class="mas-info">[MÁS INFO]</span>
                         AURICULARES HYPERX CLOUD ALPHA
                     </a>
                     <figcaption class="precio">ARS 2800</figcaption>
                 </figure>
-                <figure class="producto">
-                    <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
-                        <span class="mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
-                        <span class="mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
-                        <span class="mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
-                        <span class="mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
-                        <span class="mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="interaccionArticulo">
-                        <img src="img/hyperx.jpg">
-                        <span class="mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="precio">ARS 2800</figcaption>
-                </figure>
-            </section>
+            </article>
+        </section>
+        <!--*****************************SECCION BANNER**********************************-->         
+        <section class="banner">
+            <a src=""> 
+                <img src="../public/assets/img/banner.png">
+            </a>
+            <a src="">
+                <img src="../public/assets/img/banner2.png" class="banner2">
+            </a>
         </section>
         <!--*************************************FOOTER*******************************************-->       
         <footer>
@@ -262,9 +288,9 @@
                 <div>
                     <h3>Seguinos en las Redes</h3>
                     <ol class="flex-contenedor">
-                    <li><a href=""><img src="img/facebook.ico"></a></li>
-                    <li><a href=""><img src="img/instagram.ico"></a></li>
-                    <li><a href=""><img src="img/youtube.ico"></a></li>
+                    <li><a href=""><img src="../public/assets/img/facebook.ico"></a></li>
+                    <li><a href=""><img src="../public/assets/img/instagram.ico"></a></li>
+                    <li><a href=""><img src="../public/assets/img/youtube.ico"></a></li>
                     </ol>
                 </div>
             </div>

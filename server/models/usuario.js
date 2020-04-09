@@ -27,38 +27,31 @@ const usuarioSchema = new Schema({
         type: Boolean,
         default: true,
     },
-    /*provincia: {
+    provincia: {
         type: String,
-        required: true
+        required: false
     },
-    codigoFiscal: {
-        type: String,
-        required: true
-    },
-    tipoDoc: {
-        type: String,
-        required: true
-    },
-    doc: {
+    documento: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
-    ciudad: {
+    localidad: {
         type: String,
-        required: true
+        required: false
     },
     codigoPostal: {
         type: Number,
-        required: true
+        required: false
     },
-    direccionl: {
+    direccion: {
         type: String,
-        required: true
+        required: false
     },
-    telefono: {
+    celular: {
         type: Number,
         required: true
-    }*/
+    },
     role: {
         type: String,
         default: "USER_ROLE",

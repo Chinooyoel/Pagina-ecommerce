@@ -9,8 +9,12 @@ window.onload = () =>{
 function funcionModal(){
     let abrirModalTelefonico = document.getElementsByClassName("abrirModalTelefonico");
     let abrirModalMediosDePago = document.getElementsByClassName("abrirModalMediosDePago")
+    let abrirModalLogin = document.getElementsByClassName("abrirModalLogin");
+    let abrirModalRegistrarse = document.getElementsByClassName("abrirModalRegistrarse");
     let modalMediosDePago = document.getElementById("modalMediosDePago");
     let modalTelefonico = document.getElementById("modalTelefonico");
+    let modalLogin = document.getElementById("modalLogin");
+    let modalRegistrarse = document.getElementById("modalRegistrarse");
     let botonCerrar = document.getElementsByClassName("cerrar");
 
     //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalTelefonico
@@ -31,6 +35,23 @@ function funcionModal(){
         })
     } 
 
+    //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalMediosDePago
+    for(let i = 0; i<abrirModalRegistrarse.length ; i++){
+        abrirModalRegistrarse[i].addEventListener("click", () => {
+            abrirModal(modalRegistrarse);
+
+            cerrarModalCuandoSeClickeeAfueraDelModal(modalRegistrarse);
+        })
+    } 
+
+        //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalLogin
+        for(let i = 0; i<abrirModalLogin.length ; i++){
+            abrirModalLogin[i].addEventListener("click", () => {
+                abrirModal(modalLogin);
+    
+                cerrarModalCuandoSeClickeeAfueraDelModal(modalLogin);
+            })
+        }
 
     //agrega el evento click(con funcion cerrar) a todos los elementos de clase cerrar
     for( let i = 0 ; i < botonCerrar.length ; i++ ){
@@ -41,6 +62,7 @@ function funcionModal(){
         });
 
     }
+    
 }
 
 function abrirModal( modalAMostrar ){

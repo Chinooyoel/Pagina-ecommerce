@@ -18,9 +18,13 @@ form{
     width: 100%;
     font-size: 1.1em;
 }
-.formulario input, textarea{
+.campo-imput{
     margin-bottom: 10px;
-    padding: 6px;
+    font-size: 1.1em;
+    padding-left: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 8px;
     border-radius: 2px;
     border: rgb(156, 156, 156) solid 1px;
     background-color: #f8f8f8;
@@ -30,17 +34,17 @@ form{
     margin-bottom: 8px;
 }
 
-.formulario input[type="submit"]{
-    background: #19ca01;
+.campo-botom{
+    background: #149902;
     width: auto;
-    padding: 8px;
+    padding: 10px;
     font-weight: 600;
     color:white;
     border-radius: 5px;
     cursor: pointer;
 }
-.formulario input[type="submit"]:hover{
-    background: #15a302;
+.campo-botom:hover{
+    background: #0e7900;
 }
 
 .formulario textarea{

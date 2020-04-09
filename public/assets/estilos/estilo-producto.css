@@ -26,27 +26,27 @@
 .producto img{
     width: 100%;
 }
-    .producto .precio{
+    .producto__precio{
         font-size: 1.5em;
         padding: 4px;
     }
 
-.mas-info{
-    opacity: 0.8;
-    padding: 8px;
-    background: #cecece;
-    color: black;
-    font-weight: 700;
-    border-radius: 2px;
-    display: none;
-    animation-name: masInfoVentana;
-    animation-duration: 0.6s;
+    .producto__mas-info{
+        opacity: 0.8;
+        padding: 8px;
+        background: #cecece;
+        color: black;
+        font-weight: 700;
+        border-radius: 2px;
+        display: none;
+        animation-name: masInfoVentana;
+        animation-duration: 0.6s;
 
 
-    position: absolute;
-    top:30%;
-    left:30%;
-}
+        position: absolute;
+        top:30%;
+        left:30%;
+    }
 
 @keyframes masInfoVentana{
     from{

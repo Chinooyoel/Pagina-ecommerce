@@ -22,6 +22,11 @@ app.get("/articulo", ( req, res ) => {
 
 
 })
+app.get("/user", ( req, res ) => {
+    
+    res.render("usuario");
+    
+})
 
 
 module.exports = app;

@@ -134,11 +134,23 @@ html header{
     margin-left: 10px;
 }
 /*-------------------------------------MODAL MEDIOS-DE-PAGO-----------------------------------*/
-#modalMediosDePago .modal-ventana{
+.modal-ventana{
     width: 500px;
 }
 #modalMediosDePago article{
     padding: 10px;
+}
+/*-------------------------------------MODAL LOGIN----------------------------------*/
+.modal-ventana .campo-imput {
+    width: 93%;
+}
+.modal-ventana .login-google{
+    background: #0359da;
+    color:white;
+    width: 96%;
+}
+.modal-ventana .login-google:hover{
+    background: #0248af;
 }
 /*--------------------------------------MENU CONTACTO-----------------------------------*/
 .menu_contacto ul{

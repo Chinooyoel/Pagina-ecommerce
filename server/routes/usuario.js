@@ -32,34 +32,35 @@ app.get("/usuario", verificarToken, (req, res ) => {
     })
 })
 
-app.post("/usuario", [verificarToken, verificarAdminRole], ( req, res ) => {
+app.post("/user/save", ( req, res ) => {
     
-    let body = req.body;
+    let {nombre, apellido, celular, documento, email, password} = req.body;
 
-    let passwordEncriptada = bcrypt.hashSync(body.password, 10);
+    let passwordEncriptada = bcrypt.hashSync(password, 10);
 
     let usuario = new Usuario({
-        nombre : body.nombre,
-        apellido : body.apellido,
-        email : body.email,
-        password : passwordEncriptada
+        nombre,
+        apellido,
+        celular,
+        documento,
+        email,
+        password: passwordEncriptada,
     });
-
-
 
     usuario.save( ( err, usuario ) => {
         if (err) {
-            return res.status(400).json({
-                message: "Ha ocurrido un error",
+            return res.status(500).json({
+                ok: false,
                 err
             })
         }
 
-        res.json( {
-            message: "Usuario creado exitosamente",
-            usuarioCreado: usuario 
-        });
+        res.json({
+            ok: true
+        })
     })
+
+
 })
 
 app.put("/usuario", [verificarToken, verificarAdminRole], ( req, res ) => {
@@ -91,13 +92,13 @@ app.delete("/usuario",[verificarToken, verificarAdminRole], ( req, res ) => {
         if( err ) {
             res.status(400);
             res.json({
-                message: "Ha ocurrido un error al actualizar",
+                message: "Ha ocurrido un error al eliminarlo",
                 err
             })
         }
 
         res.json({
-            message:"Se ha actualizado con exito",
+            message:"Se ha eliminado con exito",
             usuarioEliminado: data
         })
     });

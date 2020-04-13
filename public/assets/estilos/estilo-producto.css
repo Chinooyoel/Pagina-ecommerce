@@ -16,16 +16,16 @@
         border: 1px solid #50b942;
     }
 
-    .producto a{
+    .producto__interaccionArticulo{
         color:black;
     }
-        .producto a:hover{
+    .producto__interaccionArticulo:hover{
             color: #50b942;
         }
 
-.producto img{
-    width: 100%;
-}
+    .producto__img{
+        width: 100%;
+    }
     .producto__precio{
         font-size: 1.5em;
         padding: 4px;

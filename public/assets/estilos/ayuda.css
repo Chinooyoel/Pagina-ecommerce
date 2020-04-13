@@ -7,36 +7,35 @@
     padding: 10px;
     border-radius: 4px;
 }
-.ayuda{
+.articuloAyuda{
     text-align: start;
-}
-.ayuda article{
     margin: 5px;
 }
-.ayuda h3{
-    background: rgb(196, 194, 194);
-    padding: 15px 15px 15px 30px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-    .ayuda h3:hover{
+    .articuloAyuda__infoMostrar{
+        background: rgb(231, 231, 231);
+        padding: 10px;
+        display: none;
+        opacity: 1;
+        animation-name: ayudaInfo;
+        animation-duration: 1s;
+        animation-fill-mode: initial;
+
+    }
+    .articuloAyuda__botonMostrar{
+        background: rgb(196, 194, 194);
+        padding: 15px 15px 15px 30px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .articuloAyuda__botonMostrar:hover{
         color: #3bb441;
     }
 
-.ayuda i{
-    color: #3bb441;
-    padding: 5px;
-}
-.info-ocultar-mostrar{
-    background: rgb(231, 231, 231);
-    padding: 10px;
-    display: none;
-    opacity: 1;
-    animation-name: ayudaInfo;
-    animation-duration: 1s;
-    animation-fill-mode: initial;
+        .articuloAyuda__botonMostrar--verde{
+            color: #3bb441;
+            padding: 5px;
+        }
 
-}
 
 @keyframes ayudaInfo{
     from {

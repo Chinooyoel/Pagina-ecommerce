@@ -1,37 +1,37 @@
         <!--*************************************MODAL-TELEFONICO*******************************************--> 
         <section class="modal" id="modalTelefonico">
-            <section class="modal-ventana">
-                <i class="fas fa-times verde cerrar"></i>
+            <section class="modalVentana modalTelefonico">
+                <i class="fas fa-times verde modalVentana__cerrar"></i>
             
                 <h3 class="linea-separadora">Venta Telefónica</h3>
             
-                <a><i class='fas fa-phone icono verde'></i>(011)0000-0000</a>
+                <a class="modalTelefonico__link"><i class='fas fa-phone icono verde'></i>(011)0000-0000</a>
                 <p>Horario de atención: Lunes a Viernes: 9:30 hs. a 19:30 hs.</p>
                 <p class="linea-separadora">Sábados: 9:30 hs. a 15:00 hs.</p>
             
-                <ul>
-                    <li>Mismos precios y ofertas que en el sitio web.</li>
-                    <li>Asesoramiento de especialistas.</li>
-                    <li>Pago con tarjetas de crédito o transferencia bancaria.</li>
-                    <li>Podés solicitar Factura A.</li>
-                </ul>
+                    <ul class="modalTelefonico__lista">
+                        <li class="modalTelefonico__lista__li">Mismos precios y ofertas que en el sitio web.</li>
+                        <li class="modalTelefonico__lista__li">Asesoramiento de especialistas.</li>
+                        <li class="modalTelefonico__lista__li">Pago con tarjetas de crédito o transferencia bancaria.</li>
+                        <li class="modalTelefonico__lista__li">Podés solicitar Factura A.</li>
+                    </ul>
             </section>
         </section>
         <!--*************************************MODAL-MEDIOS-DE-PAGO*******************************************--> 
         <section class="modal" id="modalMediosDePago">
-            <section class="modal-ventana">
-                <i class="fas fa-times verde cerrar"></i>
+            <section class="modalVentana">
+                <i class="fas fa-times verde modalVentana__cerrar"></i>
             
                 <h3 class="linea-separadora">MEDIOS DE PAGO</h3>
                 
-                <article>
+                <article class="modalVentana__parrafo">
                     <p>PLAN AHORA 12 Y AHORA 18 EN EL LOCAL*</p>
                     <p>2 Y 3 PAGOS CON TARJETA DE CREDITO EN EL LOCAL</p>
                     <p>MERCADOPAGO VIA WEB</p>
                     <p>EFECTIVO EN EL LOCAL</p>
                     <p>TRANSFERENCIA BANCARIA O DEPOSITO</p>
                 </article>
-                <article>
+                <article class="modalVentana__parrafo">
                     <p>*LOS PLANES AHORA 12 Y AHORA 18 SON PARA VISA Y MASTERCARD DE TODOS LOS BANCOS Y ESTAN DISPONIBLES TODOS LOS DIAS</p>
                     <p>*AMERICAN EXPRESS DE BANCO MACRO, BANCO HSBC, BANCO SANTANDER RIO, BANCO GALICIA Y BANCO PATAGONIA</p>
                 </article>
@@ -40,23 +40,23 @@
         </section>
         <!--*************************************MODAL-LOGIN*******************************************-->         
         <section class="modal" id="modalLogin">
-            <section class="modal-ventana">
-                <i class="fas fa-times verde cerrar"></i>
+            <section class="modalVentana">
+                <i class="fas fa-times verde modalVentana__cerrar"></i>
 
                 <h3 class="linea-separadora">INICIAR SESIÓN</h3>
                 <form action="/login" method="get">
-                    <button class="campo-botom login-google"><i class="fab fa-google icono"></i>INICIAR SESIÓN CON GOOGLE</button>
+                    <button class="campoBoton campoBoton--azul"><i class="fab fa-google loginGoogle--ancho"></i>INICIAR SESIÓN CON GOOGLE</button>
                     <h3> o </h3>
                     <input type="email" name="email" class="campo-imput" placeholder="Ingrese su email">
                     <input type="password" name="password" class="campo-imput" placeholder="Ingrese su contraseña">
-                    <input type="submit" value="ACCEDER" class="campo-botom">
+                    <input type="submit" value="ACCEDER" class="campoBoton campoBoton--verdeOscuro">
                 </form>
             </section>
         </section>
         <!--*************************************MODAL-REGISTRARSE*******************************************--> 
         <section class="modal" id="modalRegistrarse">
-            <section class="modal-ventana">
-                <i class="fas fa-times verde cerrar"></i>
+            <section class="modalVentana">
+                <i class="fas fa-times verde modalVentana__cerrar"></i>
 
                 <h3 class="linea-separadora">REGISTRARSE</h3>
                 <form action="/user/save" method="POST">
@@ -66,7 +66,7 @@
                     <input type="text" name="documento" class="campo-imput" placeholder="Ingrese su DNI/CUIT">
                     <input type="email" name="email" class="campo-imput" placeholder="Ingrese su email">
                     <input type="password" name="password" class="campo-imput" placeholder="Ingrese su contraseña">
-                    <input type="submit" value="REGISTRARME" class="campo-botom">
+                    <input type="submit" value="REGISTRARME" class="campoBoton campoBoton--verdeOscuro">
                 </form>
             </section>
         </section>

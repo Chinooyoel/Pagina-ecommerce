@@ -1,5 +1,5 @@
 /* **************************LISTA_MARCA*************************************** */
-.lista_marca{
+.listaMarca{
     background: white;
     box-shadow: 5px 5px 5px black;
 
@@ -7,39 +7,34 @@
     justify-content: center;
 }
 
-    .lista_marca img{
+    .listaMarca__img{
         height: 20px;
         padding:5px;
         padding-right: 30px;
 
     }
 
-    .lightbox img{
+    .lightboxGrande__img{
         height: 400px;
         width: 100%;
     }
 /* **************************ARTICULO1*************************************** */
-.articulo1{
+.informacion{
     display: flex;
 }
-    .articulo1>div{
+    .informacion__bloque{
         justify-content: center;
         padding: 5px;
         border-left: 1px solid grey;
 
         flex-grow: 1;
     }
-    .articulo1 p, .articulo1 h3{
+    .informacion__bloque__texto{
         text-align: center;
         line-height: 25px;
     }
 /* **************************LISTA_LIGHTBOX*************************************** */
-#lista_lightbox {
-    width: 95%;
-}
-    #lista_lightbox img{
-        width: 200px;
-    }
+
 /* **************************TITULO*************************************** */
 .titulo{
     background: #50b942;
@@ -71,7 +66,7 @@
     margin-top: 20px;
     overflow: hidden;
 }
-    .especificacion img{
+    .especificacion__img{
         border-top: 1px solid grey;
         border-left: 1px solid grey;
         border-right: 1px solid grey;
@@ -79,13 +74,13 @@
         object-fit: contain;
     }
 
-        .especificacion img:hover{
+        .especificacion__img:hover{
             border-top: 1px solid #50b942;
             border-right: 1px solid #50b942;
             border-left: 1px solid #50b942;
             opacity: 0.6;
         }
-    .especificacion figcaption{
+    .especificacion__titulo{
         width: 100%;
         background: black;
         color: white;
@@ -99,7 +94,7 @@
     text-align: center;
 
 }
-    .banner img{
+    .banner__img{
         width: 80%;
         padding: 20px;
     }

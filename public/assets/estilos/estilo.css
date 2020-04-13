@@ -13,33 +13,18 @@ html header{
     background: black;
 }
 /*--------------------------------------ID-----------------------------------*/
-#total{
-    padding: 5px;
-}
-#buscador{
+
+.menuSecundario__buscador{
     width: 500px;
     height: 40px;
     border-radius: 4px;
     border-style: none;
     padding-left: 10px;
 }
-#iniciar_sesion{
-    color:white;
-}
-#registrarse{
-    color:#1eff00;
-}
-#buscar{
-    background: #50b942;
-    color:white;
-    height: 35px;
-    font-size: 1.3em;
-    border:none;
-    border-radius: 4px;
-
+.menuSecundario--botonPosicion{
     position: relative;
     right: 41px;
-    top:4px
+    top:2px
 }
 /*--------------------------------------CLASES GENERALES-----------------------------------*/
 .icono{
@@ -49,8 +34,11 @@ html header{
 .carrito{
     padding-left:20px;
 }
-    .carrito i{
+    .carrito--icono{
         font-size: 1.7em;
+    }
+    .carrito--total{
+        padding: 5px;
     }
 .max1400{
     max-width: 1200px;
@@ -88,12 +76,13 @@ html header{
     display: none;
     justify-content: center;
 }
-.modal-ventana{
+.modalVentana{
     border: #949393 solid 1px;
     border-radius: 4px;
     text-align: center;
     padding: 10px;
     background: #f5f5f5;
+    width: 500px;
 
     position:fixed;
     top:20px;
@@ -110,7 +99,7 @@ html header{
         top: 20px;
     }
 }
-.cerrar{
+.modalVentana__cerrar{
     position: absolute;
     right: 10px;
     top:8px;
@@ -118,115 +107,117 @@ html header{
     color: rgb(151, 151, 151);
 }
 /*-------------------------------------MODAL TELEFONICO-----------------------------------*/
-#modalTelefonico .modal-ventana a{
+.modalTelefonico__link{
     font-size: 2.0em;
     font-weight: 800;
     padding: 10px;
     display: block;
 }
-#modalTelefonico .modal-ventana ul{
-    text-align: start;
-    padding: 10px;
-}
-#modalTelefonico .modal-ventana li{
-    list-style-type: disc;
-    padding: 3px;
-    margin-left: 10px;
-}
+    .modalTelefonico__lista{
+        text-align: start;
+        padding: 10px;
+    }
+        .modalTelefonico__lista__li{
+            list-style-type: disc;
+            padding: 3px;
+            margin-left: 10px;
+        }
 /*-------------------------------------MODAL MEDIOS-DE-PAGO-----------------------------------*/
-.modal-ventana{
-    width: 500px;
-}
-#modalMediosDePago article{
-    padding: 10px;
-}
+
 /*-------------------------------------MODAL LOGIN----------------------------------*/
-.modal-ventana .campo-imput {
+.modalVentana .campo-imput {
     width: 93%;
 }
-.modal-ventana .login-google{
-    background: #0359da;
-    color:white;
+.modalVentana--loginGoogle{
     width: 96%;
 }
-.modal-ventana .login-google:hover{
-    background: #0248af;
+
+    .modalVentana--loginGoogle:hover{
+        background: #0248af;
+    }
+    .loginGoogle--ancho{
+        padding: 5px;
+    }
+.modalVentana__parrafo{
+    padding: 10px;
 }
 /*--------------------------------------MENU CONTACTO-----------------------------------*/
-.menu_contacto ul{
+.menuContacto{
     background-color: #525252;
 
     display: flex;
     justify-content: flex-end;
 }
-    .menu_contacto a{
+    .menuContacto__link{
         color:white;
         padding: 8px;
         cursor: pointer;
         display: block;
     }
-    .menu_contacto a:hover{
+    .menuContacto__link:hover{
         text-decoration-line:underline ;
     }
 
 /*--------------------------------------MENU SECUNDARIO-----------------------------------*/
-.menu_secundario{
+.menuSecundario{
     padding-top: 8px;
     padding-bottom: 8px;
 
     display:flex;
     justify-content: space-around;
 }
-    .menu_secundario .logo{
+    .menuSecundario__logo{
         color: #1eff00;
         font-size: 2.0em;
     }
 
 
 /*--------------------------------------MENU-----------------------------------*/
-.menu ul{
+.menu{
     background-color: black;
 
     display: flex;
     justify-content: center;
 }
-    .menu a{
+    .menu__link{
         color:white;
         padding: 14px;
 
         display: block;
     }
-    .menu a:hover{
+    .menu__link:hover{
         color: #1eff00;
+    }
+    .menu__link--verde{
+        color:#1eff00;
     }
 
 
 /*--------------------------------------USUARIO CARRITO-----------------------------------*/
-.usuario_carrito{
+.usuarioCarrito{
     color:white;
 
     display: flex;
     justify-content: space-between;
 }
-.menu_contacto{
-    background: black;
-    color:white;
-}
 /*--------------------------------------FOOTER-----------------------------------*/
-html footer{
+.footer{
     background: black;
     color:white;
 }
-footer h3, footer li{
-    padding: 4px;
-}
-footer a{
-    color:white;
-    cursor: pointer;
-}
-footer a:hover{
-    text-decoration-line: underline;
-}
-footer img{
+    .footer h3, .footer li{
+        padding: 4px;
+    }
+    .footer__link{
+        color:white;
+        cursor: pointer;
+    }
+    .footer__link:hover{
+        text-decoration-line: underline;
+    }
+.iconos{
     width: 50px;
+}
+.abrilModalRegistrarse--verde{
+    color: #1eff00;
 }

@@ -19,43 +19,43 @@
     <body>
         <!--*************************************HEADER*******************************************-->
         <header>
-            <section class="menu_contacto">
-                <ul>
-                    <li><a href="/ayuda"><i class='fas fa-question-circle icono'></i>Ayuda</a></li>
-                    <li><a href="/ubicacion"><i class='fas fa-map-marker-alt icono'></i>Ubicacion</a></li>
-                    <li><a class="abrirModalTelefonico"><i class='fas fa-phone icono'></i>Venta telefonica</a></li>
-                    <li><a href=""><i class='fas fa-comments icono'></i>Whatsapp</a></li>
+            <section>
+                <ul class="menuContacto">
+                    <li><a href="/ayuda" class="menuContacto__link"><i class='fas fa-question-circle icono'></i>Ayuda</a></li>
+                    <li><a href="/ubicacion" class="menuContacto__link"><i class='fas fa-map-marker-alt icono'></i>Ubicacion</a></li>
+                    <li><a class="abrirModalTelefonico menuContacto__link" ><i class='fas fa-phone icono'></i>Venta telefonica</a></li>
+                    <li><a href="" class="menuContacto__link"><i class='fas fa-comments icono'></i>Whatsapp</a></li>
                 </ul>
             </section>
-            <section class="menu_secundario max1400">
-                <div class="logo">
-                    <a href="/"><i class='fas fa-tv icono'></i>ComputadorasYA</a>
+            <section class="menuSecundario max1400">
+                <div>
+                    <a href="/" class="menuSecundario__logo"><i class='fas fa-tv icono'></i>ComputadorasYA</a>
                 </div>
                 <div>
-                    <input type="text" placeholder="BUSCAR..." id="buscador"/>
-                    <button id="buscar"><i class='fas fa-search'></i></button>
+                    <input type="text" placeholder="BUSCAR..." id="buscador" class="menuSecundario__buscador"/>
+                    <button  class="campoBoton campoBoton--verdeOscuro menuSecundario--botonPosicion"><i class='fas fa-search'></i></button>
                 </div>
-                <div class="usuario_carrito">
+                <div class="usuarioCarrito">
                     <div>
                         <ul>
                             <li><a class="abrirModalLogin">INICIA SESION</a></li>
-                            <li><a class="abrirModalRegistrarse">REGISTRATE</a></li>
+                            <li><a class="abrirModalRegistrarse abrilModalRegistrarse--verde">REGISTRATE</a></li>
                         </ul>
                     </div>
                     <div class="carrito">
-                        <i class='fas fa-shopping-cart'></i>
-                        <span id="total"> 0000</span>
+                        <i class='fas fa-shopping-cart carrito--icono'></i>
+                        <span id="total" class="carrito--total"> 0000</span>
                     </div>
                 </div>
             </section>
-            <nav class="menu">
-                <ul>
-                    <li><a href="">NOTEBOOK</a></li>
-                    <li><a href="">PRODUCTOS</a></li>
-                    <li><a href="">PERIFERICOS</a></li>
-                    <li><a href="">ARMA TU PC</a></li>
-                    <li><a href="">ARMA TU COMBO</a></li>
-                    <li><a href="">PAGO QR</a></li>
+            <nav >
+                <ul class="menu">
+                    <li><a href="" class="menu__link">NOTEBOOK</a></li>
+                    <li><a href="" class="menu__link">PRODUCTOS</a></li>
+                    <li><a href="" class="menu__link">PERIFERICOS</a></li>
+                    <li><a href="" class="menu__link menu__link--verde">ARMA TU PC</a></li>
+                    <li><a href="" class="menu__link">ARMA TU COMBO</a></li>
+                    <li><a href="" class="menu__link">PAGO QR</a></li>
                 </ul>
             </nav>
         </header>

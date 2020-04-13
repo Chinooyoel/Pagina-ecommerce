@@ -15,7 +15,7 @@ function funcionModal(){
     let modalTelefonico = document.getElementById("modalTelefonico");
     let modalLogin = document.getElementById("modalLogin");
     let modalRegistrarse = document.getElementById("modalRegistrarse");
-    let botonCerrar = document.getElementsByClassName("cerrar");
+    let botonCerrar = document.getElementsByClassName("modalVentana__cerrar");
 
     //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalTelefonico
     for(let i = 0; i<abrirModalTelefonico.length ; i++){
@@ -80,8 +80,8 @@ function cerrarModalCuandoSeClickeeAfueraDelModal(modalACerrar){
 }
 
 function funcionMostrarYOcultarAyuda(){
-    let botonMostrarYOcultar = document.getElementsByClassName("boton-ocultar-mostrar");
-    let ayudaInf = document.getElementsByClassName("info-ocultar-mostrar");
+    let botonMostrarYOcultar = document.getElementsByClassName("articuloAyuda__botonMostrar");
+    let ayudaInf = document.getElementsByClassName("articuloAyuda__infoMostrar");
 
 
     for( let i=0; i < botonMostrarYOcultar.length; i++ ){
@@ -99,7 +99,7 @@ function funcionMostrarYOcultarAyuda(){
 }
 
 function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
-    let elementoInteractivo = document.getElementsByClassName("interaccionArticulo");
+    let elementoInteractivo = document.getElementsByClassName("producto__interaccionArticulo");
 
     for( let i = 0 ; i < elementoInteractivo.length; i++ ){
         

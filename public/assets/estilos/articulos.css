@@ -1,13 +1,7 @@
 /* ****************************************CLASES GENERALES*****************************************************/
-.categoria{
-    width: 20%;
-}
 .lista-productos{
     width: 75%;
     margin-top: 10px;
-}
-.grande{
-    font-size: 1.5em;
 }
 /* ****************************************ENCABEZADO*****************************************************/
 .encabezado{
@@ -25,18 +19,22 @@
     .encabezado a{
         padding: 5px;
     }
+    .encabezado--grande{
+        font-size: 1.5em;
+    }
 /* ****************************************ENCABEZADO*****************************************************/
 
 .categoria{
     text-align: start;
     margin-top: 20px;
+    width: 20%;
 }
-.categoria ul li{
-    padding: 5px;
-}
+    .categoria__especificacion{
+        padding: 5px;
+    }
 
-.categoria ul li:first-child{
-    background: #50b942;
-    color:white;
-    padding: 8px;
-}
+    .categoria__especificacion--verde{
+        background: #50b942;
+        color:white;
+        padding: 8px;
+    }

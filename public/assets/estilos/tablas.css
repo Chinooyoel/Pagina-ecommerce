@@ -1,0 +1,26 @@
+.tabla{
+    width: 100%;
+}
+.tabla__fila--encabezado{
+    color: white;
+    background: rgb(56, 56, 56);
+}
+.tabla__campo{
+    border: 1px solid rgb(165, 164, 164);
+    padding: 10px;
+}
+.tabla__campo--alignStart{
+    text-align: start;
+}
+.tabla__fila:nth-child(odd){
+    background: rgb(202, 202, 202);
+}
+.tabla__fila:nth-child(even){
+    background: rgb(185, 184, 184);
+}
+.letraRojo{
+    color: rgb(109, 3, 3);
+}
+.letraVerdeOscuro{
+    color: rgb(0, 95, 0);
+}

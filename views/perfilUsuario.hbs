@@ -1,0 +1,26 @@
+{{>head}}
+    
+    <section class="max1400">
+        <section class="flex-contenedor">
+            <figure class="galeria__figure">
+                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil">
+            </figure>
+            <article class="caracteristicas">
+                <form id="productUser" method="POST" action="/usuario/actualizar/{{usuarioDB._id}}">
+                    <label for="nombre" class="formulario__label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input" value="{{usuarioDB.nombre}}">
+                    <label for="apellido" class="formulario__label">Apellido</label>
+                    <input type="text" name="apellido" id="apellido" class="campo-imput formulario__input" value="{{usuarioDB.apellido}}">
+                    <label for="email" class="formulario__label">Email</label>
+                    <input type="text" name="email" id="email" class="campo-imput formulario__input" value="{{usuarioDB.email}}">            
+                    <label for="documento" class="formulario__label">Documento</label>
+                    <input type="text" name="documento" id="documento" class="campo-imput formulario__input" value="{{usuarioDB.documento}}">     
+                    <label for="telefono" class="formulario__label">Telefono</label>
+                    <input type="text" name="telefono" id="telefono" class="campo-imput formulario__input" value="{{usuarioDB.telefono}}">
+                </form>
+            </article>
+        </section>
+            <textarea class="textoNota" name="nota">{{usuarioDB.nota}}</textarea>
+            <input type="submit" value="Actualizar" class="campoBoton campoBoton--verdeOscuro">
+
+    </section>

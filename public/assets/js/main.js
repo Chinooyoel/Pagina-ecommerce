@@ -3,6 +3,11 @@ window.onload = () =>{
     funcionModal();
     funcionMostrarYOcultarAyuda();
     funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
+    //funcionBuscarUsuario();
+    funcionBuscarProducto();
+
+
+
 }
 
 // ----------------------------------------FUNCIONES------------------------------------
@@ -17,54 +22,32 @@ function funcionModal(){
     let modalRegistrarse = document.getElementById("modalRegistrarse");
     let botonCerrar = document.getElementsByClassName("modalVentana__cerrar");
 
-    //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalTelefonico
-    for(let i = 0; i<abrirModalTelefonico.length ; i++){
-        abrirModalTelefonico[i].addEventListener("click", () => {
-            abrirModal(modalTelefonico);
 
-            cerrarModalCuandoSeClickeeAfueraDelModal(modalTelefonico);
-        })
-    }
+    agregarEventoAlBotonAbrirYCerrarModal( abrirModalTelefonico, modalTelefonico );
+    agregarEventoAlBotonAbrirYCerrarModal( abrirModalMediosDePago, modalMediosDePago )
+    agregarEventoAlBotonAbrirYCerrarModal( abrirModalRegistrarse, modalRegistrarse );
+    agregarEventoAlBotonAbrirYCerrarModal( abrirModalLogin, modalLogin );
 
-    //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalMediosDePago
-    for(let i = 0; i<abrirModalMediosDePago.length ; i++){
-        abrirModalMediosDePago[i].addEventListener("click", () => {
-            abrirModal(modalMediosDePago);
 
-            cerrarModalCuandoSeClickeeAfueraDelModal(modalMediosDePago);
-        })
-    } 
-
-    //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalMediosDePago
-    for(let i = 0; i<abrirModalRegistrarse.length ; i++){
-        abrirModalRegistrarse[i].addEventListener("click", () => {
-            abrirModal(modalRegistrarse);
-
-            cerrarModalCuandoSeClickeeAfueraDelModal(modalRegistrarse);
-        })
-    } 
-
-        //agrega el evento click(con funcion abrir) a los elementos que tienen la clase abrirModalLogin
-        for(let i = 0; i<abrirModalLogin.length ; i++){
-            abrirModalLogin[i].addEventListener("click", () => {
-                abrirModal(modalLogin);
-    
-                cerrarModalCuandoSeClickeeAfueraDelModal(modalLogin);
-            })
-        }
-
-    //agrega el evento click(con funcion cerrar) a todos los elementos de clase cerrar
     for( let i = 0 ; i < botonCerrar.length ; i++ ){
-
         botonCerrar[i].addEventListener("click", () => {
             //va a cerrar a poner el display none al abuelo del icono cerrar, en este caso seria el modal
             cerrarModal( botonCerrar[i].parentNode.parentNode);
         });
-
     }
     
+    
 }
+function agregarEventoAlBotonAbrirYCerrarModal( botonModalArray, modal ){
 
+    for( boton of botonModalArray ) {
+        boton.addEventListener("click", () => {
+            abrirModal(modal);
+
+            cerrarModalCuandoSeClickeeAfueraDelModal(modal);
+        })
+    }
+}
 function abrirModal( modalAMostrar ){
     modalAMostrar.style.display = "flex";
 }
@@ -124,3 +107,86 @@ function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
 
 
 }
+
+function mostrarUsuarioEnTabla( usuarioArray ){
+    let tablaUsuario = document.getElementById("tablaUsuario");
+    tablaUsuario.innerHTML = "";
+
+    usuarioArray.forEach( ( usuario, index ) => {
+        tablaUsuario.innerHTML += 
+        `<tr class="tabla__fila">
+            <th class="tabla__campo">${ index + 1 }</th>
+            <th class="tabla__campo tabla__campo--alignStart">${ usuario.apellido}, ${ usuario.nombre}</th>
+            <th class="tabla__campo tabla__campo--verde">${ usuario.estado}</th>
+            <th class="tabla__campo">${ usuario.email }</th>
+            <th class="tabla__campo">${ usuario.telefono }</th>
+            <th class="tabla__campo">0</th>
+            <th class="tabla__campo"><a href="/usuario/perfil/${ usuario._id }">Mas info</a></th>
+        </tr>`
+    })
+}
+
+function funcionBuscarProducto() {
+    let buscador = document.getElementById("buscarProducto");
+
+    buscador.addEventListener("keydown", () => {
+        if( buscador.value ){
+            enviarPeticion("POST", `http://localhost:3000/producto/buscar/${ buscador.value }`, ( respuesta ) => {
+
+            mostrarProductoEnTabla( respuesta.productosDB );
+            })
+        }       
+    }, false)
+}
+
+
+function mostrarProductoEnTabla( productoArray ){
+    let tablaProducto = document.getElementById("tablaProducto");
+    tablaProducto.innerHTML = "";
+
+    productoArray.forEach( ( producto, index ) => {
+        tablaProducto.innerHTML += 
+        `<tr class="tabla__fila">
+            <th class="tabla__campo">${ index + 1 }</th>
+            <th class="tabla__campo tabla__campo--alignStart">${ producto.nombre }</th>
+            <th class="tabla__campo">${ producto.categoria }</th>
+            <th class="tabla__campo tabla__campo--verde">${ producto.stock }</th>
+            <th class="tabla__campo">$${ producto.precio }.00</th>
+            <th class="tabla__campo"><a href="/product/update/${ producto._id }">Editar</a> - <a href="/product/remove/${ producto._id }">Eliminar</a></th>
+        </tr>`
+    })
+}
+
+
+function funcionBuscarUsuario () {
+    let buscador = document.getElementById("buscarUsuario");
+
+    buscador.addEventListener("keydown", () => {
+        if( buscador.value ){
+            enviarPeticion("POST", `http://localhost:3000/usuario/buscar/${ buscador.value }`, ( respuesta ) => {
+                let usuarioArray = respuesta.usuariosDB;
+
+                mostrarUsuarioEnTabla( usuarioArray );
+            })
+        }       
+    }, false)
+
+}
+
+
+function enviarPeticion( metodo, url, callback ) {
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+
+        if( this.readyState == 4 && this.status == 200 ) {
+            let respuestaObj = JSON.parse(this.responseText);
+            
+            callback(respuestaObj);            
+        }
+    }
+
+    xhttp.open( metodo, url);
+    xhttp.send();
+}
+

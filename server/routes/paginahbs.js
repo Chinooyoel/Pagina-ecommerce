@@ -27,6 +27,9 @@ app.get("/user", ( req, res ) => {
     res.render("usuario");
     
 })
+app.get("/admin", ( req, res ) => {
 
+    res.render("admin");
+})
 
 module.exports = app;

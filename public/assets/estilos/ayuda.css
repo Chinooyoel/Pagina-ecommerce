@@ -21,17 +21,23 @@
         animation-fill-mode: initial;
 
     }
-    .articuloAyuda__botonMostrar{
+    .botonLargo{
         background: rgb(196, 194, 194);
         padding: 15px 15px 15px 30px;
         border-radius: 4px;
         cursor: pointer;
+        text-align: start;
+        margin: 5px;
+        color: black;
+        font-size: 1.0em;
+        font-weight: 800;
+        display: block;
     }
-    .articuloAyuda__botonMostrar:hover{
+    .botonLargo:hover{
         color: #3bb441;
     }
 
-        .articuloAyuda__botonMostrar--verde{
+        .botonLargo__icono--verde{
             color: #3bb441;
             padding: 5px;
         }

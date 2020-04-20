@@ -48,7 +48,7 @@ const usuarioSchema = new Schema({
         type: String,
         required: false
     },
-    celular: {
+    telefono: {
         type: Number,
         required: true
     },
@@ -56,6 +56,9 @@ const usuarioSchema = new Schema({
         type: String,
         default: "USER_ROLE",
         enum: ["USER_ROLE", "ADMIN_ROLE"]
+    },
+    nota: {
+        type: String
     }
 })
 

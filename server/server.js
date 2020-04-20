@@ -26,9 +26,12 @@ hbs.registerPartials( __dirname + "/../views/parciales");
 
 //Cargamos los gets de paginas
 app.use(require("./routes/paginahbs"));
-//Cargamos las solicitud https de /usuario
-app.use(require("./routes/usuario"));
+//Cargamos las rutas
+app.use(require("./routes/producto"));
 app.use(require("./routes/login"));
+app.use(require("./routes/usuario"));
+
+
 
 
 //Conectamos a la base de datos

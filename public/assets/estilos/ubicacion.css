@@ -41,6 +41,7 @@ form{
     border-radius: 5px;
     cursor: pointer;
     border: none;
+    vertical-align: middle;
 }
     .campoBoton--azul{
         background: #0359da;
@@ -56,6 +57,10 @@ form{
     .campoBoton--verdeOscuro:hover{
         background:#2f6b27;
     }
+
+.formulario__input--corto{
+    width: 100px;
+}
 .formulario__textarea{
     min-height: 180px;
 }

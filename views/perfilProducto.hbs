@@ -1,0 +1,81 @@
+{{>head}}
+        <section class="max1400">
+            <section class="encabezado">
+                <h3>{{ productoDB.categoria }}</h3>
+            </section>
+        </section>
+        <section class="flex-contenedor max1400">
+            <figure class="galeria__figure">
+                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil">
+            </figure>
+            <article class="caracteristicas">
+                <h2 class="caracteristicas__titulo">{{ productoDB.nombre }}</h2>
+                <p class="caracteristicas__dato">CODIGO: {{productoDB.codigo}} || MARCA: {{ productoDB.marca }} || STOCK: {{ productoDB.stock }}</p>
+                <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ productoDB.garantia}}</p>
+                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: ${{ productoDB.precio }}.00</h2>
+                <article class="flex-contenedor caracteristicas__dato">
+                    <section>
+                        <img src="/assets/img/americanExpressIcon.png">
+                        <img src="/assets/img/visaIcon.png">
+                        <img src="/assets/img/mastercardIcon.png">
+                    </section>
+                    <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-shopping-cart "></i> AGREGAR</button>
+                </article>
+
+                <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-shipping-fast"></i> CALCULAR ENVIO</button>
+                <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-clone"></i> COPIAR ENLANCE</button>
+
+                <section class="caracteristicas__dato caracteristicas__infoPrecio">
+                    <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ productoDB.precio }}.00</span></p>
+                    <p>Precio MercadoPago: <span class="letraVerdeOscuro">${{ precioLista }}.00</span></p>
+                </section>
+            </article>
+        </section>
+        <section></section>
+
+        <section class="max1400 textoDescripcion">
+            <h3 class="letraVerdeOscuro">DESCRIPCION</h3>
+            <p >{{productoDB.descripcion}}</p>
+        </section>
+            
+        <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
+        <section class="centro max1400">
+            <h3 class="titulo">PRODUCTOS DESTACADOS</h3>
+            <article class="flex-contenedor">
+                <figure class="producto">
+                    <a href="" class="producto__interaccionArticulo">
+                        <img src="/assets/img/hyperx.jpg" class="producto__img">
+                        <span class="producto__mas-info">[MÁS INFO]</span>
+                        AURICULARES HYPERX CLOUD ALPHA
+                    </a>
+                    <figcaption class="producto__precio">ARS 2800</figcaption>
+                </figure>
+                <figure class="producto">
+                    <a href="" class="producto__interaccionArticulo">
+                        <img src="/assets/img/hyperx.jpg" class="producto__img">
+                        <span class="producto__mas-info">[MÁS INFO]</span>
+                        AURICULARES HYPERX CLOUD ALPHA
+                    </a>
+                    <figcaption class="producto__precio">ARS 2800</figcaption>
+                </figure>
+                <figure class="producto">
+                    <a href="" class="producto__interaccionArticulo">
+                        <img src="/assets/img/hyperx.jpg" class="producto__img">
+                        <span class="producto__mas-info">[MÁS INFO]</span>
+                        AURICULARES HYPERX CLOUD ALPHA
+                    </a>
+                    <figcaption class="producto__precio">ARS 2800</figcaption>
+                </figure>
+                <figure class="producto">
+                    <a href="" class="producto__interaccionArticulo">
+                        <img src="/assets/img/hyperx.jpg" class="producto__img">
+                        <span class="producto__mas-info">[MÁS INFO]</span>
+                        AURICULARES HYPERX CLOUD ALPHA
+                    </a>
+                    <figcaption class="producto__precio">ARS 2800</figcaption>
+                </figure>
+            </article>
+        </section>
+    </section>
+
+{{>footer}}

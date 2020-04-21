@@ -148,11 +148,11 @@ function mostrarProductoEnTabla( productoArray ){
         tablaProducto.innerHTML += 
         `<tr class="tabla__fila">
             <th class="tabla__campo">${ index + 1 }</th>
-            <th class="tabla__campo tabla__campo--alignStart">${ producto.nombre }</th>
+            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto._id }">${ producto.nombre }</a></th>
             <th class="tabla__campo">${ producto.categoria }</th>
             <th class="tabla__campo tabla__campo--verde">${ producto.stock }</th>
             <th class="tabla__campo">$${ producto.precio }.00</th>
-            <th class="tabla__campo"><a href="/product/update/${ producto._id }">Editar</a> - <a href="/product/remove/${ producto._id }">Eliminar</a></th>
+            <th class="tabla__campo"><a href="/product/update/${ producto._id }">Editar</a> - <a href="/product/profile/${ producto._id }">Eliminar</a></th>
         </tr>`
     })
 }

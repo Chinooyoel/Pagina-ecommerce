@@ -5,12 +5,12 @@ let app = express();
 app.get("/producto", ( req, res ) => {
     res.render("tablaProducto");
 })
+app.get("/product/save", ( req, res ) => {
+    res.render("crearProducto");
+})
 app.post("/producto/buscar/:dato", ( req, res ) => {
-
     let dato = req.params.dato;
-    console.log(dato)
     let expresionRegular = new RegExp(dato, "i")
-
 
     Producto.find({nombre: expresionRegular}, (error, productosDB) => {
         if( error ) {
@@ -26,6 +26,23 @@ app.post("/producto/buscar/:dato", ( req, res ) => {
     })
 })
 
+app.get("/product/profile/:id", ( req, res ) => {
+    let id = req.params.id;
+
+    Producto.findOne({ _id: id }, ( error, productoDB ) => {
+        if( error ){
+            res.status(500).json({
+                ok: false,
+                error
+            })
+        }
+
+        res.render("perfilProducto", { 
+            productoDB,
+            precioLista: Math.round(productoDB.precio * 1.15)
+         });
+    })
+})
 
 app.post("/product/save", ( req, res ) => {
     let body = req.body;
@@ -37,7 +54,8 @@ app.post("/product/save", ( req, res ) => {
         precio: body.precio,
         descripcion:  body.descripcion,
         codigo: body.codigo,
-        marca: body.marca
+        marca: body.marca,
+        garantia: body.garantia
     })
 
     producto.save(producto, ( error, productoDB ) => {
@@ -48,9 +66,7 @@ app.post("/product/save", ( req, res ) => {
             })
         }
 
-        res.json({
-            productoDB
-        })
+        res.render("tablaProducto")
     })
 })
 
@@ -74,7 +90,6 @@ app.get("/product/update/:id", ( req, res )=> {
 app.post("/product/update/:id", ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
-    console.log(body.descripcion)
 
     let producto = {
         nombre: body.nombre,
@@ -83,7 +98,8 @@ app.post("/product/update/:id", ( req, res ) => {
         codigo: body.codigo,
         stock: body.stock, 
         precio: body.precio,
-        descripcion: body.descripcion
+        descripcion: body.descripcion,
+        garantia: body.garantia
     }
 
     Producto.findByIdAndUpdate(id, producto,{new: true}, ( error, usuarioDB ) => {
@@ -98,5 +114,18 @@ app.post("/product/update/:id", ( req, res ) => {
 
     })
 })
+app.get("/product/remove/:id", ( req, res ) => {
+    let id = req.params.id;
 
+    Producto.findOneAndRemove({ _id: id }, ( error, productoBorrado ) => {
+        if( error ){
+            res.status(500).json({
+                ok: false,
+                error
+            })
+        }
+
+        res.redirect("/producto");
+    } )
+})
 module.exports = app;

@@ -25,7 +25,7 @@ let productoSchema = new Schema({
     },
     codigo: {
         type:String,
-        required: false
+        required: true
     },
     marca : {
         type: String,
@@ -34,6 +34,10 @@ let productoSchema = new Schema({
     img : {
         type: String,
         required: false
+    },
+    garantia : {
+        type: String,
+        required: true
     }
 })
 

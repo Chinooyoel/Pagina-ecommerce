@@ -1,0 +1,30 @@
+{{>head}}
+    
+    <section class="max1400">
+        <section class="flex-contenedor">
+            <figure class="galeria__figure">
+                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil">
+            </figure>
+            <article class="caracteristicas">
+                <form id="productForm" method="POST" action="/product/save">
+                    <label for="nombre" class="formulario__label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input">
+                    <label for="categoria" class="formulario__label">Categoria</label>
+                    <input type="text" name="categoria" id="categoria" class="campo-imput formulario__input">
+                    <label for="marca" class="formulario__label">Marca</label>
+                    <input type="text" name="marca" id="marca" class="campo-imput formulario__input">            
+                    <label for="codigo" class="formulario__label">Codigo</label>
+                    <input type="text" name="codigo" id="codigo" class="campo-imput formulario__input">     
+                    <label for="garantia" class="formulario__label">Garantia</label>
+                    <input type="text" name="garantia" id="garantia" class="campo-imput formulario__input">     
+                    <label for="stock" class="formulario__label">Stock</label>
+                    <input type="text" name="stock" id="stock" class="campo-imput formulario__input--corto">
+                    <label for="precio" class="formulario__label">Precio</label>
+                    <input type="text" name="precio" id="precio" class="campo-imput formulario__input--corto">
+                </form>
+            </article>
+        </section>
+        <textarea form="productForm" class="textoNota" name="descripcion"></textarea>
+        <input form="productForm" type="submit" value="Crear" class="campoBoton campoBoton--verdeOscuro">
+        <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
+    </section>

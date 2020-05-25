@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
-app.get("/login", ( req, res ) => {
+app.post("/login", ( req, res ) => {
     let body = req.body;
 
     Usuario.findOne({ email: body.email }, ( err , usuarioDB ) => {
@@ -15,6 +15,7 @@ app.get("/login", ( req, res ) => {
                 err
             })
         }
+
         if( !usuarioDB ){
             return res.status(400).json({
                 message: "(Usuario) o contraseña invalidos",

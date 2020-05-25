@@ -1,13 +1,8 @@
 window.onload = () =>{
 
     funcionModal();
-    funcionMostrarYOcultarAyuda();
     funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
-    //funcionBuscarUsuario();
-    funcionBuscarProducto();
-
-
-
+    
 }
 
 // ----------------------------------------FUNCIONES------------------------------------

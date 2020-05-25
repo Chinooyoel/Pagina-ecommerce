@@ -33,6 +33,7 @@ let productoSchema = new Schema({
     },
     img : {
         type: String,
+        default: "/assets/img/noImagen.jpg",
         required: false
     },
     garantia : {

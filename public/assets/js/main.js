@@ -4,7 +4,8 @@ window.onload = () =>{
     funcionMostrarYOcultarAyuda();
     funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
     //funcionBuscarUsuario();
-    funcionBuscarProducto();
+    //funcionBuscarProducto();
+    funcionSubirFoto();
 
 
 
@@ -190,3 +191,63 @@ function enviarPeticion( metodo, url, callback ) {
     xhttp.send();
 }
 
+/*
+function funcionSubirFoto(){
+    let boton = document.getElementById("botonSubirFoto");
+    let elementoImg = document.getElementById("imagenProducto");
+
+    boton.addEventListener("click", ()=>{
+
+        let formulario = document.getElementById("subirFoto");
+        let formData = new FormData(formulario);
+
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+
+            if( this.readyState == 4 && this.status == 200 ){
+                let respuesta = JSON.parse(this.responseText);
+
+                elementoImg.src=respuesta.path;
+            }
+        }
+
+        xhttp.open( "POST", "http://localhost:3000/aca" );
+        xhttp.send(formData);
+    })
+
+
+}
+*/
+
+function funcionSubirFoto(){
+    let boton = document.getElementById("botonSubirFoto");
+    let elementoImg = document.getElementById("imagenProducto");
+
+
+    boton.addEventListener("click", ()=>{
+
+        let formulario = document.getElementById("subirFoto");
+        let formData = new FormData(formulario);
+
+        console.log(formulario.action)
+
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+
+            if( this.readyState == 4 && this.status == 200 ){
+                let respuesta = JSON.parse(this.responseText);
+
+                elementoImg.src=respuesta.src;
+            }else{
+                console.log("error" +  this.responseText)
+            }
+        }
+
+        xhttp.open( "POST", formulario.action );
+        xhttp.send(formData);
+    })
+
+
+}

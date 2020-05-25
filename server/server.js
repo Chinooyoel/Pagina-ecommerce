@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 
 let port = process.env.PORT || 3000;
 
@@ -13,6 +14,7 @@ app.use( express.static( __dirname + "/../public"));
 //Establecemos como motor de vista predeterminado hbs
 app.set("view engine", "hbs")
 
+app.use(fileUpload());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -30,6 +32,7 @@ app.use(require("./routes/paginahbs"));
 app.use(require("./routes/producto"));
 app.use(require("./routes/login"));
 app.use(require("./routes/usuario"));
+app.use(require("./routes/upload"));
 
 
 

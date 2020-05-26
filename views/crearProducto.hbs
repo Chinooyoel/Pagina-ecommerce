@@ -2,9 +2,6 @@
     
     <section class="max1400">
         <section class="flex-contenedor">
-            <figure class="galeria__figure">
-                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil">
-            </figure>
             <article class="caracteristicas">
                 <form id="productForm" method="POST" action="/product/save">
                     <label for="nombre" class="formulario__label">Nombre</label>
@@ -24,6 +21,7 @@
                 </form>
             </article>
         </section>
+        <label for="descripcion" class="formulario__label">Descripcion</label>
         <textarea form="productForm" class="textoNota" name="descripcion"></textarea>
         <input form="productForm" type="submit" value="Crear" class="campoBoton campoBoton--verdeOscuro">
         <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>

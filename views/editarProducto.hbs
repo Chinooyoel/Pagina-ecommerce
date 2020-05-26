@@ -3,7 +3,7 @@
     <section class="max1400">
         <section class="flex-contenedor">
             <figure class="galeria__figure">
-                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil" id="imagenProducto">
+                <img src="/assets/img/{{usuarioDB.img}}" class="galeria__figure--tamanioPerfil" id="imagenProducto">
                 <form id="subirFoto" method="POST" enctype="multipart/form-data" action="/upload/producto/{{usuarioDB._id}}">
                     <input type="file" name="imagen">
                 </form>
@@ -32,3 +32,8 @@
         <input form="productForm" type="submit" value="Actualizar" class="campoBoton campoBoton--verdeOscuro">
         <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
     </section>
+
+    <script src="/assets/js/main.js"></script>
+    <script>
+        funcionSubirFoto(`http://localhost:3000/upload/producto/{{usuarioDB._id}}`);
+    </script>

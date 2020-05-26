@@ -58,7 +58,7 @@ app.post("/product/save", ( req, res ) => {
         garantia: body.garantia
     })
 
-    producto.save(producto, ( error, productoDB ) => {
+    producto.save(producto, ( error, usuarioDB ) => {
         if( error ) {
             return res.status(500).json({
                 ok:false,
@@ -66,7 +66,9 @@ app.post("/product/save", ( req, res ) => {
             })
         }
 
-        res.render("tablaProducto")
+        res.render("guardarImagen",{
+            usuarioDB
+        })
     })
 })
 

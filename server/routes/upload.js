@@ -4,6 +4,7 @@ const Producto = require("../models/producto");
 const fs = require("fs");
 
 app.post("/upload/:tipo/:id", ( req, res ) => {
+    console.log(req);
     if(!req.files){
         return res.status(400).json({
             ok: false,

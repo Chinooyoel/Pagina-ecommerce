@@ -20,6 +20,7 @@ hbs.registerPartials( __dirname + "/../views/parciales");
 // configuracion por defecto
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(fileUpload());
 
 //rutas
 app.use(require("./routes/index"));

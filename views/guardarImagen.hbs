@@ -1,0 +1,17 @@
+{{>head}}
+
+<section>
+    <h2>Subir imagen</h2>
+    <figure class="galeria__figure">
+        <img src="/assets/img/{{usuarioDB.img}}" class="galeria__figure--tamanioPerfil" id="imagenProducto">
+        <form id="subirFoto" method="POST" enctype="multipart/form-data" action="/upload/producto/{{usuarioDB._id}}">
+            <input type="file" name="imagen">
+         </form>
+        <button class="campoBoton campoBoton--verdeOscuro" id="botonSubirFoto">Cambiar foto</button>
+    </figure>
+</section>
+
+    <script src="/assets/js/main.js"></script>
+    <script>
+        funcionSubirFoto(`http://localhost:3000/upload/producto/{{usuarioDB._id}}`);
+    </script>

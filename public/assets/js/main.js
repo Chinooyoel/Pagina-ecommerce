@@ -214,7 +214,7 @@ function funcionSubirFoto(){
 }
 */
 
-function funcionSubirFoto(){
+function funcionSubirFoto( url ){
     let boton = document.getElementById("botonSubirFoto");
     let elementoImg = document.getElementById("imagenProducto");
 
@@ -239,7 +239,7 @@ function funcionSubirFoto(){
             }
         }
 
-        xhttp.open( "POST", formulario.action );
+        xhttp.open( "POST", url );
         xhttp.send(formData);
     })
 

@@ -128,4 +128,20 @@ app.get("/product/remove/:id", ( req, res ) => {
         res.redirect("/producto");
     } )
 })
+
+//borrar
+app.post("/aca", (req, res) => {
+    console.log(req.files)
+
+    let imagen = req.files.imagen;
+    imagen.mv(`public/assets/img/${imagen.name}`, ( error)=>{
+        if(error){
+            res.json({
+                ok:false
+            })
+        }
+        res.json({path: `/assets/img/${imagen.name}`});
+    });
+
+})
 module.exports = app;

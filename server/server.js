@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 
 let port = process.env.PORT || 3000;
 
@@ -12,14 +13,13 @@ let port = process.env.PORT || 3000;
 app.use( express.static( __dirname + "/../public"));
 //Establecemos como motor de vista predeterminado hbs
 app.set("view engine", "hbs")
+
 //Cargamos todos los parciales que hay en la carpeta "parciales"
 hbs.registerPartials( __dirname + "/../views/parciales");
-
 
 // configuracion por defecto
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 
 //rutas
 app.use(require("./routes/index"));

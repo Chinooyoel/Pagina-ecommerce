@@ -3,7 +3,11 @@
     <section class="max1400">
         <section class="flex-contenedor">
             <figure class="galeria__figure">
-                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil">
+                <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil" id="imagenProducto">
+                <form id="subirFoto" method="POST" enctype="multipart/form-data" action="/upload/producto/{{usuarioDB._id}}">
+                    <input type="file" name="imagen">
+                </form>
+                    <button class="campoBoton campoBoton--verdeOscuro" id="botonSubirFoto">Cambiar foto</button>
             </figure>
             <article class="caracteristicas">
                 <form id="productForm" method="POST" action="/product/update/{{usuarioDB._id}}">

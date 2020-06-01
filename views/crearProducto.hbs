@@ -1,9 +1,14 @@
 {{>head}}
     
     <section class="max1400">
-        <section class="flex-contenedor">
+        <form id="productForm" method="POST" action="/product/save" class="flex-contenedor" enctype="multipart/form-data">
+            <figure class="galeria__figure">
+                <img src="/assets/img/noImagen.jpg" class="galeria__figure--tamanioPerfil" id="imagenProducto">
+                <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
+                <input type="file" name="imagen" id="elegirFoto">
+            </figure>
             <article class="caracteristicas">
-                <form id="productForm" method="POST" action="/product/save">
+                <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
                     <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input">
                     <label for="categoria" class="formulario__label">Categoria</label>
@@ -18,11 +23,17 @@
                     <input type="text" name="stock" id="stock" class="campo-imput formulario__input--corto">
                     <label for="precio" class="formulario__label">Precio</label>
                     <input type="text" name="precio" id="precio" class="campo-imput formulario__input--corto">
-                </form>
+                </section>
             </article>
-        </section>
+        </form>
         <label for="descripcion" class="formulario__label">Descripcion</label>
         <textarea form="productForm" class="textoNota" name="descripcion"></textarea>
         <input form="productForm" type="submit" value="Crear" class="campoBoton campoBoton--verdeOscuro">
         <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
     </section>
+
+
+   <script src="/assets/js/main.js"></script>
+    <script>
+        funcionMostrarFoto();
+    </script>

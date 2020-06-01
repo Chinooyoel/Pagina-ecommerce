@@ -1,7 +1,7 @@
 /* **************************PRODUCTO*************************************** */
 
 .producto{
-    max-width: 24%;
+    width: 24%;
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid grey;

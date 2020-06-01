@@ -38,8 +38,8 @@
                     <a href="/" class="menuSecundario__logo"><i class='fas fa-tv icono'></i>ComputadorasYA</a>
                 </div>
                 <div>
-                    <input type="text" placeholder="BUSCAR..." id="buscador" class="buscador"/>
-                    <button  class="campoBoton campoBoton--verdeOscuro menuSecundario--botonPosicion"><i class='fas fa-search'></i></button>
+                    <input type="text" placeholder="BUSCAR..." id="inputBuscar" class="buscador"/>
+                    <button type="button" id="buscadorGeneral" class="campoBoton campoBoton--verdeOscuro menuSecundario--botonPosicion"><i class='fas fa-search'></i></button>
                 </div>
                 <div class="usuarioCarrito">
                     <div>
@@ -56,9 +56,37 @@
             </section>
             <nav >
                 <ul class="menu">
-                    <li><a href="" class="menu__link">NOTEBOOK</a></li>
-                    <li><a href="" class="menu__link">PRODUCTOS</a></li>
-                    <li><a href="" class="menu__link">PERIFERICOS</a></li>
+                    <li><a href="/producto/buscar/notebook" class="menu__link">NOTEBOOK</a></li>
+                    <li>
+                        <a class="menu__link">PRODUCTOS</a>
+                        <ul class="menu__submenu">
+                            <li><a href="/producto/buscar/microfono" class="menu__link menu__link--verde">MICROPROCESADORES</a></li>
+                            <li><a href="/producto/buscar/madre" class="menu__link menu__link--verde">MOTHERBOARDS</a></li>
+                            <li><a href="/producto/buscar/video" class="menu__link menu__link--verde">PLACAS DE VIDEO</a></li>
+                            <li><a href="/producto/buscar/almacenamiento" class="menu__link menu__link--verde">ALMACENAMIENTO</a></li>
+                            <li><a href="/producto/buscar/ram" class="menu__link menu__link--verde">MEMORIAS RAMS</a></li>
+                            <li><a href="/producto/buscar/fuentes" class="menu__link menu__link--verde">FUENTES</a></li>
+                            <li><a href="/producto/buscar/gabinete" class="menu__link menu__link--verde">GABINETES</a></li>
+                            <li><a href="/producto/buscar/refrigeracion" class="menu__link menu__link--verde">REFRIGERACION</a></li>
+                            <li><a href="/producto/buscar/lectoras" class="menu__link menu__link--verde">LECTORAS</a></li>
+                            <li><a href="/producto/buscar/accesorio" class="menu__link menu__link--verde">ACCESORIOS</a></li>
+                            <li><a href="/producto/buscar/asiento" class="menu__link menu__link--verde">ASIENTOS</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="menu__link">PERIFERICOS</a>
+                        <ul class="menu__submenu">
+                            <li><a href="/producto/buscar/teclado" class="menu__link menu__link--verde">TECLADOS</a></li>
+                            <li><a href="/producto/buscar/mouse" class="menu__link menu__link--verde">MOUSES</a></li>
+                            <li><a href="/producto/buscar/pad" class="menu__link menu__link--verde">PADS</a></li>
+                            <li><a href="/producto/buscar/auriculares" class="menu__link menu__link--verde">AURICULARES</a></li>
+                            <li><a href="/producto/buscar/parlante" class="menu__link menu__link--verde">PARLANTES</a></li>
+                            <li><a href="/producto/buscar/jostick" class="menu__link menu__link--verde">JOYSTICKS</a></li>
+                            <li><a href="/producto/buscar/monitor" class="menu__link menu__link--verde">MONITORES</a></li>
+                            <li><a href="/producto/buscar/impresora" class="menu__link menu__link--verde">IMPRESORAS</a></li>
+                            <li><a href="/producto/buscar/microfono" class="menu__link menu__link--verde">MICROFONO</a></li>
+                        </ul>
+                    </li>
                     <li><a href="" class="menu__link menu__link--verde">ARMA TU PC</a></li>
                     <li><a href="" class="menu__link">ARMA TU COMBO</a></li>
                     <li><a href="" class="menu__link">PAGO QR</a></li>

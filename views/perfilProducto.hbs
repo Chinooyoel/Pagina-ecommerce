@@ -40,40 +40,18 @@
             
         <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
         <section class="centro max1400">
-            <h3 class="titulo">PRODUCTOS DESTACADOS</h3>
+            <h3 class="titulo">PRODUCTOS RELACIONADOS</h3>
             <article class="flex-contenedor">
+                {{#each productosRelacionados }}
                 <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
+                    <a href="/product/profile/{{ this._id}}" class="producto__interaccionArticulo">
+                        <img src="/assets/img/{{ this.img }}" class="producto__img">
                         <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
+                        {{ this.nombre }}
                     </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
+                    <figcaption class="producto__precio">ARS {{ this.precio }}</figcaption>
                 </figure>
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
+                {{/each}}
             </article>
         </section>
     </section>

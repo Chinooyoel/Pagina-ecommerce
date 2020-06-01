@@ -1,39 +1,37 @@
 {{>head}}
     
     <section class="max1400">
-        <section class="flex-contenedor">
+        <form id="productForm" method="POST" action="/product/update/{{productoDB._id}}" class="flex-contenedor" enctype="multipart/form-data">
             <figure class="galeria__figure">
-                <img src="/assets/img/{{usuarioDB.img}}" class="galeria__figure--tamanioPerfil" id="imagenProducto">
-                <form id="subirFoto" method="POST" enctype="multipart/form-data" action="/upload/producto/{{usuarioDB._id}}">
-                    <input type="file" name="imagen">
-                </form>
-                    <button class="campoBoton campoBoton--verdeOscuro" id="botonSubirFoto">Cambiar foto</button>
+                <img src="/assets/img/{{productoDB.img}}" class="galeria__figure--tamanioPerfil" id="imagenProducto">
+                <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
+                <input type="file" name="imagen" id="elegirFoto">
             </figure>
             <article class="caracteristicas">
-                <form id="productForm" method="POST" action="/product/update/{{usuarioDB._id}}">
+                <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input" value="{{usuarioDB.nombre}}">
+                    <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input" value="{{productoDB.nombre}}">
                     <label for="categoria" class="formulario__label">Categoria</label>
-                    <input type="text" name="categoria" id="categoria" class="campo-imput formulario__input" value="{{usuarioDB.categoria}}">
+                    <input type="text" name="categoria" id="categoria" class="campo-imput formulario__input" value="{{productoDB.categoria}}">
                     <label for="marca" class="formulario__label">Marca</label>
-                    <input type="text" name="marca" id="marca" class="campo-imput formulario__input" value="{{usuarioDB.marca}}">            
+                    <input type="text" name="marca" id="marca" class="campo-imput formulario__input" value="{{productoDB.marca}}">            
                     <label for="codigo" class="formulario__label">Codigo</label>
-                    <input type="text" name="codigo" id="codigo" class="campo-imput formulario__input" value="{{usuarioDB.codigo}}">     
+                    <input type="text" name="codigo" id="codigo" class="campo-imput formulario__input" value="{{productoDB.codigo}}">     
                     <label for="garantia" class="formulario__label">Garantia</label>
-                    <input type="text" name="garantia" id="garantia" class="campo-imput formulario__input" value="{{usuarioDB.garantia}}">     
+                    <input type="text" name="garantia" id="garantia" class="campo-imput formulario__input" value="{{productoDB.garantia}}">     
                     <label for="stock" class="formulario__label">Stock</label>
-                    <input type="text" name="stock" id="stock" class="campo-imput formulario__input--corto" value="{{usuarioDB.stock}}">
+                    <input type="text" name="stock" id="stock" class="campo-imput formulario__input--corto" value="{{productoDB.stock}}">
                     <label for="precio" class="formulario__label">Precio</label>
-                    <input type="text" name="precio" id="precio" class="campo-imput formulario__input--corto" value="{{usuarioDB.precio}}">  
-                </form>
+                    <input type="text" name="precio" id="precio" class="campo-imput formulario__input--corto" value="{{productoDB.precio}}">  
+                </section>
             </article>
-        </section>
-        <textarea form="productForm" class="textoNota" name="descripcion">{{usuarioDB.descripcion}}</textarea>
+        </form>
+        <textarea form="productForm" class="textoNota" name="descripcion">{{productoDB.descripcion}}</textarea>
         <input form="productForm" type="submit" value="Actualizar" class="campoBoton campoBoton--verdeOscuro">
         <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
     </section>
 
     <script src="/assets/js/main.js"></script>
     <script>
-        funcionSubirFoto(`http://localhost:3000/upload/producto/{{usuarioDB._id}}`);
+        funcionMostrarFoto();
     </script>

@@ -191,6 +191,9 @@ html header{
     .menu__link--verde{
         color:#1eff00;
     }
+    .menu__link--verde:hover{
+        color:#1e8610;
+    }
 
 
 /*--------------------------------------USUARIO CARRITO-----------------------------------*/

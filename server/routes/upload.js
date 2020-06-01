@@ -4,7 +4,6 @@ const Producto = require("../models/producto");
 const fs = require("fs");
 
 app.post("/upload/:tipo/:id", ( req, res ) => {
-    console.log(req);
     if(!req.files){
         return res.status(400).json({
             ok: false,
@@ -48,11 +47,12 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
                 };
                 
                 productoDB.img = nombreGenerado;
-                productoDB.save();
-                return res.status(200).json({
-                    ok: true,
-                    src: `/assets/img/${ productoDB.img }`
-                })
+                productoDB.save();                
+
+                return res.status(200)
+                    .render("perfilProducto", {
+                        productoDB
+                    })
             });
         })
 
@@ -64,10 +64,6 @@ app.pos
 
 module.exports=app;
 
-let guardarImagenEnBD = ( id, nombreDelArchivo, res ) => {
-
-
-}
 
 let borrarArchivo = ( path )=>{
     if( fs.existsSync(path) )

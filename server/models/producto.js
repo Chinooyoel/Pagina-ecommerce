@@ -39,6 +39,10 @@ let productoSchema = new Schema({
     garantia : {
         type: String,
         required: true
+    },
+    estado: {
+        type: Boolean,
+        default: true
     }
 })
 

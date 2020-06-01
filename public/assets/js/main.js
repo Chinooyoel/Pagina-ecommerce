@@ -2,6 +2,8 @@ window.onload = () =>{
 
     funcionModal();
     funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
+    funcionParaMostrarSubmenu();
+    funcionBuscadorGeneral();
     
 }
 
@@ -84,7 +86,6 @@ function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
     //evento mouseenter, ocurre cuando el raton entra o esta encima del elemento
     elementoInteractivo[i].addEventListener("mouseenter", () => {
         let hijosDelElementoInteractivo = elementoInteractivo[i].children;
-        console.log(hijosDelElementoInteractivo)
 
         hijosDelElementoInteractivo[0].style.opacity = 0.5;
         hijosDelElementoInteractivo[1].style.display = "block";
@@ -121,12 +122,12 @@ function mostrarUsuarioEnTabla( usuarioArray ){
     })
 }
 
-function funcionBuscarProducto() {
-    let buscador = document.getElementById("buscarProducto");
+function funcionBuscarProductoParaTabla() {
+    let buscadorTabla = document.getElementById("buscarProducto");
 
-    buscador.addEventListener("keydown", () => {
-        if( buscador.value ){
-            enviarPeticion("POST", `http://localhost:3000/producto/buscar/${ buscador.value }`, ( respuesta ) => {
+    buscadorTabla.addEventListener("keypress", () => {
+        if( buscadorTabla.value ){
+            enviarPeticion("GET", `http://localhost:3000/producto/admin/buscar/${ buscadorTabla.value }`, ( respuesta ) => {
 
             mostrarProductoEnTabla( respuesta.productosDB );
             })
@@ -147,7 +148,7 @@ function mostrarProductoEnTabla( productoArray ){
             <th class="tabla__campo">${ producto.categoria }</th>
             <th class="tabla__campo tabla__campo--verde">${ producto.stock }</th>
             <th class="tabla__campo">$${ producto.precio }.00</th>
-            <th class="tabla__campo"><a href="/product/update/${ producto._id }">Editar</a> - <a href="/product/profile/${ producto._id }">Eliminar</a></th>
+            <th class="tabla__campo"><a href="/product/update/${ producto._id }">Editar</a> - <a href="/product/remove/${ producto._id }">Eliminar</a></th>
         </tr>`
     })
 }
@@ -185,6 +186,78 @@ function enviarPeticion( metodo, url, callback ) {
     xhttp.send();
 }
 
+function funcionMostrarFoto() {
+    let botonInputFileEstilizado = document.getElementById("botonInputFileEstilizado")
+    let inputFile = document.getElementById("elegirFoto");
+    let output = document.getElementById("imagenProducto");
+
+    botonInputFileEstilizado.addEventListener("click", () => {
+        inputFile.click();
+    })
+
+    inputFile.addEventListener("change", ( event ) => {
+        let readerFile = new FileReader();
+
+        readerFile.onload = ( e ) => {
+            output.src = e.target.result
+        }
+
+        readerFile.readAsDataURL( event.target.files[0] )
+    })
+}
+
+function funcionParaMostrarSubmenu(){
+    let listSubmenu = document.getElementsByClassName("menu__submenu");
+    
+    for( let submenu of listSubmenu){
+
+        submenu.previousElementSibling.addEventListener("click", ( ) => {
+            if( submenu.style.display === "none" || !submenu.style.display){
+                submenu.style.display = "block"
+            }else{
+                submenu.style.display = "none";
+            }        
+        })
+    }
+    
+
+}
+
+function funcionBuscadorGeneral(){
+    let botonBuscador = document.getElementById("buscadorGeneral");
+    let inputBuscador = document.getElementById("inputBuscar");
+    let valorBuscador;
+
+    botonBuscador.addEventListener("click", () => {
+        valorBuscador = inputBuscador.value || "a";
+        window.location.href=`/producto/buscar/${ valorBuscador }`;
+    })
+
+    inputBuscador.addEventListener("keydown", ( event ) => {
+        if( event.keyCode === 13 ){
+            valorBuscador = inputBuscador.value || "a";
+            window.location.href=`/producto/buscar/${ valorBuscador }`;
+        }
+    })
+}
+/*
+function funcionBuscarProducto(){
+    let buscadorGeneral = document.getElementById("buscadorGeneral")
+    let inputBuscar = document.getElementById("inputBuscar");
+    
+    buscadorGeneral.addEventListener("click", () => {
+        funcionMostrarProducto( inputBuscar.value );
+    });
+}
+
+function funcionMostrarProducto( dato ){
+
+    console.log("llego")
+    enviarPeticion("GET", `http://localhost:3000/producto/buscar/${ dato }`, ( resultado ) => {
+        console.log(resultado);
+    });
+
+}
 /*
 function funcionSubirFoto(){
     let boton = document.getElementById("botonSubirFoto");
@@ -213,7 +286,7 @@ function funcionSubirFoto(){
 
 }
 */
-
+/*
 function funcionSubirFoto( url ){
     let boton = document.getElementById("botonSubirFoto");
     let elementoImg = document.getElementById("imagenProducto");
@@ -245,3 +318,5 @@ function funcionSubirFoto( url ){
 
 
 }
+
+*/

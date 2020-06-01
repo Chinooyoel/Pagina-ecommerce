@@ -8,7 +8,7 @@
 }
 
     .listaMarca__img{
-        height: 20px;
+        height: 30px;
         padding:5px;
         padding-right: 30px;
 
@@ -101,4 +101,16 @@
 
 .banner2{
     max-width: 50%;
+}
+
+#elegirFoto{
+    display: none;
+}
+
+.menu__submenu{
+    position: absolute;
+    background:black;
+    font-size: 0.8em;
+    display: none;
+    z-index: 100;
 }

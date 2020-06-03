@@ -9,7 +9,7 @@ let verificarToken = ( req, res, next ) => {
     let token = req.get("token");
 
 
-    jwt.verify(token, "semillaLocal", ( err, decodificado ) => {
+    jwt.verify(token, process.env.semillaToken, ( err, decodificado ) => {
         if( err ) {
             return res.status(400).json({
                 message: "Token invalido",

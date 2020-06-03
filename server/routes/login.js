@@ -35,7 +35,7 @@ app.post("/login", ( req, res ) => {
                 role : usuarioDB.role,
             }
 
-        }, "semillaLocal", { expiresIn: 60 * 60 * 24 * 30 });
+        }, process.env.semillaToken, { expiresIn: 60 * 60 * 24 * 30 });
 
         res.json({
             message: "Credenciales validas",

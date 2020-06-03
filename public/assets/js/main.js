@@ -4,6 +4,8 @@ window.onload = () =>{
     funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
     funcionParaMostrarSubmenu();
     funcionBuscadorGeneral();
+    funcionAbrirMenuResponsive();
+
     
 }
 
@@ -237,6 +239,19 @@ function funcionBuscadorGeneral(){
         if( event.keyCode === 13 ){
             valorBuscador = inputBuscador.value || "a";
             window.location.href=`/producto/buscar/${ valorBuscador }`;
+        }
+    })
+}
+
+function funcionAbrirMenuResponsive(){
+    let boton = document.getElementById("botonMenuResponsive");
+    let menu = document.getElementsByClassName("menu")[0];
+
+    boton.addEventListener("click", () => {
+        if( menu.style.display === "none" || !menu.style.display ){
+            menu.style.display = "block";
+        }else{
+            menu.style.display = "none"
         }
     })
 }

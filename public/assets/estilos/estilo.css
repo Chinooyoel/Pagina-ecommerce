@@ -224,3 +224,10 @@ html header{
 .abrilModalRegistrarse--verde{
     color: #1eff00;
 }
+
+#botonMenuResponsive{
+    display:none;
+}
+#botonMenuResponsive i{
+    font-size: 2.1em;
+}

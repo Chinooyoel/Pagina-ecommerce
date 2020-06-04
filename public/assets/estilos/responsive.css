@@ -1,10 +1,20 @@
-@media (min-width: 481px) and (max-width: 767px){
+@media (max-width: 767px){
     .listaLightboxMarca__link__img{
         height: 65px;
     }
     .titulo{
         background: blue;
     }
+    .titulo::after, .titulo::before{
+        width: 10%;
+    }
+    .titulo::after{
+        right: -10%;
+    }
+    .titulo::before{
+        left: -10%;
+    }
+
     .especificacion{
         max-width: 42%;
     }
@@ -53,13 +63,38 @@
     #botonMenuResponsive{
         display: block;
     }
+    .ubicacion, .formulario{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .ubicacion .mapa{
+        height: auto;
+    }
+    .categoria, .lista-productos, .caracteristicas, .galeria__figure{
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px){
+    .listaMarca__img{
+        height: 25px;
+    }
     .titulo{
-        background:black;
+        font-size: 1.4em;
+    }
+    .informacion{
+        flex-direction: column;
+    }
+    .informacion__bloque{
+        border-bottom: 1px solid grey;
+        border-left: none;
+    }
+    .modalVentana{
+        width: 90vw;
     }
 
-
+    .lista-productos .producto{
+        width: 90%;
+    }
 
 }

@@ -31,5 +31,8 @@ app.get("/admin", ( req, res ) => {
 
     res.render("admin");
 })
+app.get("/armar", ( req, res )=> {
 
+    res.render("armarPc");
+})
 module.exports = app;

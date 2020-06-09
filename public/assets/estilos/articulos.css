@@ -38,3 +38,61 @@
         color:white;
         padding: 8px;
     }
+
+
+
+.infoArmado{
+    width: 30%;
+    border: 1px dashed rgb(129, 129, 129);
+    padding: 10px;
+}
+.infoArmado__articulo{
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border-bottom: 1px dashed rgb(129, 129, 129);
+    justify-content: start;
+    align-items: center;
+}
+.infoArmado__articulo__img{
+    width: 60px;
+}
+.infoArmado__texto{
+    text-align: start;
+    margin-left: 30px;
+}
+
+.listaProducto{
+    width: 65%;
+}
+
+.listaProducto__articulo{
+    border: 1px solid rgb(129, 129, 129);
+    width: 46%;
+    min-height: 100px;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-right: 4%;
+    margin-bottom: 10px;
+}
+.listaProducto__articulo:hover{
+    border: 1px solid rgb(0, 95, 0);
+}
+.listaProducto__encabezado{
+    width: 100%;
+    justify-content: start;
+    padding: 10px;
+    align-items: center;
+}
+.listaProducto__articulo__img{
+    width: 70px;
+    margin-right: 5px;
+}
+
+.flex-contenedor-start{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+    height: min-content;
+}

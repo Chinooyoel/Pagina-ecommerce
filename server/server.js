@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const connection = require("./mysql/mysql");
 
 let port = process.env.PORT || 3000;
 
@@ -26,12 +27,14 @@ app.use(fileUpload());
 app.use(require("./routes/index"));
 
 //Conectamos a la base de datos
-mongoose.connect("mongodb://localhost:27017/cafe2", {useNewUrlParser: true},
-    ( err ) => {
-        if ( err ) throw err;
-        console.log("BASE DE DATOS LISTA !");
-    })
+connection.connect( ( error ) => {
+    if( error ){
+        console.log("No se pudo conectar a la base de datos.\n", error);
+        return;
+    }
 
+    console.log("Base de datos connectada");
+})
 
 app.listen( port, () => {
     console.log(`El server se esta ejecutando en el puerto ${ port }`);

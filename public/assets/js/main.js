@@ -113,13 +113,12 @@ function mostrarUsuarioEnTabla( usuarioArray ){
     usuarioArray.forEach( ( usuario, index ) => {
         tablaUsuario.innerHTML += 
         `<tr class="tabla__fila">
-            <th class="tabla__campo">${ index + 1 }</th>
+            <th class="tabla__campo">${ usuario.idusuario }</th>
             <th class="tabla__campo tabla__campo--alignStart">${ usuario.apellido}, ${ usuario.nombre}</th>
-            <th class="tabla__campo tabla__campo--verde">${ usuario.estado}</th>
+            <th class="tabla__campo tabla__campo--verde">${ usuario.estado }</th>
             <th class="tabla__campo">${ usuario.email }</th>
-            <th class="tabla__campo">${ usuario.telefono }</th>
             <th class="tabla__campo">0</th>
-            <th class="tabla__campo"><a href="/usuario/perfil/${ usuario._id }">Mas info</a></th>
+            <th class="tabla__campo"><a href="/usuario/perfil/${ usuario.idusuario }">Mas info</a></th>
         </tr>`
     })
 }
@@ -161,7 +160,7 @@ function funcionBuscarUsuario () {
 
     buscador.addEventListener("keydown", () => {
         if( buscador.value ){
-            enviarPeticion("POST", `http://localhost:3000/usuario/buscar/${ buscador.value }`, ( respuesta ) => {
+            enviarPeticion("GET", `http://localhost:3000/usuario/buscar/${ buscador.value }`, ( respuesta ) => {
                 let usuarioArray = respuesta.usuariosDB;
 
                 mostrarUsuarioEnTabla( usuarioArray );
@@ -179,7 +178,6 @@ function enviarPeticion( metodo, url, callback ) {
 
         if( this.readyState == 4 && this.status == 200 ) {
             let respuestaObj = JSON.parse(this.responseText);
-            
             callback(respuestaObj);            
         }
     }

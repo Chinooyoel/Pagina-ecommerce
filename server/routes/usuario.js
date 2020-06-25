@@ -3,10 +3,13 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
 const { verificarToken, verificarAdminRole } = require("../middleware/autenticacion");
+const connection = require("../mysql/mysql");
 
 
 
 app.get("/usuario" , (req, res) => {
+    res.render("tablaUsuarios");
+    /*
     Usuario.find({}, ( error, usuariosDB ) => {
         if( error ) {
             return res.status(500).json({
@@ -17,33 +20,29 @@ app.get("/usuario" , (req, res) => {
 
         res.render("tablaUsuarios");
     })
+    */
 })
 
 
 
 app.post("/usuario/guardar", ( req, res ) => {
-    let {nombre, apellido, telefono, documento, email, password} = req.body;
+    let {nombre, apellido, email, password} = req.body;
     let passwordEncriptada = bcrypt.hashSync(password, 10);
 
-    let usuario = new Usuario({
-        nombre,
-        apellido,
-        telefono,
-        documento,
-        email,
-        password: passwordEncriptada
+    let query = `CALL InsertarUsuario("${ nombre }", "${ apellido }", "${ email }", "${ passwordEncriptada }");`;
+
+    connection.query( query, ( error, results, fields) => {
+        if( error ){
+            res.status(500)
+                .json({
+                    ok: false,
+                    msj: "Error interno"
+                });
+        }
+        console.log(results);
+        console.log(fields);
     });
 
-    usuario.save( ( err, usuario ) => {
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err
-            })
-        }
-
-        res.render("index");
-    })
 })
 
 
@@ -54,11 +53,31 @@ app.post("/usuario/actualizar/:id", ( req, res ) => {
     let estado;
 
     if(body.estado === "activo"){
-        estado = true;
+        estado = 'A';
     }else if(body.estado === "inactivo"){
-        estado = false;
+        estado = 'I';
     }
 
+    let sql = `CALL actualizarUsuario( ${ id }, '${ body.nombre }', '${ body.apellido }', '${ body.email }', '${ estado }', '${ body.nota }')`;
+
+    connection.query( sql, (error) => {
+        if ( error ) {
+            return res.status(500)
+                .json({
+                    error
+                })
+        }
+
+        let sql = `CALL buscarUsuarioPorId( ${ id })`; 
+        connection.query( sql, ( error, results ) => {
+            res.render("perfilUsuario", {
+                usuarioDB : results[0][0]
+            });
+        })
+    })
+});
+    /*
+    
     Usuario.findOneAndUpdate({_id : id}, { estado: estado, nota: body.nota}, { new: true }, ( error, usuarioDB ) => {
         if ( error ) {
             res.status(500);
@@ -71,14 +90,30 @@ app.post("/usuario/actualizar/:id", ( req, res ) => {
             usuarioDB
         })     
     })
-});
+    */
 
 
 
-app.post("/usuario/buscar/:data", ( req, res ) => {
+
+app.get("/usuario/buscar/:data", ( req, res ) => {
     let data = req.params.data;
-    let expresionRegular = new RegExp(data, "i");
+    let expresionRegular = data + "+";
 
+    let sql = `CALL buscarUsuarios("${ expresionRegular }")`;
+
+    connection.query(sql, ( error, results ) => {
+        if( error ){
+            return res.status(500)
+                .json({
+                    ok: false,
+                    error
+                })
+        }
+        res.json({
+            usuariosDB : results[0]
+        })
+    })
+    /*
     Usuario.find({nombre: expresionRegular}, ( error, usuariosDB) => {
         if ( error ) {
             return res.status(500)
@@ -91,6 +126,9 @@ app.post("/usuario/buscar/:data", ( req, res ) => {
             usuariosDB
         });
     })
+    */
+
+    
 })
 
 
@@ -98,15 +136,27 @@ app.post("/usuario/buscar/:data", ( req, res ) => {
 app.get("/usuario/perfil/:id", ( req, res ) => {
     let id = req.params.id;
 
-    Usuario.findOne({_id:id}, ( error, usuarioDB ) => {
+    let sql = `CALL buscarUsuarioPorId( ${ id } );`;
+
+    connection.query( sql, ( error, results, fields ) => {
         if ( error ) {
-            res.status(500);
-            res.json({
+            return res.status(500)
+                .json({
                 error
             })
         }
+        let usuariosDB = results[0];
+
+        if( usuariosDB.length === 0 ){
+            return res.status(400)
+                .json({
+                    ok:false,
+                    msj: "No se encontro el usuario"
+                });
+        }
+        
         res.render("perfilUsuario", {
-            usuarioDB
+            usuarioDB : usuariosDB[0]
         })
     })
 })

@@ -145,11 +145,12 @@ function mostrarProductoEnTabla( productoArray ){
         tablaProducto.innerHTML += 
         `<tr class="tabla__fila">
             <th class="tabla__campo">${ index + 1 }</th>
-            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto._id }">${ producto.nombre }</a></th>
+            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.idproducto }">${ producto.nombre }</a></th>
             <th class="tabla__campo">${ producto.categoria }</th>
             <th class="tabla__campo tabla__campo--verde">${ producto.stock }</th>
             <th class="tabla__campo">$${ producto.precio }.00</th>
-            <th class="tabla__campo"><a href="/product/update/${ producto._id }">Editar</a> - <a href="/product/remove/${ producto._id }">Eliminar</a></th>
+            <th class="tabla__campo">$${ producto.costo }.00</th>
+            <th class="tabla__campo"><a href="/product/update/${ producto.idproducto }">Editar</a> - <a href="/product/remove/${ producto._id }">Eliminar</a></th>
         </tr>`
     })
 }
@@ -333,3 +334,33 @@ function funcionSubirFoto( url ){
 }
 
 */
+
+function eventoCategoria() {
+    let selectCategoria = document.getElementById("categoria");
+
+
+    selectCategoria.addEventListener("change", ( e ) => {
+  
+        let atributoCreado = document.createAttribute("data-categoria");
+        atributoCreado.value = selectCategoria.value;
+        selectCategoria.setAttributeNode(atributoCreado);
+
+
+        let idCategoria = selectCategoria.dataset.categoria;
+        let arraySubcategoria = document.getElementsByClassName("subcategoria");
+
+        filtrarCategoria( idCategoria, arraySubcategoria )
+    })
+}
+
+
+function filtrarCategoria( idCategoria, arraySubcategoria ){
+    console.log(arraySubcategoria[0].dataset.categoria)
+    for( let i = 0; i < arraySubcategoria.length; i++ ){
+        if( arraySubcategoria[i].dataset.categoria === idCategoria ){
+            arraySubcategoria[i].style.display = "block";
+        }else{
+            arraySubcategoria[i].style.display = "none";
+        }
+    }
+}

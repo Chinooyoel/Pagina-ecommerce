@@ -9,18 +9,6 @@ const connection = require("../mysql/mysql");
 
 app.get("/usuario" , (req, res) => {
     res.render("tablaUsuarios");
-    /*
-    Usuario.find({}, ( error, usuariosDB ) => {
-        if( error ) {
-            return res.status(500).json({
-                message: "error interno",
-                error
-            })
-        }
-
-        res.render("tablaUsuarios");
-    })
-    */
 })
 
 
@@ -154,7 +142,11 @@ app.get("/usuario/perfil/:id", ( req, res ) => {
                     msj: "No se encontro el usuario"
                 });
         }
-        
+        if( usuariosDB[0].estado == 'A'){
+            usuariosDB[0].estado = "ACTIVADO"
+        }else{
+            usuariosDB[0].estado = "DESACTIVADO"
+        }
         res.render("perfilUsuario", {
             usuarioDB : usuariosDB[0]
         })

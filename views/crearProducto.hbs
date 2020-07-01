@@ -11,10 +11,30 @@
                 <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
                     <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input">
-                    <label for="categoria" class="formulario__label">Categoria</label>
-                    <input type="text" name="categoria" id="categoria" class="campo-imput formulario__input">
                     <label for="marca" class="formulario__label">Marca</label>
-                    <input type="text" name="marca" id="marca" class="campo-imput formulario__input">            
+                    <select id="marca" name="marca">
+                        {{#each marcasDB }}
+                        <option value="{{ IdMarca }}">{{Nombre}}</option>
+                        {{/each}}
+                    </select>    
+                    <label for="categoria" class="formulario__label">Categoria</label>
+                    <select id="categoria" name="categoria">
+                        {{#each categoriasDB }}
+                        <option value="{{ IdCategoria }}" data-categoria="{{ IdCategoria }}">{{Nombre}}</option>
+                        {{/each}}
+                    </select> 
+                    <label for="subcategoria" class="formulario__label">Subcategoria</label>
+                    <select id="subcategoria" name="subcategoria">
+                        {{#each subcategoriasDB}}
+                        <option value="{{IdSubcategoria}}"  data-categoria="{{Categoria_IdCategoria}}"  class="subcategoria">{{Nombre}}</option>
+                        {{/each}}
+                    </select> 
+                    <label for="proveedor" class="formulario__label">Proveedor</label>
+                    <select id="proveedor" name="proveedor">
+                        {{#each proveedoresDB }}
+                        <option value="{{ IdProveedor }}">{{Nombre}}</option>
+                        {{/each}}
+                    </select> 
                     <label for="codigo" class="formulario__label">Codigo</label>
                     <input type="text" name="codigo" id="codigo" class="campo-imput formulario__input">     
                     <label for="garantia" class="formulario__label">Garantia</label>
@@ -35,5 +55,6 @@
 
    <script src="/assets/js/main.js"></script>
     <script>
-        funcionMostrarFoto();
+        //funcionMostrarFoto();
+        eventoCategoria();
     </script>

@@ -48,7 +48,7 @@
             <section class="flex-contenedor-start lista-productos">
                 {{#each productosDB }}
                 <figure class="producto">
-                    <a href="/product/profile/{{ this._id }}" class="producto__interaccionArticulo">
+                    <a href="/product/profile/{{ this.id }}" class="producto__interaccionArticulo">
                         <img src="/assets/img/{{ this.img }}" class="producto__img">
                         <span class="producto__mas-info">[MÁS INFO]</span>
                         {{ this.nombre }}

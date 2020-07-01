@@ -1,7 +1,7 @@
 {{>head}}
     
     <section class="max1400">
-        <form id="productForm" method="POST" action="/product/update/{{productoDB._id}}" class="flex-contenedor" enctype="multipart/form-data">
+        <form id="productForm" method="POST" action="/product/update/{{productoDB.idproducto}}" class="flex-contenedor" enctype="multipart/form-data">
             <figure class="galeria__figure">
                 <img src="/assets/img/{{productoDB.img}}" class="galeria__figure--tamanioPerfil" id="imagenProducto">
                 <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
@@ -11,10 +11,36 @@
                 <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
                     <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input" value="{{productoDB.nombre}}">
-                    <label for="categoria" class="formulario__label">Categoria</label>
-                    <input type="text" name="categoria" id="categoria" class="campo-imput formulario__input" value="{{productoDB.categoria}}">
+                    <label for="subcategoria" class="formulario__label">Subcategoria</label>
+                    <select id="subcategoria" name="subcategoria">
+                        {{#each subcategoriasDB}}
+                            {{#if objetivo}}
+                                <option value="{{IdSubcategoria}}"  selected>{{Nombre}}</option>
+                            {{else}}
+                                <option value="{{IdSubcategoria}}">{{Nombre}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
                     <label for="marca" class="formulario__label">Marca</label>
-                    <input type="text" name="marca" id="marca" class="campo-imput formulario__input" value="{{productoDB.marca}}">            
+                    <select id="marca" name="marca">
+                        {{#each marcasDB}}
+                            {{#if objetivo}}
+                                <option value="{{IdMarca}}"  selected>{{Nombre}}</option>
+                            {{else}}
+                                <option value="{{IdMarca}}">{{Nombre}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>        
+                    <label for="proveedor" class="formulario__label">Proveedor</label>
+                    <select id="proveedor" name="proveedor">
+                        {{#each proveedoresDB}}
+                            {{#if objetivo}}
+                                <option value="{{IdProveedor}}" selected>{{Nombre}}</option>
+                            {{else}}
+                                <option value="{{IdProveedor}}">{{Nombre}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>       
                     <label for="codigo" class="formulario__label">Codigo</label>
                     <input type="text" name="codigo" id="codigo" class="campo-imput formulario__input" value="{{productoDB.codigo}}">     
                     <label for="garantia" class="formulario__label">Garantia</label>
@@ -23,10 +49,12 @@
                     <input type="text" name="stock" id="stock" class="campo-imput formulario__input--corto" value="{{productoDB.stock}}">
                     <label for="precio" class="formulario__label">Precio</label>
                     <input type="text" name="precio" id="precio" class="campo-imput formulario__input--corto" value="{{productoDB.precio}}">  
+                    <label for="costo" class="formulario__label">Costo</label>
+                    <input type="text" name="costo" id="costo" class="campo-imput formulario__input--corto" value="{{productoDB.costo}}">  
                 </section>
             </article>
         </form>
-        <textarea form="productForm" class="textoNota" name="descripcion">{{productoDB.descripcion}}</textarea>
+        <textarea form="productForm" class="textoNota" name="descripcion">{{productoDB.Descripcion}}</textarea>
         <input form="productForm" type="submit" value="Actualizar" class="campoBoton campoBoton--verdeOscuro">
         <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
     </section>

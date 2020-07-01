@@ -12,8 +12,14 @@
                     <label for="apellido" class="formulario__label">Apellido</label>
                     <input type="text" name="apellido" id="apellido" class="campo-imput formulario__input" value="{{usuarioDB.apellido}}">
                     <label for="email" class="formulario__label">Email</label>
-                    <input type="text" name="email" id="email" class="campo-imput formulario__input" value="{{usuarioDB.email}}">                       </article>
-            </section>
+                    <input type="text" name="email" id="email" class="campo-imput formulario__input" value="{{usuarioDB.email}}">
+                    <label for="estado">Estado actual: {{usuarioDB.estado}}</label>
+                    <select id="estado" name="estado">
+                        <option value="activo">Activar</option>  
+                        <option value="inactivo">Desactivar</option>
+                    </select>
+             </article>
+        </section>
             <textarea class="textoNota" name="nota">{{usuarioDB.nota}}</textarea>
             <input type="submit" value="Actualizar" class="campoBoton campoBoton--verdeOscuro">
     </section>

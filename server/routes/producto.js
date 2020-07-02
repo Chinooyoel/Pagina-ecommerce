@@ -260,9 +260,7 @@ app.get("/product/update/:id", ( req, res )=> {
                     })
             }
     
-    
-    
-            connection.query("SELECT * FROM subcategoria", ( error, subcategoriasDB ) => {
+            connection.query("SELECT * FROM categoria", ( error, categoriasDB ) => {
                 if( error ) {
                     res.status(500)
                         .json({
@@ -271,7 +269,7 @@ app.get("/product/update/:id", ( req, res )=> {
                         })
                 }
     
-                connection.query("SELECT * FROM proveedor", (error, proveedoresDB ) => {
+                connection.query("SELECT * FROM subcategoria", ( error, subcategoriasDB ) => {
                     if( error ) {
                         res.status(500)
                             .json({
@@ -279,25 +277,39 @@ app.get("/product/update/:id", ( req, res )=> {
                                 error
                             })
                     }
+        
+                    connection.query("SELECT * FROM proveedor", (error, proveedoresDB ) => {
+                        if( error ) {
+                            res.status(500)
+                                .json({
+                                    ok:false,
+                                    error
+                                })
+                        }
+        
+                        /*
+                        A cada registro le vamos a agregar una propiedad objetivo que va a ser booleana
+                        Si es true, es porque es la marca, subcategoria y proveedor del producto
+                        y las false son las otras que no tienen nada que ver con el producto
+                        */
+                        marcasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.marca, marcasDB );
+                        categoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.categoria, categoriasDB );
+                        subcategoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.subcategoria, subcategoriasDB );
+                        proveedoresDB = ponerTrueAlElementoIgualALaPalabra( productoDB.proveedor, proveedoresDB );
     
-                    /*
-                    A cada registro le vamos a agregar una propiedad objetivo que va a ser booleana
-                    Si es true, es porque es la marca, subcategoria y proveedor del producto
-                    y las false son las otras que no tienen nada que ver con el producto
-                    */
-                    marcasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.marca, marcasDB );
-                    subcategoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.subcategoria, subcategoriasDB );
-                    proveedoresDB = ponerTrueAlElementoIgualALaPalabra( productoDB.proveedor, proveedoresDB );
-
-
-                    res.render("editarProducto", {
-                        productoDB,
-                        marcasDB,
-                        subcategoriasDB,
-                        proveedoresDB,
-                    });
+    
+                        res.render("editarProducto", {
+                            productoDB,
+                            marcasDB,
+                            categoriasDB,
+                            subcategoriasDB,
+                            proveedoresDB,
+                        });
+                    })
                 })
             })
+    
+
         })
         
     })
@@ -341,7 +353,7 @@ app.post("/product/update/:id", ( req, res ) => {
                     error
                 })
             }
-            console.log("llego")
+
             let productoDB = results[0][0];
             res.render("perfilProducto", {
                 productoDB

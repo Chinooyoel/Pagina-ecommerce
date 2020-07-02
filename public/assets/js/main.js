@@ -338,24 +338,25 @@ function funcionSubirFoto( url ){
 function eventoCategoria() {
     let selectCategoria = document.getElementById("categoria");
 
+    let idCategoria = selectCategoria.value;
+    let arraySubcategoria = document.getElementsByClassName("subcategoria");
+    filtrarCategoria( idCategoria, arraySubcategoria )
 
     selectCategoria.addEventListener("change", ( e ) => {
   
-        let atributoCreado = document.createAttribute("data-categoria");
-        atributoCreado.value = selectCategoria.value;
-        selectCategoria.setAttributeNode(atributoCreado);
-
-
-        let idCategoria = selectCategoria.dataset.categoria;
+        let idCategoria = selectCategoria.value;
         let arraySubcategoria = document.getElementsByClassName("subcategoria");
-
         filtrarCategoria( idCategoria, arraySubcategoria )
+
     })
 }
 
 
 function filtrarCategoria( idCategoria, arraySubcategoria ){
-    console.log(arraySubcategoria[0].dataset.categoria)
+
+    //comparamos el atributo personalizado "categoria" de los elementos option(subcategoria) 
+    //con el parametro idCategoria q recibimos, si es el mismo mostramos la opcion(block)
+    //y si no la ocultamos(none)
     for( let i = 0; i < arraySubcategoria.length; i++ ){
         if( arraySubcategoria[i].dataset.categoria === idCategoria ){
             arraySubcategoria[i].style.display = "block";

@@ -11,16 +11,6 @@
                 <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
                     <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input" value="{{productoDB.nombre}}">
-                    <label for="subcategoria" class="formulario__label">Subcategoria</label>
-                    <select id="subcategoria" name="subcategoria">
-                        {{#each subcategoriasDB}}
-                            {{#if objetivo}}
-                                <option value="{{IdSubcategoria}}"  selected>{{Nombre}}</option>
-                            {{else}}
-                                <option value="{{IdSubcategoria}}">{{Nombre}}</option>
-                            {{/if}}
-                        {{/each}}
-                    </select>
                     <label for="marca" class="formulario__label">Marca</label>
                     <select id="marca" name="marca">
                         {{#each marcasDB}}
@@ -31,6 +21,26 @@
                             {{/if}}
                         {{/each}}
                     </select>        
+                    <label for="categoria" class="formulario__label">Categoria</label>
+                    <select id="categoria" name="categoria">
+                        {{#each categoriasDB}}
+                            {{#if objetivo}}
+                                <option value="{{IdCategoria}}"  selected>{{Nombre}}</option>
+                            {{else}}
+                                <option value="{{IdCategoria}}" >{{Nombre}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                    <label for="subcategoria" class="formulario__label">Subcategoria</label>
+                    <select id="subcategoria" name="subcategoria">
+                        {{#each subcategoriasDB}}
+                            {{#if objetivo}}
+                                <option value="{{IdSubcategoria}}" class="subcategoria" data-categoria="{{Categoria_IdCategoria}}" selected>{{Nombre}}</option>
+                            {{else}}
+                                <option value="{{IdSubcategoria}}" class="subcategoria" data-categoria="{{Categoria_IdCategoria}}" >{{Nombre}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
                     <label for="proveedor" class="formulario__label">Proveedor</label>
                     <select id="proveedor" name="proveedor">
                         {{#each proveedoresDB}}
@@ -61,5 +71,6 @@
 
     <script src="/assets/js/main.js"></script>
     <script>
-        funcionMostrarFoto();
+        //funcionMostrarFoto();
+        eventoCategoria();
     </script>

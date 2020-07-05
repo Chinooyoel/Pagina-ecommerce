@@ -1,48 +1,53 @@
 {{>head}}
     
     <section class="max1400">
+        <section class="panelControl">
+            <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
+        </section>        
         <form id="productForm" method="POST" action="/product/save" class="flex-contenedor" enctype="multipart/form-data">
             <figure class="galeria__figure">
-                <img src="/assets/img/noImagen.jpg" class="galeria__figure--tamanioPerfil" id="imagenProducto">
+                <img src="/assets/img/producto/no-imagen.jpg" class="galeria__figure--tamanioPerfil" id="imagenProducto">
                 <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
                 <input type="file" name="imagen" id="elegirFoto">
             </figure>
             <article class="caracteristicas">
                 <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input">
+                    <input type="text" name="nombre" id="nombre" class="inputEdicion formulario__input">
                     <label for="marca" class="formulario__label">Marca</label>
-                    <select id="marca" name="marca">
+                    <select id="marca" name="marca" class="inputEdicion formulario__input">
                         {{#each marcasDB }}
                         <option value="{{ IdMarca }}">{{Nombre}}</option>
                         {{/each}}
                     </select>    
                     <label for="categoria" class="formulario__label">Categoria</label>
-                    <select id="categoria" name="categoria">
+                    <select id="categoria" name="categoria" class="inputEdicion formulario__input">
                         {{#each categoriasDB }}
                         <option value="{{ IdCategoria }}" >{{Nombre}}</option>
                         {{/each}}
                     </select> 
                     <label for="subcategoria" class="formulario__label">Subcategoria</label>
-                    <select id="subcategoria" name="subcategoria">
+                    <select id="subcategoria" name="subcategoria" class="inputEdicion formulario__input">
                         {{#each subcategoriasDB}}
                         <option value="{{IdSubcategoria}}"  data-categoria="{{Categoria_IdCategoria}}"  class="subcategoria">{{Nombre}}</option>
                         {{/each}}
                     </select> 
                     <label for="proveedor" class="formulario__label">Proveedor</label>
-                    <select id="proveedor" name="proveedor">
+                    <select id="proveedor" name="proveedor" class="inputEdicion formulario__input">
                         {{#each proveedoresDB }}
                         <option value="{{ IdProveedor }}">{{Nombre}}</option>
                         {{/each}}
                     </select> 
                     <label for="codigo" class="formulario__label">Codigo</label>
-                    <input type="text" name="codigo" id="codigo" class="campo-imput formulario__input">     
+                    <input type="text" name="codigo" id="codigo" class="inputEdicion formulario__input">     
                     <label for="garantia" class="formulario__label">Garantia</label>
-                    <input type="text" name="garantia" id="garantia" class="campo-imput formulario__input">     
+                    <input type="text" name="garantia" id="garantia" class="inputEdicion formulario__input">     
                     <label for="stock" class="formulario__label">Stock</label>
-                    <input type="text" name="stock" id="stock" class="campo-imput formulario__input--corto">
+                    <input type="text" name="stock" id="stock" class="inputEdicion formulario__input--corto">
                     <label for="precio" class="formulario__label">Precio</label>
-                    <input type="text" name="precio" id="precio" class="campo-imput formulario__input--corto">
+                    <input type="text" name="precio" id="precio" class="inputEdicion formulario__input--corto">
+                    <label for="costo" class="formulario__label">Costo</label>
+                    <input type="text" name="costo" id="costo" class="inputEdicion formulario__input--corto" value="{{productoDB.Costo}}">  
                 </section>
             </article>
         </form>
@@ -55,6 +60,6 @@
 
    <script src="/assets/js/main.js"></script>
     <script>
-        //funcionMostrarFoto();
+        funcionMostrarFoto();
         eventoCategoria();
     </script>

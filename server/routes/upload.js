@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const Producto = require("../models/producto");
 const fs = require("fs");
+const connection = require("../mysql/mysql");
 
 app.post("/upload/:tipo/:id", ( req, res ) => {
     if(!req.files){
@@ -11,30 +11,34 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
         });
     }
 
+
     let id = req.params.id;
     let tipo = req.params.tipo;
     let archivoImagen = req.files.imagen;
 
     if( tipo == "producto"){
 
-        Producto.findById(id, ( error, productoDB ) => {
+        let sql = `CALL buscarProductoPorId(${ id })`;
+
+        connection.query(sql, ( error, results ) => {
             if( error ) {
                 return res.status(500).json({
                     ok: false,
                     error
                 });
             }
-    
-            if(!productoDB){
+            let productoDB = results[0][0];
+
+            if( productoDB.length === 0 ) {
                 return res.status(400).json({
                     ok: false,
                     msj: "No se encontro el producto"
                 });
             }
             
-            nombreGenerado = generarNombreImagen( productoDB._id, archivoImagen.name );
-
-            archivoImagen.mv(`public/assets/img/${ nombreGenerado }`, ( error ) => {
+            nombreGenerado = generarNombreImagen( productoDB.idproducto, archivoImagen.name );
+            
+            archivoImagen.mv(`public/assets/img/producto/${ nombreGenerado }`, ( error ) => {
                 if( error ) {
                     return res.status(500).json({
                         ok: false,
@@ -42,25 +46,39 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
                     });
                 }
                 
-                if( productoDB.img != "/assets/img/noImagen.jpg"){
-                    borrarArchivo(`public/assets/img/${ productoDB.img }`)
-                };
-                
-                productoDB.img = nombreGenerado;
-                productoDB.save();                
 
-                return res.status(200)
+                //si el nombre de la imagen del producto es diferente a noImagen.jpg, borramos la imagen,
+                //sino, no borramos nada porque estariamos borrando la imagen "no-imagen.jpg" que seria la imagen por defecto
+                if( productoDB.img != "no-imagen.jpg"){
+                    borrarArchivo(`public/assets/img/producto/${ productoDB.img }`)
+                };
+
+
+                let sql = `CALL actualizarImagenProducto(${ productoDB.idproducto }, "${ nombreGenerado }")`;
+                
+                connection.query(sql, ( error, resultadoImagen ) => {
+                    if( error ){
+                        borrarArchivo(`public/assets/img/producto/${ productoDB.img }`)
+                        return res.status(500).json({
+                            ok: false,
+                            error
+                        });
+                    }
+
+                    
+                    productoDB.img = resultadoImagen[0][0].img;
+
+                    return res.status(200)
                     .render("perfilProducto", {
                         productoDB
                     })
-            });
+                    
+                });
+            })
         })
-
     }
 
 })
-
-app.pos
 
 module.exports=app;
 

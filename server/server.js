@@ -21,7 +21,11 @@ hbs.registerPartials( __dirname + "/../views/parciales");
 // configuracion por defecto
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(fileUpload());
+app.use(fileUpload({
+    limits:{
+        fileSize: 5 * 1024 * 1024,
+        }
+}));
 
 //rutas
 app.use(require("./routes/index"));

@@ -14,8 +14,13 @@
 form{
     margin-top: 20px;
 }
-.formulario__label, .formulario__input, .formulario__textarea{
+.formulario__input, .formulario__textarea{
     width: 100%;
+    font-size: 1.1em;
+}
+.formulario__label{
+    display: inline-block;
+    margin-bottom: 4px;
     font-size: 1.1em;
 }
 .campo-imput{
@@ -29,7 +34,22 @@ form{
     border: rgb(156, 156, 156) solid 1px;
     background-color: #f8f8f8;
 }
-
+.inputEdicion{
+    background: rgb(192, 192, 192);
+    border-bottom: 1px solid rgb(116, 114, 114);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 4px;
+    font-size: 1.1em;
+    margin-bottom: 6px;
+}
+.inputEdicion:focus{
+    border-bottom: 1px solid rgb(116, 114, 114);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
 .formulario p, .ubicacion p{
     margin-bottom: 8px;
 }

@@ -1,5 +1,4 @@
 const express = require("express");
-const Producto = require("../models/producto");
 const connection = require("../mysql/mysql");
 let app = express();
 
@@ -8,7 +7,8 @@ app.get("/producto", ( req, res ) => {
 })
 app.get("/product/save", ( req, res ) => {
 
-    connection.query("SELECT * FROM marca", ( error, marcasDB ) => {
+    let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
+    connection.query(sql, ( error, tablas ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -16,48 +16,17 @@ app.get("/product/save", ( req, res ) => {
                     error
                 })
         }
-
-
-        connection.query("SELECT * FROM categoria", ( error, categoriasDB ) => {
-            if( error ) {
-                res.status(500)
-                    .json({
-                        ok:false,
-                        error
-                    })
-            }
-
-            connection.query("SELECT * FROM subcategoria", ( error, subcategoriasDB ) => {
-                if( error ) {
-                    res.status(500)
-                        .json({
-                            ok:false,
-                            error
-                        })
-                }
-
-                connection.query("SELECT * FROM proveedor", (error, proveedoresDB ) => {
-                    if( error ) {
-                        res.status(500)
-                            .json({
-                                ok:false,
-                                error
-                            })
-                    }
     
-                    res.render("crearProducto", {
-                        marcasDB,
-                        categoriasDB,
-                        subcategoriasDB,
-                        proveedoresDB
-                    });
-                })
-            })
-        })
+        res.render("crearProducto", {
+            categoriasDB: tablas[0],
+            subcategoriasDB: tablas[1],
+            marcasDB: tablas[2],
+            proveedoresDB: tablas[3]
+        });
+
     })
-
-    
 })
+
 app.get("/producto/admin/buscar/:dato", ( req, res ) => {
     let dato = req.params.dato;
     let expresionRegular = dato + "+";
@@ -72,37 +41,28 @@ app.get("/producto/admin/buscar/:dato", ( req, res ) => {
                     error
                 })
         }
-
         let productosDB = results[0];
 
         res.json({
             productosDB
         })
     })
-    /*
-    Producto.find({$and: [{nombre: expresionRegular}/*,{estado: true}]}, (error, productosDB) => {
-        if( error ) {
-            return res.status(500).json({
-                ok:false,
-                error
-            })
-        }
-
-        res.json({
-            productosDB
-        })
-    })
-    */
 })
 
-app.get("/producto/buscar/:dato", ( req, res ) => {
-    let dato = req.params.dato;
-    let expresionRegular = dato + "+";
+app.get("/producto/buscar/idcat=:idcat/idsub=:idsub/idmarca=:marca/palabra=:palabra", ( req, res ) => {
+    let palabra = req.params.palabra;
+    let idCategoria = req.params.idcat;
+    let idSubcategoria = req.params.idsub;
+    let marca = req.params.marca;
 
+    let expresionRegular;
+    if( palabra ){
+        expresionRegular = palabra + "+";
+    }
 
-    let sql = `CALL buscarProductos("${ expresionRegular }");`
+    let sql = crearSentenciaSQLParaBuscarProductos( expresionRegular, idCategoria, idSubcategoria, marca );
 
-    connection.query(sql, ( error, results ) => {
+    connection.query(sql[0], ( error, productosDB ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -111,29 +71,44 @@ app.get("/producto/buscar/:dato", ( req, res ) => {
                 })
         }
 
-        let productosDB = results[0];
-
-        res.render("articulo", {
-            productosDB
-        })
-    })
-    /*
-    Producto.find({ $or : [{nombre: expresionRegular},
-                        {categoria: expresionRegular},
-                        {marca: expresionRegular}] 
-    }, (error, productosDB) => {
-        if( error ) {
-            return res.status(500).json({
-                ok:false,
-                error
+        connection.query(sql[1], ( error, categoriasDB ) => {
+            if( error ) {
+                res.status(500)
+                    .json({
+                        ok:false,
+                        error
+                    })
+            }
+            connection.query(sql[2], ( error, subcategoriasDB ) => {
+                if( error ) {
+                    res.status(500)
+                        .json({
+                            ok:false,
+                            error
+                        })
+                }
+                connection.query(sql[3], ( error, marcasDB ) => {
+                    if( error ) {
+                        res.status(500)
+                            .json({
+                                ok:false,
+                                error
+                            })
+                    }
+                    console.log(categoriasDB);
+                    console.log(subcategoriasDB);
+                    console.log(marcasDB)
+                    res.render("articulo", {
+                        productosDB,
+                        categoriasDB,
+                        subcategoriasDB,
+                        marcasDB
+                    })
+                })
             })
-        }
-
-        res.render("articulo", {
-            productosDB
         })
+
     })
-    */
 })
 
 app.get("/product/profile/:id", ( req, res ) => {
@@ -151,39 +126,35 @@ app.get("/product/profile/:id", ( req, res ) => {
         }
 
         let productoDB = results[0][0];
-        res.render("perfilProducto", {
-            productoDB
+
+        let sql = `CALL buscarProductosRelacionados(${ id }, "${ productoDB.Subcategoria }", 4)`
+
+        connection.query( sql, ( error, resultadoSubcategorias ) => {
+            if( error ) {
+                res.status(500)
+                    .json({
+                        ok:false,
+                        error
+                    })
+            }
+            let productosRelacionados = resultadoSubcategorias[0];
+
+            res.render("perfilProducto", {
+                productoDB,
+                productosRelacionados
+            })
+
         })
-    })
-    /*
-    Producto.findOne({ _id: id }, ( error, productoDB ) => {
-        if( error ){
-            res.status(500).json({
-                ok: false,
-                error
-            })
-        }
 
-        Producto.find({ categoria: productoDB.categoria, _id: { $ne: productoDB._id } })
-            .limit(4)
-            .exec(( error, productosRelacionados ) => {
-                
-                res.render("perfilProducto", { 
-                    productoDB,
-                    productosRelacionados,
-                    precioLista: Math.round(productoDB.precio * 1.15)
-                 });
-
-            })
 
     })
-    */
 })
 
 app.post("/product/save", ( req, res ) => {
     let body = req.body;
 
-    let sql = `CALL crearProducto("${ body.nombre }","${ body.descripcion }","${ body.stock }", "${ body.garantia }", ${ body.precio }, ${ body.costo },${ body.marca }, ${ body.subcategoria }, ${ body.proveedor }");`;
+    let sql = `CALL crearProducto("${ body.nombre }",'${ body.descripcion }',${ body.stock }, "${ body.garantia }",
+                "${ body.codigo }",  ${ body.precio }, ${ body.costo },${ body.marca }, ${ body.subcategoria }, ${ body.proveedor });`;
 
     connection.query( sql, ( error, results ) => {
         if( error ) {
@@ -194,46 +165,17 @@ app.post("/product/save", ( req, res ) => {
                 })
         }
 
-        let sql = `CALL buscarProductoPorId(${ results.insertId })`;
+        let productoDB = results[0][0];
 
-        connection.query( sql, ( error, results ) => {
-            let productoDB = results[0][0];
-            res.render("perfilProducto", {
-                productoDB
-            })
-        })
-
-    })
-    /*
-    let producto = new Producto({
-        nombre: body.nombre,
-        categoria: body.categoria,
-        stock: body.stock,
-        precio: body.precio,
-        descripcion:  body.descripcion,
-        codigo: body.codigo,
-        marca: body.marca,
-        garantia: body.garantia
-    })
-
-    producto.save(producto, ( error, productoDB ) => {
-        if( error ) {
-            return res.status(500).json({
-                ok:false,
-                error
-            })
-        }
-
-        if( !req.files ){
+        if( !req.files ) {
             res.render("perfilProducto", {
                 productoDB
             })
         }else{
-            res.redirect(307, `/upload/producto/${ productoDB._id }`);
+            res.redirect(307, `/upload/producto/${ productoDB.idproducto }`)
         }
-        
+
     })
-    */
 })
 
 app.get("/product/update/:id", ( req, res )=> {
@@ -251,7 +193,8 @@ app.get("/product/update/:id", ( req, res )=> {
         }
         let productoDB = results[0][0];
 
-        connection.query("SELECT * FROM marca", ( error, marcasDB ) => {
+        let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
+        connection.query(sql, ( error, tablas ) => {
             if( error ) {
                 res.status(500)
                     .json({
@@ -259,155 +202,81 @@ app.get("/product/update/:id", ( req, res )=> {
                         error
                     })
             }
-    
-            connection.query("SELECT * FROM categoria", ( error, categoriasDB ) => {
-                if( error ) {
-                    res.status(500)
-                        .json({
-                            ok:false,
-                            error
-                        })
-                }
-    
-                connection.query("SELECT * FROM subcategoria", ( error, subcategoriasDB ) => {
-                    if( error ) {
-                        res.status(500)
-                            .json({
-                                ok:false,
-                                error
-                            })
-                    }
-        
-                    connection.query("SELECT * FROM proveedor", (error, proveedoresDB ) => {
-                        if( error ) {
-                            res.status(500)
-                                .json({
-                                    ok:false,
-                                    error
-                                })
-                        }
-        
-                        /*
-                        A cada registro le vamos a agregar una propiedad objetivo que va a ser booleana
-                        Si es true, es porque es la marca, subcategoria y proveedor del producto
-                        y las false son las otras que no tienen nada que ver con el producto
-                        */
-                        marcasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.marca, marcasDB );
-                        categoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.categoria, categoriasDB );
-                        subcategoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.subcategoria, subcategoriasDB );
-                        proveedoresDB = ponerTrueAlElementoIgualALaPalabra( productoDB.proveedor, proveedoresDB );
-    
-    
-                        res.render("editarProducto", {
-                            productoDB,
-                            marcasDB,
-                            categoriasDB,
-                            subcategoriasDB,
-                            proveedoresDB,
-                        });
-                    })
-                })
-            })
-    
 
-        })
+            let categoriasDB = tablas[0];
+            let subcategoriasDB = tablas[1];
+            let marcasDB = tablas[2];
+            let proveedoresDB = tablas[3];
+
+            /*
+            A cada registro le vamos a agregar una propiedad objetivo que va a ser booleana
+            Si es true, es porque es la marca, subcategoria y proveedor del producto
+            y las false son las otras que no tienen nada que ver con el producto
+            */
+            marcasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Marca, marcasDB );
+            categoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Categoria, categoriasDB );
+            subcategoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Subcategoria, subcategoriasDB );
+            proveedoresDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Proveedor, proveedoresDB );
         
-    })
-    /*
-    Producto.findById(id, ( error, productoDB ) => {
-        if( error ){
-            res.status(500).json({
-                ok: false,
-                error
-            })
-        }
-        res.render("editarProducto",{
-            productoDB
+            res.render("editarProducto", {
+                productoDB,
+                marcasDB,
+                categoriasDB,
+                subcategoriasDB,
+                proveedoresDB,
+            });
+    
         });
+        
     })
-    */
-
 })
 
 app.post("/product/update/:id", ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
 
-
-    let sql = `CALL actualizarProducto(${ id }, "${body.nombre}", "${body.descripcion}", 
-                ${body.stock}, "${body.garantia}", ${body.precio}, ${body.costo}, ${body.marca}, 
+    let sql = `CALL actualizarProducto(${ id }, "${body.nombre}", '${body.descripcion}', 
+                ${body.stock}, "${body.garantia}", "${ body.codigo }",${body.precio}, ${body.costo}, ${body.marca}, 
                 ${body.subcategoria}, ${body.proveedor});`;
 
-    connection.query(sql, ( error, result ) =>{
+    connection.query(sql, ( error, results ) =>{
         if( error ){
             return res.status(500).json({
                 ok: false,
                 error
             })
         }
-        let sql = `CALL buscarProductoPorId(${ id })`;
-        connection.query(sql, ( error, results ) => {
-            if( error ){
-                return res.status(500).json({
-                    ok: false,
-                    error
-                })
-            }
 
-            let productoDB = results[0][0];
-            res.render("perfilProducto", {
-                productoDB
-            })
-        })
-    })
-    /*
-    let producto = {
-        nombre: body.nombre,
-        categoria: body.categoria,
-        marca: body.marca,
-        codigo: body.codigo,
-        stock: body.stock, 
-        precio: body.precio,
-        descripcion: body.descripcion,
-        garantia: body.garantia
-    }
-
-    Producto.findByIdAndUpdate(id, producto,{new: true}, ( error, productoDB ) => {
-        if( error ){
-            res.status(500).json({
-                ok: false,
-                error
-            })
-        }
-
-        /**
+        let productoDB = results[0][0];
+        /*
          * Si no se sube imagenes redireccionamos al perfil del producto, por que si no lo hacemos dara error en 
          * la ruta /upload/.... por que no se subio ninguna imagen
-         
-        if( !req.files ){
-            res.redirect(`/product/profile/${ productoDB._id }`)
+         */
+        if( !req.files ) {
+            res.render("perfilProducto", {
+                productoDB
+            })       
         }else{
-            res.redirect(307, `/upload/producto/${ productoDB._id }`)
+            res.redirect(307, `/upload/producto/${ productoDB.idproducto }`);
         }
-        
-
     })
-    */
 })
 app.get("/product/remove/:id", ( req, res ) => {
     let id = req.params.id;
 
-    Producto.findOneAndUpdate({ _id: id },{ estado: false }, ( error, productoBorrado ) => {
+    let sql = `CALL borrarProducto(${ id })`;
+
+    connection.query(sql, ( error ) => {
         if( error ){
-            res.status(500).json({
+            return res.status(500).json({
                 ok: false,
                 error
             })
         }
-
         res.redirect("/producto");
-    } )
+    })
 })
+
 
 module.exports = app;
 
@@ -422,4 +291,77 @@ let ponerTrueAlElementoIgualALaPalabra = ( palabra, array ) => {
     }
 
     return array;
+}
+
+
+function crearSentenciaSQLParaBuscarProductos( expresionRegular, idCategoria, idSubcategoria, marca ){
+    let sentencia = [];
+
+    let condiciones = crearCondicionesSQL([
+        {
+            valor: -1,
+            condicion: "p.estado = 'A'"
+        },
+        {
+            valor: expresionRegular,
+            condicion: `(p.nombre REGEXP "${ expresionRegular }" OR c.nombre REGEXP "${ expresionRegular }")`
+        },
+        {
+            valor: idCategoria,
+            condicion: `c.idcategoria = ${ idCategoria }`
+        },
+        {
+            valor: idSubcategoria,
+            condicion: `s.idsubcategoria = ${ idSubcategoria }`
+        }
+    ], sentencia);
+
+    
+    sentencia.push(`SELECT *
+                    FROM producto p
+                    JOIN marca m ON p.marca_idmarca = m.Idmarca
+                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
+                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
+                    ${ condiciones }`) ;
+    sentencia.push (`SELECT c.idcategoria, c.nombre, COUNT(*) AS cantidad
+                    FROM producto p
+                    JOIN marca m ON p.marca_idmarca = m.Idmarca
+                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
+                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
+                    ${ condiciones }
+                    GROUP BY c.idcategoria`);
+    sentencia.push(`SELECT s.idsubcategoria, s.nombre, COUNT(*) AS cantidad
+                    FROM producto p
+                    JOIN marca m ON p.marca_idmarca = m.Idmarca
+                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
+                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
+                    ${ condiciones }
+                    GROUP BY s.idsubcategoria`);
+    sentencia.push(`SELECT m.idmarca, m.nombre, COUNT(*) AS cantidad
+                    FROM producto p
+                    JOIN marca m ON p.marca_idmarca = m.Idmarca
+                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
+                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
+                    ${ condiciones }
+                    GROUP BY m.idmarca`);
+
+    return sentencia;
+}
+
+
+function crearCondicionesSQL( arrayCondiciones){
+    let estaEscritoElWhere = false;
+    let sql = "";
+
+    for( let i = 0; i < arrayCondiciones.length; i++ ){
+        if( arrayCondiciones[i].valor != -1 ){
+            if( estaEscritoElWhere === false ){
+                sql += " WHERE " + arrayCondiciones[i].condicion;
+                estaEscritoElWhere = true;
+            }else{
+                sql += " AND " + arrayCondiciones[i].condicion;
+            }
+        }
+    }
+    return sql;
 }

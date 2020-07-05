@@ -145,12 +145,12 @@ function mostrarProductoEnTabla( productoArray ){
         tablaProducto.innerHTML += 
         `<tr class="tabla__fila">
             <th class="tabla__campo">${ index + 1 }</th>
-            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.idproducto }">${ producto.nombre }</a></th>
-            <th class="tabla__campo">${ producto.categoria }</th>
-            <th class="tabla__campo tabla__campo--verde">${ producto.stock }</th>
-            <th class="tabla__campo">$${ producto.precio }.00</th>
-            <th class="tabla__campo">$${ producto.costo }.00</th>
-            <th class="tabla__campo"><a href="/product/update/${ producto.idproducto }">Editar</a> - <a href="/product/remove/${ producto._id }">Eliminar</a></th>
+            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.IdProducto }">${ producto.Nombre }</a></th>
+            <th class="tabla__campo">${ producto.Categoria }</th>
+            <th class="tabla__campo tabla__campo--verde">${ producto.Stock }</th>
+            <th class="tabla__campo">$${ producto.Precio }.00</th>
+            <th class="tabla__campo">$${ producto.Costo }.00</th>
+            <th class="tabla__campo"><a href="/product/update/${ producto.IdProducto }">Editar</a> - <a href="/product/remove/${ producto.IdProducto }">Eliminar</a></th>
         </tr>`
     })
 }
@@ -231,13 +231,13 @@ function funcionBuscadorGeneral(){
 
     botonBuscador.addEventListener("click", () => {
         valorBuscador = inputBuscador.value || "a";
-        window.location.href=`/producto/buscar/${ valorBuscador }`;
+        window.location.href=`/producto/buscar/idcat=-1/idsub=-1/idmarca=-1/palabra=${ valorBuscador }`;
     })
 
     inputBuscador.addEventListener("keydown", ( event ) => {
         if( event.keyCode === 13 ){
             valorBuscador = inputBuscador.value || "a";
-            window.location.href=`/producto/buscar/${ valorBuscador }`;
+            window.location.href=`/producto/buscar/idcat=-1/idsub=-1/idmarca=-1/palabra=${ valorBuscador }`;
         }
     })
 }
@@ -365,3 +365,55 @@ function filtrarCategoria( idCategoria, arraySubcategoria ){
         }
     }
 }
+/*
+
+function crearURLConLosParametrosRecibidos( idcat, idsub, idmarca, palabra){
+    let url = `http://localhost:3000/producto/buscar/idcat=${ idcat }/idsub=${ idsub }/idmarca=${ idmarca }/palabra=${ palabra }`
+    return url;
+}
+
+function obtenerFiltrosPuestosDeLaURL( URLparteParametros ){
+    // creamos un array de 4 string que van a ser los parametros["idcat= valor", "idsub=valor", "idmarca=valor", "palabra=valor"]
+    let ArrayDeParametros = URLparteParametros.split("/", 4);
+ 
+    let idCategoria = buscarValorDeUnParametroURL( ArrayDeParametros[0] );
+    let idSubcategoria = buscarValorDeUnParametroURL( ArrayDeParametros[1] );
+    let idMarca = buscarValorDeUnParametroURL( ArrayDeParametros[2] );
+    let palabra = buscarValorDeUnParametroURL( ArrayDeParametros[3] );
+    
+
+    return {
+        idCategoria,
+        idSubcategoria,
+        idMarca,
+        palabra
+    }
+}
+
+//recibe el parametro con su valor y retorna el valor que va a ser el q esta despues de "="
+function buscarValorDeUnParametroURL( parametro ){
+    let valor = parametro.split("=", 2)[1];
+    return valor;
+}
+
+function CrearPeticionDeProducto( idcat, idsub, idmarca, palabra ){
+    let URL_actual = window.location.pathname;
+
+    let filtros = obtenerFiltrosPuestosDeLaURL( URL_actual );
+    let URL_A_Mandar;
+
+    if( idcat ){
+        URL_A_Mandar = crearURLConLosParametrosRecibidos( idcat, filtros.idSubcategoria, filtros.idMarca, filtros.palabra );
+    }else if( idsub ){
+        URL_A_Mandar = crearURLConLosParametrosRecibidos( filtros.idCategoria, idsub, filtros.idMarca, filtros.palabra );
+    }else if( idmarca ){
+        URL_A_Mandar = crearURLConLosParametrosRecibidos( filtros.idCategoria, filtros.idSubcategoria, idmarca, filtros.palabra );
+    }else if( palabra ){
+        URL_A_Mandar = crearURLConLosParametrosRecibidos( filtros.idCategoria, filtros.idSubcategoria, filtros.idMarca, palabra );
+    }else{
+        URL_A_Mandar = crearURLConLosParametrosRecibidos( filtros.idCategoria, filtros.idSubcategoria, filtros.idMarca, filtros.palabra );
+    }
+
+    console.log(URL_A_Mandar);
+}
+*/

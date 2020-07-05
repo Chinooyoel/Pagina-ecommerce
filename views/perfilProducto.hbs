@@ -1,18 +1,23 @@
 {{>head}}
         <section class="max1400">
             <section class="encabezado">
-                <h3>{{ productoDB.categoria }}</h3>
+                <h3>{{ productoDB.Categoria }}</h3>
             </section>
+            <section class="panelControl">
+                <a href="/product/remove/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Eliminar Producto</a>
+                <a href="/product/update/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Editar Producto</a>
+                <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
+            </section>  
         </section>
         <section class="flex-contenedor max1400">
             <figure class="galeria__figure">
-                <img src="/assets/img/{{ productoDB.img }}" class="galeria__figure--tamanioPerfil">
+                <img src="/assets/img/producto/{{ productoDB.Img }}" class="galeria__figure--tamanioPerfil">
             </figure>
             <article class="caracteristicas">
-                <h2 class="caracteristicas__titulo">{{ productoDB.nombre }}</h2>
-                <p class="caracteristicas__dato">CODIGO: {{productoDB.codigo}} || MARCA: {{ productoDB.marca }} || STOCK: {{ productoDB.stock }}</p>
-                <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ productoDB.garantia}}</p>
-                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: ${{ productoDB.precio }}.00</h2>
+                <h2 class="caracteristicas__titulo">{{ productoDB.Nombre }}</h2>
+                <p class="caracteristicas__dato">CODIGO: {{productoDB.Codigo}} || MARCA: {{ productoDB.Marca }} || STOCK: {{ productoDB.Stock }}</p>
+                <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ productoDB.Garantia}}</p>
+                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: ${{ productoDB.Precio }}.00</h2>
                 <article class="flex-contenedor caracteristicas__dato">
                     <section>
                         <img src="/assets/img/americanExpressIcon.png">
@@ -26,7 +31,7 @@
                 <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-clone"></i> COPIAR ENLANCE</button>
 
                 <section class="caracteristicas__dato caracteristicas__infoPrecio">
-                    <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ productoDB.precio }}.00</span></p>
+                    <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ productoDB.Precio }}.00</span></p>
                     <p>Precio MercadoPago: <span class="letraVerdeOscuro">${{ precioLista }}.00</span></p>
                 </section>
             </article>
@@ -35,7 +40,7 @@
 
         <section class="max1400 textoDescripcion">
             <h3 class="letraVerdeOscuro">DESCRIPCION</h3>
-            <p >{{productoDB.descripcion}}</p>
+            <p >{{productoDB.Descripcion}}</p>
         </section>
             
         <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
@@ -44,12 +49,12 @@
             <article class="flex-contenedor">
                 {{#each productosRelacionados }}
                 <figure class="producto">
-                    <a href="/product/profile/{{ this._id}}" class="producto__interaccionArticulo">
-                        <img src="/assets/img/{{ this.img }}" class="producto__img">
+                    <a href="/product/profile/{{ IdProducto}}" class="producto__interaccionArticulo">
+                        <img src="/assets/img/producto/{{ Img }}" class="producto__img">
                         <span class="producto__mas-info">[MÁS INFO]</span>
-                        {{ this.nombre }}
+                        {{ Nombre }}
                     </a>
-                    <figcaption class="producto__precio">ARS {{ this.precio }}</figcaption>
+                    <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
                 </figure>
                 {{/each}}
             </article>

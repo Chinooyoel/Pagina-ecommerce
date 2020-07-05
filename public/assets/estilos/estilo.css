@@ -231,3 +231,9 @@ html header{
 #botonMenuResponsive i{
     font-size: 2.1em;
 }
+
+.panelControl{
+    width: 100%;
+    text-align: end;
+    margin-top: 19px;
+}

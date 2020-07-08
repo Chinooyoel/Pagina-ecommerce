@@ -6,14 +6,13 @@
             <section class="encabezado">
                 <div>
                     <i class="fa fa-arrow-circle-right"></i>
-                    <a>Notebook</a> 
+                    <a>Resultado</a> 
                 </div>
                 <div>
-                    <select name="ordenar" size="1">
-                        <option value="mayor-precio">Mayor precio</option>
-                        <option value="menor-precio">Menor-precio</option>
-                        <option value="alfebaticamente-a-z">Nombre A - Z</option>
-                        <option value="alfebaticamente-z-a">Nombre Z - A</option>
+                    <select name="ordenar" id="ordenar">
+                        <option value="">Ordenar por</option>
+                        <option value="/producto/buscar/palabra={{ URLPalabra }}/idcat={{ URLidCat }}/idsub={{ URLidSub }}/idmarca={{ URLMarca }}/orden=1">Menor-precio</option>
+                        <option value="/producto/buscar/palabra={{ URLPalabra }}/idcat={{ URLidCat }}/idsub={{ URLidSub }}/idmarca={{ URLMarca }}/orden=2">Mayor precio</option>
                     </select>
                     <a><i class='fas fa-th encabezado--grande verde'></i></a>
                     <a><i class='fas fa-align-justify encabezado--grande verde'></i></a>
@@ -22,27 +21,40 @@
             <!--************ASIDE CATEGORIA**********-->
             <aside class="categoria">
                 <ul class="categoria__especificacion">
-                    <li class="categoria__especificacion--verde">Notebook</li>
+                    <li class="categoria__especificacion--verde">Categoria</li>
                     <li>
-                        <input type="checkbox" id="notebook" name="">
-                        <label for="notebook">Notebook</label>
+                        {{#each categoriasDB}}
+                        <a href="/producto/buscar/palabra={{ ../URLPalabra }}/idcat={{ IdCategoria }}/idsub={{ ../URLidSub }}/idmarca={{ ../URLMarca }}/orden=-1" class="categoria__especificacion__link">{{ Nombre }} ( {{ Cantidad }} )</a>
+                        {{/each}}
                     </li>
                 </ul>
-                <ul class="categoria_especificacion">
+                <ul class="categoria__especificacion">
+                    <li class="categoria__especificacion--verde">Subategoria</li>
+                    <li>
+                        {{#each subcategoriasDB}}
+                        <a href="/producto/buscar/palabra={{ ../URLPalabra }}/idcat={{ ../URLidCat }}/idsub={{ IdSubcategoria }}/idmarca={{ ../URLMarca }}/orden=-1" class="categoria__especificacion__link">{{ Nombre }} ( {{ Cantidad }} )</a>
+                        {{/each}}
+                    </li>
+                </ul>
+                <ul class="categoria__especificacion">
                     <li class="categoria__especificacion--verde">Marca</li>
                     <li>
-                        <input type="checkbox" id="msi" name="">
-                        <label for="msi">MSI</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="asus" name="">
-                        <label for="asus">Asus</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="lenovo" name="">
-                        <label for="lenovo">Lenovo</label>
+                        {{#each marcasDB}}
+                        <a href="/producto/buscar/palabra={{ ../URLPalabra }}/idcat={{ ../URLidCat }}/idsub={{ ../URLidSub }}/idmarca={{ IdMarca }}/orden=-1" class="categoria__especificacion__link">{{ Nombre }} ( {{ Cantidad }} )</a>
+                        {{/each}}
                     </li>
                 </ul>
+                <!--
+                <ul class="categoria__especificacion">
+                    <li class="categoria__especificacion--verde">Marca</li>
+                    {{#each marcasDB}}
+                    <li>
+                        <input type="checkbox" id="{{ Nombre }}" name="{{ IdMarca }}" value="{{ IdMarca }}">
+                        <label for="{{ Nombre }}" >{{ Nombre }}</label>
+                    </li>
+                    {{/each}}
+                </ul>
+                -->
             </aside>
             <!--************SECCION PRODUCTOS**********-->
             <section class="flex-contenedor-start lista-productos">
@@ -55,8 +67,14 @@
                     </a>
                     <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
                 </figure>
+                {{ else }}
+                <p class="textoCentro">* No hay resultados para esta busqueda *</p>
                 {{/each}}
             </section>
         </section>
 
+    <script src="/assets/js/main.js"></script>
+    <script>
+        ordenarProductos();
+    </script>
 {{> footer }}

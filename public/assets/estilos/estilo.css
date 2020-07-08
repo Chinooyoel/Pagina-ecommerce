@@ -7,7 +7,7 @@ a{
 }
 html body{
     font-family: 'Roboto Slab', serif;
-    background-color: #dadada;
+    background-color: #eeeeee;
 }
 html header{
     background: black;
@@ -236,4 +236,25 @@ html header{
     width: 100%;
     text-align: end;
     margin-top: 19px;
+}
+
+.modalCopiarEnlace{
+    top: 45vh;
+    background: #3a8530;
+    color: white;
+    font-size: 1.7em;
+    font-weight: 700;
+    border: none;
+
+    animation-name: animacionModalCentro;
+    animation-duration: 0.3s ;
+}
+
+@keyframes animacionModalCentro{
+    from {
+        top: -100vw;
+    }
+    to {
+        top: 45vh;
+    }
 }

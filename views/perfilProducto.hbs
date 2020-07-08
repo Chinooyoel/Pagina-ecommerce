@@ -1,4 +1,8 @@
 {{>head}}
+        <section class="modal" id="modalCopiarEnlace">
+            <section class="modalVentana modalCopiarEnlace">
+            </section>
+        </section>
         <section class="max1400">
             <section class="encabezado">
                 <h3>{{ productoDB.Categoria }}</h3>
@@ -28,7 +32,7 @@
                 </article>
 
                 <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-shipping-fast"></i> CALCULAR ENVIO</button>
-                <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-clone"></i> COPIAR ENLANCE</button>
+                <button class="campoBoton campoBoton--verdeOscuro abrirModalCopiarEnlace" id="botonCopiarEnlace"><i class="fas fa-clone"></i> COPIAR ENLANCE</button>
 
                 <section class="caracteristicas__dato caracteristicas__infoPrecio">
                     <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ productoDB.Precio }}.00</span></p>
@@ -61,4 +65,8 @@
         </section>
     </section>
 
+    <script src="/assets/js/main.js"></script>
+    <script>
+        copiarEnlace();
+    </script>
 {{>footer}}

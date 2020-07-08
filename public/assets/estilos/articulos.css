@@ -96,3 +96,20 @@
     align-items: start;
     height: min-content;
 }
+
+.categoria__especificacion__link{
+    display: block;
+    color: black;
+    font-size: 0.8em;
+    margin: 4px;
+}
+
+.categoria__especificacion__link:hover{
+    text-decoration: underline black;
+    color: #50b942;
+}
+
+.textoCentro{
+    text-align: center;
+    width: 100%;
+}

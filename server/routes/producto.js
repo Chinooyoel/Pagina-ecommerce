@@ -6,8 +6,8 @@ app.get("/producto", ( req, res ) => {
     res.render("tablaProducto");
 })
 app.get("/product/save", ( req, res ) => {
-
     let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
+
     connection.query(sql, ( error, tablas ) => {
         if( error ) {
             res.status(500)
@@ -16,7 +16,6 @@ app.get("/product/save", ( req, res ) => {
                     error
                 })
         }
-    
         res.render("crearProducto", {
             categoriasDB: tablas[0],
             subcategoriasDB: tablas[1],
@@ -30,7 +29,6 @@ app.get("/product/save", ( req, res ) => {
 app.get("/producto/admin/buscar/:dato", ( req, res ) => {
     let dato = req.params.dato;
     let expresionRegular = dato + "+";
-
     let sql = `CALL buscarProductos("${ expresionRegular }");`
 
     connection.query(sql, ( error, results ) => {
@@ -42,27 +40,30 @@ app.get("/producto/admin/buscar/:dato", ( req, res ) => {
                 })
         }
         let productosDB = results[0];
-
         res.json({
             productosDB
         })
     })
 })
 
-app.get("/producto/buscar/idcat=:idcat/idsub=:idsub/idmarca=:marca/palabra=:palabra", ( req, res ) => {
-    let palabra = req.params.palabra;
-    let idCategoria = req.params.idcat;
-    let idSubcategoria = req.params.idsub;
-    let marca = req.params.marca;
-
+app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:idmarca/orden=:orden/", ( req, res ) => {
+    let palabra = traerValorParametro( req.params.palabra );
+    let idCat = traerValorParametro( Number(req.params.idcat) );
+    let idSub = traerValorParametro( Number(req.params.idsub) );
+    let idMarca = traerValorParametro( Number(req.params.idmarca) );
+    let Orden = Number(req.params.orden);
     let expresionRegular;
-    if( palabra ){
+    if( palabra != null ){
         expresionRegular = palabra + "+";
+    }else{
+        expresionRegular = palabra
     }
 
-    let sql = crearSentenciaSQLParaBuscarProductos( expresionRegular, idCategoria, idSubcategoria, marca );
+    //let sql = `CALL buscarProductosConFiltro("${ expresionRegular }", ${ idCat }, ${ idSub }, ${ idMarca}, ${ Orden } )`;
+    let post = [ expresionRegular, idCat, idSub, idMarca, Orden ];
+    let sql = `CALL buscarProductosConFiltro( ?, ?, ?, ?, ? )`;
 
-    connection.query(sql[0], ( error, productosDB ) => {
+    connection.query( sql, post, ( error, tablas ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -70,50 +71,23 @@ app.get("/producto/buscar/idcat=:idcat/idsub=:idsub/idmarca=:marca/palabra=:pala
                     error
                 })
         }
-
-        connection.query(sql[1], ( error, categoriasDB ) => {
-            if( error ) {
-                res.status(500)
-                    .json({
-                        ok:false,
-                        error
-                    })
-            }
-            connection.query(sql[2], ( error, subcategoriasDB ) => {
-                if( error ) {
-                    res.status(500)
-                        .json({
-                            ok:false,
-                            error
-                        })
-                }
-                connection.query(sql[3], ( error, marcasDB ) => {
-                    if( error ) {
-                        res.status(500)
-                            .json({
-                                ok:false,
-                                error
-                            })
-                    }
-                    console.log(categoriasDB);
-                    console.log(subcategoriasDB);
-                    console.log(marcasDB)
-                    res.render("articulo", {
-                        productosDB,
-                        categoriasDB,
-                        subcategoriasDB,
-                        marcasDB
-                    })
-                })
-            })
-        })
+        res.render("articulo", {
+            productosDB: tablas[0],
+            categoriasDB: tablas[1],
+            subcategoriasDB: tablas[2],
+            marcasDB: tablas[3],
+            URLidCat : req.params.idcat,
+            URLidSub : req.params.idsub,
+            URLPalabra : req.params.palabra,
+            URLMarca: req.params.idmarca
+        });
 
     })
-})
+});
+
 
 app.get("/product/profile/:id", ( req, res ) => {
     let id = req.params.id;
-
     let sql = `CALL buscarProductoPorId("${ id }")`;
 
     connection.query( sql, ( error, results ) => {
@@ -124,11 +98,8 @@ app.get("/product/profile/:id", ( req, res ) => {
                     error
                 })
         }
-
         let productoDB = results[0][0];
-
         let sql = `CALL buscarProductosRelacionados(${ id }, "${ productoDB.Subcategoria }", 4)`
-
         connection.query( sql, ( error, resultadoSubcategorias ) => {
             if( error ) {
                 res.status(500)
@@ -138,21 +109,16 @@ app.get("/product/profile/:id", ( req, res ) => {
                     })
             }
             let productosRelacionados = resultadoSubcategorias[0];
-
             res.render("perfilProducto", {
                 productoDB,
                 productosRelacionados
             })
-
         })
-
-
     })
 })
 
 app.post("/product/save", ( req, res ) => {
     let body = req.body;
-
     let sql = `CALL crearProducto("${ body.nombre }",'${ body.descripcion }',${ body.stock }, "${ body.garantia }",
                 "${ body.codigo }",  ${ body.precio }, ${ body.costo },${ body.marca }, ${ body.subcategoria }, ${ body.proveedor });`;
 
@@ -164,15 +130,13 @@ app.post("/product/save", ( req, res ) => {
                     error
                 })
         }
-
         let productoDB = results[0][0];
-
         if( !req.files ) {
             res.render("perfilProducto", {
                 productoDB
             })
         }else{
-            res.redirect(307, `/upload/producto/${ productoDB.idproducto }`)
+            res.redirect(307, `/upload/producto/${ productoDB.IdProducto }`)
         }
 
     })
@@ -180,7 +144,6 @@ app.post("/product/save", ( req, res ) => {
 
 app.get("/product/update/:id", ( req, res )=> {
     let id = req.params.id;
-
     let sql = `CALL buscarProductoPorId(${ id })`;
 
     connection.query(sql, ( error, results ) => {
@@ -192,7 +155,6 @@ app.get("/product/update/:id", ( req, res )=> {
                 })
         }
         let productoDB = results[0][0];
-
         let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
         connection.query(sql, ( error, tablas ) => {
             if( error ) {
@@ -202,12 +164,10 @@ app.get("/product/update/:id", ( req, res )=> {
                         error
                     })
             }
-
             let categoriasDB = tablas[0];
             let subcategoriasDB = tablas[1];
             let marcasDB = tablas[2];
             let proveedoresDB = tablas[3];
-
             /*
             A cada registro le vamos a agregar una propiedad objetivo que va a ser booleana
             Si es true, es porque es la marca, subcategoria y proveedor del producto
@@ -217,7 +177,6 @@ app.get("/product/update/:id", ( req, res )=> {
             categoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Categoria, categoriasDB );
             subcategoriasDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Subcategoria, subcategoriasDB );
             proveedoresDB = ponerTrueAlElementoIgualALaPalabra( productoDB.Proveedor, proveedoresDB );
-        
             res.render("editarProducto", {
                 productoDB,
                 marcasDB,
@@ -225,16 +184,13 @@ app.get("/product/update/:id", ( req, res )=> {
                 subcategoriasDB,
                 proveedoresDB,
             });
-    
         });
-        
     })
 })
 
 app.post("/product/update/:id", ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
-
     let sql = `CALL actualizarProducto(${ id }, "${body.nombre}", '${body.descripcion}', 
                 ${body.stock}, "${body.garantia}", "${ body.codigo }",${body.precio}, ${body.costo}, ${body.marca}, 
                 ${body.subcategoria}, ${body.proveedor});`;
@@ -246,7 +202,6 @@ app.post("/product/update/:id", ( req, res ) => {
                 error
             })
         }
-
         let productoDB = results[0][0];
         /*
          * Si no se sube imagenes redireccionamos al perfil del producto, por que si no lo hacemos dara error en 
@@ -257,13 +212,12 @@ app.post("/product/update/:id", ( req, res ) => {
                 productoDB
             })       
         }else{
-            res.redirect(307, `/upload/producto/${ productoDB.idproducto }`);
+            res.redirect(307, `/upload/producto/${ productoDB.IdProducto }`);
         }
     })
 })
 app.get("/product/remove/:id", ( req, res ) => {
     let id = req.params.id;
-
     let sql = `CALL borrarProducto(${ id })`;
 
     connection.query(sql, ( error ) => {
@@ -289,79 +243,15 @@ let ponerTrueAlElementoIgualALaPalabra = ( palabra, array ) => {
             array[i].objetivo = false;
         }
     }
-
     return array;
 }
 
 
-function crearSentenciaSQLParaBuscarProductos( expresionRegular, idCategoria, idSubcategoria, marca ){
-    let sentencia = [];
-
-    let condiciones = crearCondicionesSQL([
-        {
-            valor: -1,
-            condicion: "p.estado = 'A'"
-        },
-        {
-            valor: expresionRegular,
-            condicion: `(p.nombre REGEXP "${ expresionRegular }" OR c.nombre REGEXP "${ expresionRegular }")`
-        },
-        {
-            valor: idCategoria,
-            condicion: `c.idcategoria = ${ idCategoria }`
-        },
-        {
-            valor: idSubcategoria,
-            condicion: `s.idsubcategoria = ${ idSubcategoria }`
-        }
-    ], sentencia);
-
-    
-    sentencia.push(`SELECT *
-                    FROM producto p
-                    JOIN marca m ON p.marca_idmarca = m.Idmarca
-                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
-                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
-                    ${ condiciones }`) ;
-    sentencia.push (`SELECT c.idcategoria, c.nombre, COUNT(*) AS cantidad
-                    FROM producto p
-                    JOIN marca m ON p.marca_idmarca = m.Idmarca
-                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
-                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
-                    ${ condiciones }
-                    GROUP BY c.idcategoria`);
-    sentencia.push(`SELECT s.idsubcategoria, s.nombre, COUNT(*) AS cantidad
-                    FROM producto p
-                    JOIN marca m ON p.marca_idmarca = m.Idmarca
-                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
-                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
-                    ${ condiciones }
-                    GROUP BY s.idsubcategoria`);
-    sentencia.push(`SELECT m.idmarca, m.nombre, COUNT(*) AS cantidad
-                    FROM producto p
-                    JOIN marca m ON p.marca_idmarca = m.Idmarca
-                    JOIN subcategoria s ON p.subcategoria_Idsubcategoria = s.idsubcategoria
-                    JOIN categoria c ON s.categoria_idcategoria = c.idcategoria
-                    ${ condiciones }
-                    GROUP BY m.idmarca`);
-
-    return sentencia;
-}
-
-
-function crearCondicionesSQL( arrayCondiciones){
-    let estaEscritoElWhere = false;
-    let sql = "";
-
-    for( let i = 0; i < arrayCondiciones.length; i++ ){
-        if( arrayCondiciones[i].valor != -1 ){
-            if( estaEscritoElWhere === false ){
-                sql += " WHERE " + arrayCondiciones[i].condicion;
-                estaEscritoElWhere = true;
-            }else{
-                sql += " AND " + arrayCondiciones[i].condicion;
-            }
-        }
+function traerValorParametro( parametro ) {
+    let valor = parametro;
+    if( valor == -1 ){
+        return valor = null;
+    }else{
+        return valor;
     }
-    return sql;
 }

@@ -8,12 +8,12 @@
             <figure class="galeria__figure">
                 <img src="/assets/img/producto/no-imagen.jpg" class="galeria__figure--tamanioPerfil" id="imagenProducto">
                 <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
-                <input type="file" name="imagen" id="elegirFoto">
+                <input type="file" name="imagen" id="elegirFoto" accept="image/*">
             </figure>
             <article class="caracteristicas">
                 <section>
                     <label for="nombre" class="formulario__label">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="inputEdicion formulario__input">
+                    <input type="text" name="nombre" id="nombre" class="inputEdicion formulario__input" maxlength="200" minlength="5">
                     <label for="marca" class="formulario__label">Marca</label>
                     <select id="marca" name="marca" class="inputEdicion formulario__input">
                         {{#each marcasDB }}
@@ -39,27 +39,28 @@
                         {{/each}}
                     </select> 
                     <label for="codigo" class="formulario__label">Codigo</label>
-                    <input type="text" name="codigo" id="codigo" class="inputEdicion formulario__input">     
+                    <input type="text" name="codigo" id="codigo" class="inputEdicion formulario__input" maxlength="45" minlength="1">     
                     <label for="garantia" class="formulario__label">Garantia</label>
-                    <input type="text" name="garantia" id="garantia" class="inputEdicion formulario__input">     
+                    <input type="text" name="garantia" id="garantia" class="inputEdicion formulario__input" maxlength="45" minlength="1">     
                     <label for="stock" class="formulario__label">Stock</label>
-                    <input type="text" name="stock" id="stock" class="inputEdicion formulario__input--corto">
+                    <input type="number" name="stock" id="stock" class="inputEdicion formulario__input--corto" min="0">
                     <label for="precio" class="formulario__label">Precio</label>
-                    <input type="text" name="precio" id="precio" class="inputEdicion formulario__input--corto">
+                    <input type="number" name="precio" id="precio" class="inputEdicion formulario__input--corto" min="0">
                     <label for="costo" class="formulario__label">Costo</label>
-                    <input type="text" name="costo" id="costo" class="inputEdicion formulario__input--corto" value="{{productoDB.Costo}}">  
+                    <input type="number" name="costo" id="costo" class="inputEdicion formulario__input--corto" value="{{productoDB.Costo}}" min="0">  
                 </section>
             </article>
         </form>
         <label for="descripcion" class="formulario__label">Descripcion</label>
-        <textarea form="productForm" class="textoNota" name="descripcion"></textarea>
+        <textarea form="productForm" class="textoNota" name="descripcion" maxlength="1500"></textarea>
         <input form="productForm" type="submit" value="Crear" class="campoBoton campoBoton--verdeOscuro">
         <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
     </section>
 
-
+    <script src="/assets/js/validator.min.js"></script>
    <script src="/assets/js/main.js"></script>
     <script>
+        validarFormularioProducto()
         funcionMostrarFoto();
         eventoCategoria();
     </script>

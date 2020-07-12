@@ -393,3 +393,126 @@ function copiarEnlace(){
             })
     })
 }
+
+function validarFormularioProducto(){
+    let formulario = document.getElementById("productForm");
+    let elementoNombre = document.getElementById("nombre");
+    let elementoCodigo = document.getElementById("codigo");
+    let elementoGarantia = document.getElementById("garantia");
+    let elementoStock = document.getElementById("stock");
+    let elementoPrecio = document.getElementById("precio");
+    let elementoCosto = document.getElementById("costo");
+    let elementoSubcategoria = document.getElementById("subcategoria");
+    let elementoMarca = document.getElementById("marca");
+    let elementoProveedor = document.getElementById("proveedor");
+
+
+    elementoNombre.addEventListener("keyup", ( e ) => {
+        validarNombre( elementoNombre );
+    })
+    elementoCodigo.addEventListener("keyup", ( e ) => {
+        validarCampoComun( elementoCodigo )
+    })
+    elementoGarantia.addEventListener("keyup", ( e ) => {
+        validarCampoComun( elementoGarantia )
+    })
+    elementoStock.addEventListener("keyup", ( e ) => {
+        validarCampoNumero( elementoStock );
+    })
+    elementoPrecio.addEventListener("keyup", ( e ) => {
+        validarCampoNumero( elementoPrecio );
+    } )
+    elementoCosto.addEventListener("keyup", ( e ) => {
+        validarCampoNumero( elementoCosto );
+    } )
+    elementoSubcategoria.addEventListener("change", ( e ) => {
+        validarCampoNumero( elementoSubcategoria );
+    } )
+    elementoMarca.addEventListener("change", ( e ) => {
+        validarCampoNumero( elementoMarca );
+    } )
+    elementoProveedor.addEventListener("change", ( e ) => {
+        validarCampoNumero( elementoProveedor );
+    } );
+
+
+    formulario.addEventListener("submit", ( e ) => {
+        e.preventDefault();
+
+        let nombreValido = validarNombre( elementoNombre );
+        let codigoValido = validarCampoComun( elementoCodigo )
+        let garantiaValido = validarCampoComun( elementoGarantia )
+        let stockValido = validarCampoNumero( elementoStock );
+        let precioValido = validarCampoNumero( elementoPrecio );
+        let costoValido = validarCampoNumero( elementoCosto );
+        let subcategoriaValido = validarCampoNumero( elementoSubcategoria );
+        let marcaValido = validarCampoNumero( elementoMarca );
+        let proveedorValido = validarCampoNumero( elementoProveedor );
+        
+        if( nombreValido && codigoValido && garantiaValido && stockValido && precioValido && costoValido && subcategoriaValido && marcaValido && proveedorValido ){
+            formulario.submit();
+        }
+
+    })
+
+}
+
+function validarNombre( elementoNombre ) {
+    let valor = elementoNombre.value;
+    let errorMsj = "";
+
+    if( !validator.isLength( valor, { min: 5, max: 200}) ){ 
+        ponerInputEnColorRojo( elementoNombre );
+        return false
+    }
+    if( valor === undefined ){
+        return false;
+    }
+    ponerInputEnColorNormal(elementoNombre)
+    return true
+}
+
+function validarCampoComun( elementoCodigo ) {
+    let valor = elementoCodigo.value;
+    let errorMsj = "";
+
+    if( !validator.isLength( valor, { min: 1, max: 45}) ){
+        ponerInputEnColorRojo( elementoCodigo );
+        return false
+    }
+    if( valor === undefined ){
+        return false;
+    }
+    ponerInputEnColorNormal(elementoCodigo);
+    return true
+}
+
+function ponerInputEnColorRojo( input ){
+    input.style.borderBottom = "2px solid red ";
+    input.style.background = "#f0bfbb";
+}
+
+function ponerInputEnColorNormal( input ){
+    input.style.borderBottom = "2px solid rgb(116, 114, 114)";
+    input.style.background = "#eeeeee";
+}
+
+function validarCampoNumero( elementoCodigo ) {
+    let valor = elementoCodigo.value;
+    let errorMsj = "";
+    if( elementoCodigo === undefined ){
+        return false;
+    }
+    if( validator.isEmpty(valor)){
+        ponerInputEnColorRojo( elementoCodigo );
+        return false;
+    }
+    if( !validator.isNumeric(valor)){
+        ponerInputEnColorRojo( elementoCodigo );
+        return false;
+    }
+
+    ponerInputEnColorNormal( elementoCodigo );
+    return true;
+
+}

@@ -1,5 +1,6 @@
 const express = require("express");
 const connection = require("../mysql/mysql");
+const { validarFormularioProductos } = require("../middleware/validacion");
 let app = express();
 
 app.get("/producto", ( req, res ) => {
@@ -29,9 +30,9 @@ app.get("/product/save", ( req, res ) => {
 app.get("/producto/admin/buscar/:dato", ( req, res ) => {
     let dato = req.params.dato;
     let expresionRegular = dato + "+";
-    let sql = `CALL buscarProductos("${ expresionRegular }");`
+    let sql = `CALL buscarProductos( ? );`
 
-    connection.query(sql, ( error, results ) => {
+    connection.query(sql, [ `${expresionRegular}` ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -60,10 +61,10 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
     }
 
     //let sql = `CALL buscarProductosConFiltro("${ expresionRegular }", ${ idCat }, ${ idSub }, ${ idMarca}, ${ Orden } )`;
-    let post = [ expresionRegular, idCat, idSub, idMarca, Orden ];
+    let valores = [ expresionRegular, idCat, idSub, idMarca, Orden ];
     let sql = `CALL buscarProductosConFiltro( ?, ?, ?, ?, ? )`;
 
-    connection.query( sql, post, ( error, tablas ) => {
+    connection.query( sql, valores, ( error, tablas ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -88,9 +89,9 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
 
 app.get("/product/profile/:id", ( req, res ) => {
     let id = req.params.id;
-    let sql = `CALL buscarProductoPorId("${ id }")`;
+    let sql = `CALL buscarProductoPorId(?)`;
 
-    connection.query( sql, ( error, results ) => {
+    connection.query( sql, [ id ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -99,8 +100,8 @@ app.get("/product/profile/:id", ( req, res ) => {
                 })
         }
         let productoDB = results[0][0];
-        let sql = `CALL buscarProductosRelacionados(${ id }, "${ productoDB.Subcategoria }", 4)`
-        connection.query( sql, ( error, resultadoSubcategorias ) => {
+        let sql = `CALL buscarProductosRelacionados( ?, ?, 4)`
+        connection.query( sql, [ id, `${ productoDB.Subcategoria }` ], ( error, resultadoSubcategorias ) => {
             if( error ) {
                 res.status(500)
                     .json({
@@ -118,11 +119,26 @@ app.get("/product/profile/:id", ( req, res ) => {
 })
 
 app.post("/product/save", ( req, res ) => {
-    let body = req.body;
-    let sql = `CALL crearProducto("${ body.nombre }",'${ body.descripcion }',${ body.stock }, "${ body.garantia }",
-                "${ body.codigo }",  ${ body.precio }, ${ body.costo },${ body.marca }, ${ body.subcategoria }, ${ body.proveedor });`;
+    let body = {
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        stock: Number( req.body.stock ),
+        garantia: req.body.garantia,
+        codigo: req.body.codigo,
+        precio: Number( req.body.precio ),
+        costo: Number( req.body.costo ),
+        marca: Number( req.body.marca ),
+        subcategoria: Number( req.body.subcategoria ),
+        proveedor: Number( req.body.proveedor )
+    };
 
-    connection.query( sql, ( error, results ) => {
+    validarFormularioProductos( body );
+
+    let sql = `CALL crearProducto( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    let valores = [ `${ body.nombre }`, `${ body.descripcion }`, body.stock, `${ body.garantia }`, `${ body.codigo }`, 
+                    body.precio, body.costo, body.marca, body.subcategoria, body.proveedor,]
+
+    connection.query( sql, valores, ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -144,9 +160,9 @@ app.post("/product/save", ( req, res ) => {
 
 app.get("/product/update/:id", ( req, res )=> {
     let id = req.params.id;
-    let sql = `CALL buscarProductoPorId(${ id })`;
+    let sql = `CALL buscarProductoPorId( ? )`;
 
-    connection.query(sql, ( error, results ) => {
+    connection.query(sql, [ id ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -191,11 +207,11 @@ app.get("/product/update/:id", ( req, res )=> {
 app.post("/product/update/:id", ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
-    let sql = `CALL actualizarProducto(${ id }, "${body.nombre}", '${body.descripcion}', 
-                ${body.stock}, "${body.garantia}", "${ body.codigo }",${body.precio}, ${body.costo}, ${body.marca}, 
-                ${body.subcategoria}, ${body.proveedor});`;
+    let sql = `CALL actualizarProducto(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    let valores = [ id, `${body.nombre}`, `${body.descripcion}`, body.stock, `${body.garantia}`, `${ body.codigo }`, 
+                    body.precio, body.costo, body.marca, body.subcategoria, body.proveedor]
 
-    connection.query(sql, ( error, results ) =>{
+    connection.query(sql, valores,  ( error, results ) =>{
         if( error ){
             return res.status(500).json({
                 ok: false,
@@ -218,9 +234,9 @@ app.post("/product/update/:id", ( req, res ) => {
 })
 app.get("/product/remove/:id", ( req, res ) => {
     let id = req.params.id;
-    let sql = `CALL borrarProducto(${ id })`;
+    let sql = `CALL borrarProducto( ? )`;
 
-    connection.query(sql, ( error ) => {
+    connection.query(sql, [ id ], ( error ) => {
         if( error ){
             return res.status(500).json({
                 ok: false,

@@ -12,7 +12,22 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
     }
     let id = req.params.id;
     let tipo = req.params.tipo;
-    let archivoImagen = req.files.imagen;
+    let archivoImagen;
+
+    if( req.files.imagen.length > 1 ){
+        archivoImagen = req.files.imagen[0];
+    }else{
+        archivoImagen = req.files.imagen;
+    }
+
+    let extensionesValidas = ["jpg", "png", "jpeg"];
+    let nombreArchivoDividido = archivoImagen.name.split(".");
+    let extensionDelArchivoImagen = nombreArchivoDividido[ nombreArchivoDividido.length - 1 ];
+
+    if( extensionesValidas.indexOf(extensionDelArchivoImagen) === -1 ){
+        throw new Error("El archivo subido no es JPG, JPEG o PNG");
+    }
+
     
     if( tipo == "producto"){
         let sql = `CALL buscarProductoPorId(${ id })`;
@@ -30,7 +45,7 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
                     msj: "No se encontro el producto"
                 });
             }
-            nombreGenerado = generarNombreImagen( productoDB.IdProducto, archivoImagen.name );
+            nombreGenerado = generarNombreImagen( productoDB.IdProducto, extensionDelArchivoImagen );
             archivoImagen.mv(`public/assets/img/producto/${ nombreGenerado }`, ( error ) => {
                 if( error ) {
                     return res.status(500).json({
@@ -71,11 +86,9 @@ let borrarArchivo = ( path )=>{
         fs.unlinkSync(path);
 }
 
-let generarNombreImagen = ( id, nombreArchivo ) => {
-    let nombreCortado = nombreArchivo.split(".");
-    let extension = nombreCortado[nombreCortado.length - 1];
+let generarNombreImagen = ( id, extensionDelArchivo ) => {
 
-    let nombreGenerado = `${ id }--${ new Date().getMilliseconds() }.${ extension }`
+    let nombreGenerado = `${ id }--${ new Date().getMilliseconds() }.${ extensionDelArchivo }`
 
     return nombreGenerado
 }

@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.5",
     "mongoose-unique-validator": "^2.0.3",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "validator": "^13.1.1"
   }
 }

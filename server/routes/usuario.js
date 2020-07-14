@@ -3,6 +3,7 @@ const app = express();
 const bcrypt = require("bcrypt");
 const { verificarToken, verificarAdminRole } = require("../middleware/autenticacion");
 const connection = require("../mysql/mysql");
+const { validarFormularioUsuarios, validarEstado } = require("../middleware/validacion");
 
 
 
@@ -13,21 +14,26 @@ app.get("/usuario" , (req, res) => {
 
 
 app.post("/usuario/guardar", ( req, res ) => {
-    let {nombre, apellido, email, password} = req.body;
-    let passwordEncriptada = bcrypt.hashSync(password, 10);
+    let body = req.body;
+    body.telefono = Number(body.telefono);
+    body.documento = Number(body.documento);
 
-    let query = `CALL InsertarUsuario("${ nombre }", "${ apellido }", "${ email }", "${ passwordEncriptada }");`;
+    validarFormularioUsuarios( body );
+    let passwordEncriptada = bcrypt.hashSync(body.password, 10);
 
-    connection.query( query, ( error, results, fields) => {
+    let valor = [`${ body.nombre }`,`${ body.apellido }`,`${ body.email }`,`${ passwordEncriptada }`, `${ body.documento}`, `${ body.telefono }`]
+    let sql = `CALL InsertarUsuario(?, ?, ?, ?, ?, ?);`;
+
+    connection.query( sql, valor, ( error, results, fields) => {
         if( error ){
             res.status(500)
                 .json({
                     ok: false,
-                    msj: "Error interno"
+                    msj: "Error interno",
+                    error
                 });
         }
-        console.log(results);
-        console.log(fields);
+        res.redirect("/");
     });
 
 })
@@ -37,17 +43,16 @@ app.post("/usuario/guardar", ( req, res ) => {
 app.post("/usuario/actualizar/:id", ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
-    let estado;
+    body.telefono = Number(body.telefono);
+    body.documento = Number(body.documento)
 
-    if(body.estado === "activo"){
-        estado = 'A';
-    }else if(body.estado === "inactivo"){
-        estado = 'I';
-    }
+    validarFormularioUsuarios( body );
+    validarEstado( body.estado );
 
-    let sql = `CALL actualizarUsuario( ${ id }, '${ body.nombre }', '${ body.apellido }', '${ body.email }', '${ estado }', '${ body.nota }')`;
+    let valor = [ `${ id }`, `${ body.nombre }`,`${ body.apellido }`,`${ body.email }`, `${ body.estado }`, `${ body.nota }`, `${ body.documento}`, `${ body.telefono }`]
+    let sql = `CALL actualizarUsuario( ?, ?, ?, ?, ?, ?, ?, ? )`;
 
-    connection.query( sql, (error) => {
+    connection.query( sql, valor, (error) => {
         if ( error ) {
             return res.status(500)
                 .json({
@@ -55,30 +60,9 @@ app.post("/usuario/actualizar/:id", ( req, res ) => {
                 })
         }
 
-        let sql = `CALL buscarUsuarioPorId( ${ id })`; 
-        connection.query( sql, ( error, results ) => {
-            res.render("perfilUsuario", {
-                usuarioDB : results[0][0]
-            });
-        })
+        redirect(`/usuario/perfil/${ id }`);
     })
 });
-    /*
-    
-    Usuario.findOneAndUpdate({_id : id}, { estado: estado, nota: body.nota}, { new: true }, ( error, usuarioDB ) => {
-        if ( error ) {
-            res.status(500);
-            res.json({
-                error
-            })
-        }
-
-        res.render("perfilUsuario", {
-            usuarioDB
-        })     
-    })
-    */
-
 
 
 
@@ -86,9 +70,9 @@ app.get("/usuario/buscar/:data", ( req, res ) => {
     let data = req.params.data;
     let expresionRegular = data + "+";
 
-    let sql = `CALL buscarUsuarios("${ expresionRegular }")`;
+    let sql = `CALL buscarUsuarios( ? )`;
 
-    connection.query(sql, ( error, results ) => {
+    connection.query(sql, [`${ expresionRegular }`], ( error, results ) => {
         if( error ){
             return res.status(500)
                 .json({
@@ -100,22 +84,6 @@ app.get("/usuario/buscar/:data", ( req, res ) => {
             usuariosDB : results[0]
         })
     })
-    /*
-    Usuario.find({nombre: expresionRegular}, ( error, usuariosDB) => {
-        if ( error ) {
-            return res.status(500)
-                .json({
-                error
-            })
-        }
-
-        res.json({
-            usuariosDB
-        });
-    })
-    */
-
-    
 })
 
 
@@ -123,9 +91,9 @@ app.get("/usuario/buscar/:data", ( req, res ) => {
 app.get("/usuario/perfil/:id", ( req, res ) => {
     let id = req.params.id;
 
-    let sql = `CALL buscarUsuarioPorId( ${ id } );`;
+    let sql = `CALL buscarUsuarioPorId( ? );`;
 
-    connection.query( sql, ( error, results, fields ) => {
+    connection.query( sql, [ id ], ( error, results, fields ) => {
         if ( error ) {
             return res.status(500)
                 .json({
@@ -158,94 +126,3 @@ module.exports = app;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-app.get("/usuario", verificarToken, (req, res ) => {
-    let desde = req.query.desde || 0;
-    let mostrar = req.query.mostrar || 10;
-    desde = Number(desde);
-    mostrar = Number(mostrar);
-
-    Usuario.find({estado: true}, null, {skip: desde, limit: mostrar, runValidators: true, context: 'query' }, ( err, usuariosDB ) => {
-        if (err) {
-            res.status(400).json({
-                message: "Ha ocurrido un error",
-                err
-            })
-        }
-        
-        for(let i = 0; DB.length > i; i++ ){
-            DB[i].password = "-";
-        }
-
-        Usuario.count({estado:true }, ( err, contador) => {
-            res.json( {
-                documentos: contador,
-                usuariosDB
-           })
-        })
-
-    })
-})
-*/
-
-/*
-app.post("/usuario/borrar/:id",[verificarToken, verificarAdminRole], ( req, res ) => {
-    let id = req.params.id;
-
-    Usuario.updateOne({ _id: id }, { estado: false }, ( errpr, data ) => {
-        if( error ) {
-            res.status(400);
-            res.json({
-                message: "Ha ocurrido un error al eliminarlo",
-                err
-            })
-        }
-
-        res.render("/admin/usuario");
-    })
-});
-*/
-
-/*
-app.put("/usuario", [verificarToken, verificarAdminRole], ( req, res ) => {
-    let body = req.body;
-
-    if( body.password ) {
-        body.password = bcrypt.hashSync(body.password, 10);
-    }
-    Usuario.update({email: body.email }, body, { new: true }, ( err, data ) => {
-        if ( err ) {
-            res.status(400);
-            res.json({
-                message: "Ha ocurrido un error al actualizar",
-                err
-            })
-        }
-        res.json({
-            message:"Se ha actualizado con exito",
-            usuarioActualizado: data
-        })
-    })
-})
-
-*/

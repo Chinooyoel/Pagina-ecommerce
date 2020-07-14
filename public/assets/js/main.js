@@ -5,7 +5,8 @@ window.onload = () =>{
     funcionParaMostrarSubmenu();
     funcionBuscadorGeneral();
     funcionAbrirMenuResponsive();
-
+    validarFormularioUsuario();
+    validarLogin();
     
 }
 
@@ -457,6 +458,48 @@ function validarFormularioProducto(){
 
 }
 
+function validarFormularioUsuario(){
+    let formulario = document.getElementById("usuarioForm");
+    let elementoNombre = document.getElementById("nombre");
+    let elementoApellido = document.getElementById("apellido");
+    let elementoTelefono = document.getElementById("telefono");
+    let elementoDocumento = document.getElementById("documento");
+    let elementoEmail = document.getElementById("email");
+
+
+    elementoNombre.addEventListener("keyup", ( e ) => {
+        validarCampoComun( elementoNombre );
+    })
+    elementoApellido.addEventListener("keyup", ( e ) => {
+        validarCampoComun( elementoApellido )
+    })
+    elementoTelefono.addEventListener("keyup", ( e ) => {
+        validarCampoNumero( elementoTelefono );
+    })
+    elementoDocumento.addEventListener("keyup", ( e ) => {
+        validarCampoNumero( elementoDocumento );
+    } )
+    elementoEmail.addEventListener("keyup", ( e ) => {
+        validarEmail( elementoEmail );
+    } )
+
+
+
+    formulario.addEventListener("submit", ( e ) => {
+        e.preventDefault();
+
+        let nombreValido = validarCampoComun( elementoNombre );
+        let apellidoValido = validarCampoComun( elementoApellido )
+        let telefonoValido = validarCampoNumero( elementoTelefono );
+        let documentoValido = validarCampoNumero( elementoDocumento );
+        let emailValido = validarEmail( elementoEmail );
+        if( nombreValido && apellidoValido && telefonoValido && documentoValido && emailValido ){
+            formulario.submit();
+        }
+
+    })
+
+}
 function validarNombre( elementoNombre ) {
     let valor = elementoNombre.value;
     let errorMsj = "";
@@ -470,6 +513,25 @@ function validarNombre( elementoNombre ) {
     }
     ponerInputEnColorNormal(elementoNombre)
     return true
+}
+
+function validarEmail( elementoEmail ) {
+    let valor = elementoEmail.value;
+    let errorMsj = "";
+
+    if( valor === undefined ){
+        return false;
+    }
+    if( email == "" ){
+        ponerInputEnColorRojo( elementoEmail );
+        return false
+    }
+    if( !validator.isEmail( valor ) ){
+        ponerInputEnColorRojo( elementoEmail );
+        return false
+    } 
+    ponerInputEnColorNormal(elementoEmail);
+    return true;
 }
 
 function validarCampoComun( elementoCodigo ) {
@@ -515,4 +577,17 @@ function validarCampoNumero( elementoCodigo ) {
     ponerInputEnColorNormal( elementoCodigo );
     return true;
 
+}
+
+function validarLogin(){
+    let formulario = document.getElementById("loginForm");
+    let elementoEmail = document.getElementById("emailLogin");
+
+    formulario.addEventListener("submit", ( e ) => {
+        e.preventDefault();
+
+        if( validator.isEmail( elementoEmail.value ) ) {
+            formulario.submit();
+        };
+    })
 }

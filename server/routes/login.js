@@ -3,14 +3,17 @@ const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const connection = require("../mysql/mysql");
+const { validarEmail } = require("../middleware/validacion");
 
 
 app.post("/login", ( req, res ) => {
     let body = req.body;
 
+    validarEmail( body.email, "Email" )
+
     let sql = `CALL autenticacion( ? )`;
 
-    connection.query( sql, [ body.email ], ( error, results ) => {
+    connection.query( sql, [ `${ body.email }` ], ( error, results ) => {
         if( error ){
             return res.status(500)
                 .json({

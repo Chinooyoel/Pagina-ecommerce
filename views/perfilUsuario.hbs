@@ -6,17 +6,21 @@
                 <img src="/assets/img/logo_cougar.png" class="galeria__figure--tamanioPerfil">
             </figure>
             <article class="caracteristicas">
-                <form id="productUser" method="POST" action="/usuario/actualizar/{{usuarioDB.idusuario}}">
+                <form id="usuarioForm" method="POST" action="/usuario/actualizar/{{usuarioDB.idusuario}}">
                     <label for="nombre" class="formulario__label">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="campo-imput formulario__input" value="{{usuarioDB.nombre}}">
+                    <input type="text" name="nombre" id="nombre" class="inputEdicion formulario__input" value="{{usuarioDB.nombre}}" maxlength="45" minlength="1">
                     <label for="apellido" class="formulario__label">Apellido</label>
-                    <input type="text" name="apellido" id="apellido" class="campo-imput formulario__input" value="{{usuarioDB.apellido}}">
+                    <input type="text" name="apellido" id="apellido" class="inputEdicion formulario__input" value="{{usuarioDB.apellido}}" maxlength="45" minlength="1">
+                    <label for="telefono" class="formulario__label">Telefono</label>
+                    <input type="number" name="telefono" id="telefono" class="inputEdicion formulario__input" value="{{usuarioDB.telefono}}">
+                    <label for="documento" class="formulario__label">DNI/CUIT</label>
+                    <input type="number" name="documento" id="documento" class="inputEdicion formulario__input" value="{{usuarioDB.documento}}" max="99999999" min="10000000" >
                     <label for="email" class="formulario__label">Email</label>
-                    <input type="text" name="email" id="email" class="campo-imput formulario__input" value="{{usuarioDB.email}}">
+                    <input type="text" name="email" id="email" class="inputEdicion formulario__input" value="{{usuarioDB.email}}">
                     <label for="estado">Estado actual: {{usuarioDB.estado}}</label>
                     <select id="estado" name="estado">
-                        <option value="activo">Activar</option>  
-                        <option value="inactivo">Desactivar</option>
+                        <option value="A">Activar</option>  
+                        <option value="I">Desactivar</option>
                     </select>
              </article>
         </section>

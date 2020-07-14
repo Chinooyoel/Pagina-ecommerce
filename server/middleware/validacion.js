@@ -1,4 +1,5 @@
 const validator = require("validator");
+const bodyParser = require("body-parser");
 
 function validarFormularioProductos( datos ){
     let nombre = datos.nombre;
@@ -42,7 +43,15 @@ function validarCampoNumber( datoNumerico, nombreCampo ) {
     if( isNaN( datoNumerico ) ){
         throw new Error(`El campo ${ nombreCampo } no es un numero`);
     }
+}
 
+function validarEmail( email, nombreCampo ){
+    if( email === undefined ){
+        throw new Error(`El campo ${ nombreCampo } es undefined`)
+    }
+    if( !validator.isEmail( email ) ){
+        throw new Error(`El campo ${ nombreCampo } no es un email. ejemplo@gmail.com`);
+    } 
 }
 
 function validarDescripcion( descripcion ) {
@@ -56,10 +65,39 @@ function validarDescripcion( descripcion ) {
 }
 
 function validarFormularioUsuarios( datos ){
-    console.log( datos)
+    let nombre = datos.nombre;
+    let apellido = datos.apellido;
+    let email = datos.email;
+    let documento = datos.documento;
+    let telefono = datos.telefono;
+
+    validarCampoString( nombre, 1, 45, "Nombre");
+    validarCampoString( apellido, 1, 45, "Apellido");
+    validarEmail( email, "Email");
+    validarSiEsCero( documento, "DNI/CUIT");
+    validarCampoNumber( documento, "DNI/CUIT" );
+    validarSiEsCero( telefono, "Telefono");
+    validarCampoNumber( telefono, "Telefono");
 }
 
+//Si mandamos un formulario vacio, cuando transformamos a Number el campo pasa a ser 0
+function validarSiEsCero( dato, nombreCampo ){
+    if( dato === 0){
+        throw new Error(`El campo ${ nombreCampo } esta vacio`);
+    }
+}
+
+function validarEstado( estado ){
+    if( estado === undefined ){
+        throw new Error(`El campo Estado es undefined`)
+    } 
+    if( estado !== "I" && estado !== "A"){
+        throw new Error(`El campo Estado no pertenece a los definidos`);
+    }
+}
 module.exports = {
     validarFormularioProductos,
-    validarFormularioUsuarios
+    validarFormularioUsuarios,
+    validarEstado,
+    validarEmail
 }

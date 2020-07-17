@@ -62,7 +62,7 @@
 
 /* **************************ESPECIFICACION*************************************** */
 .especificacion {
-    max-width: 20%;
+    max-width: 23%;
     margin-top: 20px;
     overflow: hidden;
 }
@@ -71,7 +71,8 @@
         border-left: 1px solid grey;
         border-right: 1px solid grey;
         width: 100%;
-        object-fit: contain;
+        height: 300px;
+        object-fit: cover;
     }
 
         .especificacion__img:hover{
@@ -113,4 +114,9 @@
     font-size: 0.8em;
     display: none;
     z-index: 100;
+}
+
+.textoRojo{
+    color: red;
+    padding: 5px;
 }

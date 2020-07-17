@@ -1,12 +1,15 @@
 const express = require("express");
 const connection = require("../mysql/mysql");
 const { validarFormularioProductos } = require("../middleware/validacion");
+const { verificarRole, verificarAdminRole } = require("../middleware/autenticacion");
 let app = express();
 
-app.get("/producto", ( req, res ) => {
-    res.render("tablaProducto");
+app.get("/producto", verificarRole, ( req, res ) => {
+    res.render("tablaProducto",{
+        usuario: req.usuario
+    });
 })
-app.get("/product/save", ( req, res ) => {
+app.get("/product/save", verificarRole, ( req, res ) => {
     let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
 
     connection.query(sql, ( error, tablas ) => {
@@ -21,13 +24,14 @@ app.get("/product/save", ( req, res ) => {
             categoriasDB: tablas[0],
             subcategoriasDB: tablas[1],
             marcasDB: tablas[2],
-            proveedoresDB: tablas[3]
+            proveedoresDB: tablas[3],
+            usuario: req.usuario
         });
 
     })
 })
 
-app.get("/producto/admin/buscar/:dato", ( req, res ) => {
+app.get("/producto/admin/buscar/:dato", verificarRole, ( req, res ) => {
     let dato = req.params.dato;
     let expresionRegular = dato + "+";
     let sql = `CALL buscarProductos( ? );`
@@ -42,7 +46,8 @@ app.get("/producto/admin/buscar/:dato", ( req, res ) => {
         }
         let productosDB = results[0];
         res.json({
-            productosDB
+            productosDB,
+            usuario: req.usuario
         })
     })
 })
@@ -80,7 +85,8 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
             URLidCat : req.params.idcat,
             URLidSub : req.params.idsub,
             URLPalabra : req.params.palabra,
-            URLMarca: req.params.idmarca
+            URLMarca: req.params.idmarca,
+            usuario: req.usuario
         });
 
     })
@@ -112,13 +118,14 @@ app.get("/product/profile/:id", ( req, res ) => {
             let productosRelacionados = resultadoSubcategorias[0];
             res.render("perfilProducto", {
                 productoDB,
-                productosRelacionados
+                productosRelacionados,
+                usuario: req.usuario
             })
         })
     })
 })
 
-app.post("/product/save", ( req, res ) => {
+app.post("/product/save", verificarAdminRole, ( req, res ) => {
     let body = {
         nombre: req.body.nombre,
         descripcion: req.body.descripcion,
@@ -148,9 +155,7 @@ app.post("/product/save", ( req, res ) => {
         }
         let productoDB = results[0][0];
         if( !req.files ) {
-            res.render("perfilProducto", {
-                productoDB
-            })
+            res.redirect(`/product/profile/${ productoDB.IdProducto }`)
         }else{
             res.redirect(307, `/upload/producto/${ productoDB.IdProducto }`)
         }
@@ -158,7 +163,7 @@ app.post("/product/save", ( req, res ) => {
     })
 })
 
-app.get("/product/update/:id", ( req, res )=> {
+app.get("/product/update/:id", verificarRole, ( req, res )=> {
     let id = req.params.id;
     let sql = `CALL buscarProductoPorId( ? )`;
 
@@ -199,12 +204,13 @@ app.get("/product/update/:id", ( req, res )=> {
                 categoriasDB,
                 subcategoriasDB,
                 proveedoresDB,
+                usuario: req.usuario
             });
         });
     })
 })
 
-app.post("/product/update/:id", ( req, res ) => {
+app.post("/product/update/:id", verificarAdminRole, ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
     let sql = `CALL actualizarProducto(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
@@ -224,15 +230,13 @@ app.post("/product/update/:id", ( req, res ) => {
          * la ruta /upload/.... por que no se subio ninguna imagen
          */
         if( !req.files ) {
-            res.render("perfilProducto", {
-                productoDB
-            })       
+            res.redirect(`/product/profile/${ id }`);   
         }else{
             res.redirect(307, `/upload/producto/${ productoDB.IdProducto }`);
         }
     })
 })
-app.get("/product/remove/:id", ( req, res ) => {
+app.get("/product/remove/:id", verificarAdminRole, ( req, res ) => {
     let id = req.params.id;
     let sql = `CALL borrarProducto( ? )`;
 
@@ -243,7 +247,9 @@ app.get("/product/remove/:id", ( req, res ) => {
                 error
             })
         }
-        res.redirect("/producto");
+        res.redirect("/producto",{
+            usuario: req.usuario
+        });
     })
 })
 
@@ -271,3 +277,4 @@ function traerValorParametro( parametro ) {
         return valor;
     }
 }
+

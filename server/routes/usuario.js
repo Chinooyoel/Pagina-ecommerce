@@ -1,19 +1,21 @@
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
-const { verificarToken, verificarAdminRole } = require("../middleware/autenticacion");
+const { verificarAdminRole, verificarRole } = require("../middleware/autenticacion");
 const connection = require("../mysql/mysql");
 const { validarFormularioUsuarios, validarEstado } = require("../middleware/validacion");
 
 
 
-app.get("/usuario" , (req, res) => {
-    res.render("tablaUsuarios");
+app.get("/usuario" , verificarRole, (req, res) => {
+    res.render("tablaUsuarios",{
+        usuario: req.usuario
+    });
 })
 
 
 
-app.post("/usuario/guardar", ( req, res ) => {
+app.post("/usuario/guardar",  verificarAdminRole, ( req, res ) => {
     let body = req.body;
     body.telefono = Number(body.telefono);
     body.documento = Number(body.documento);
@@ -40,7 +42,7 @@ app.post("/usuario/guardar", ( req, res ) => {
 
 
 
-app.post("/usuario/actualizar/:id", ( req, res ) => {
+app.post("/usuario/actualizar/:id",verificarAdminRole, ( req, res ) => {
     let id = req.params.id;
     let body = req.body;
     body.telefono = Number(body.telefono);
@@ -60,13 +62,13 @@ app.post("/usuario/actualizar/:id", ( req, res ) => {
                 })
         }
 
-        redirect(`/usuario/perfil/${ id }`);
+        res.redirect(`/usuario/perfil/${ id }`);
     })
 });
 
 
 
-app.get("/usuario/buscar/:data", ( req, res ) => {
+app.get("/usuario/buscar/:data", verificarRole , ( req, res ) => {
     let data = req.params.data;
     let expresionRegular = data + "+";
 
@@ -88,7 +90,7 @@ app.get("/usuario/buscar/:data", ( req, res ) => {
 
 
 
-app.get("/usuario/perfil/:id", ( req, res ) => {
+app.get("/usuario/perfil/:id", verificarRole, ( req, res ) => {
     let id = req.params.id;
 
     let sql = `CALL buscarUsuarioPorId( ? );`;
@@ -115,7 +117,8 @@ app.get("/usuario/perfil/:id", ( req, res ) => {
             usuariosDB[0].estado = "DESACTIVADO"
         }
         res.render("perfilUsuario", {
-            usuarioDB : usuariosDB[0]
+            usuarioDB : usuariosDB[0],
+            usuario: req.usuario
         })
     })
 })

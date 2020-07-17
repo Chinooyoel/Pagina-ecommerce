@@ -1,38 +1,51 @@
 const express = require("express");
 const app = express();
-
+const { verificarRole } = require("../middleware/autenticacion");
 app.get("/", ( req, res ) => {
-
-    res.render("index");
+    res.render("index",{
+        usuario: req.usuario
+    });
 
 })
 app.get("/ayuda", ( req, res ) => {
 
-    res.render("ayuda");
+    res.render("ayuda",{
+        usuario: req.usuario
+    });
 
 })
 app.get("/ubicacion", ( req, res ) => {
 
-    res.render("ubicacion");
+    res.render("ubicacion",{
+        usuario: req.usuario
+    });
 
 })
 app.get("/articulo", ( req, res ) => {
 
-    res.render("articulo");
+    res.render("articulo",{
+        usuario: req.usuario
+    });
 
 
 })
 app.get("/user", ( req, res ) => {
     
-    res.render("usuario");
+    res.render("usuario",{
+        usuario: req.usuario
+    });
     
 })
-app.get("/admin", ( req, res ) => {
+app.get("/admin", [ verificarRole ], ( req, res ) => {
 
-    res.render("admin");
+    res.render("admin",{
+        usuario: req.usuario
+    });
 })
 app.get("/armar", ( req, res )=> {
 
-    res.render("armarPc");
+    res.render("armarPc",{
+        usuario: req.usuario
+    });
 })
 module.exports = app;

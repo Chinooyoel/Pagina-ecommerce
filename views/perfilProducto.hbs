@@ -7,11 +7,13 @@
             <section class="encabezado">
                 <h3>{{ productoDB.Categoria }}</h3>
             </section>
-            <section class="panelControl">
-                <a href="/product/remove/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Eliminar Producto</a>
-                <a href="/product/update/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Editar Producto</a>
-                <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
-            </section>  
+            {{#if usuario.Admin }}
+                <section class="panelControl">
+                    <a href="/product/remove/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Eliminar Producto</a>
+                    <a href="/product/update/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Editar Producto</a>
+                    <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
+                </section>
+            {{/if}}  
         </section>
         <section class="flex-contenedor max1400">
             <figure class="galeria__figure">
@@ -65,7 +67,6 @@
         </section>
     </section>
 
-    <script src="/assets/js/main.js"></script>
     <script>
         copiarEnlace();
     </script>

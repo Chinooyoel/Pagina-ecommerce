@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link href="/assets/estilos/estilo.css" rel=StyleSheet>
-        <link href="/assets/estilos/resetEstilos.css" rel=StyleSheet>
+        <link href="/assets/estilos/estilo.css" rel="StyleSheet">
+        <link href="/assets/estilos/resetEstilos.css" rel="StyleSheet">
         <link href="/assets/estilos/estilo-producto.css" rel="StyleSheet">
         <link href="/assets/estilos/articulos.css" rel="StyleSheet">
         <link href="/assets/estilos/ayuda.css" rel="StyleSheet">
@@ -50,8 +50,13 @@
                     </div>
                     <div>
                         <ul>
-                            <li><a class="abrirModalLogin">INICIA SESION</a></li>
-                            <li><a class="abrirModalRegistrarse abrilModalRegistrarse--verde">REGISTRATE</a></li>
+                            {{#if usuario.Logueado }}
+                                <li><a class=""><i class="fas fa-user icono"></i>MI CUENTA</a></li>
+                                <li><a id="botonCerrarSesion"><i class="fas fa-door-open icono"></i>CERRAR SESIÓN</a></li>
+                            {{else}}
+                                <li><a class="abrirModalLogin">INICIA SESIÓN</a></li>
+                                <li><a class="abrirModalRegistrarse abrilModalRegistrarse--verde">REGISTRATE</a></li>
+                            {{/if}}
                         </ul>
                     </div>
                     <div class="carrito">
@@ -62,6 +67,9 @@
             </section>
             <nav >
                 <ul class="menu">
+                    {{#if usuario.Admin}}
+                        <li><a href="/admin" class="menu__link menu__link--verde">ADMINISTRACION</a></li>
+                    {{/if}}
                     <li><a href="/producto/buscar/palabra=-1/idcat=7/idsub=-1/idmarca=-1/orden=-1/" class="menu__link">NOTEBOOK</a></li>
                     <li>
                         <a class="menu__link">PRODUCTOS</a>
@@ -93,7 +101,7 @@
                             <li><a href="/producto/buscar/microfono" class="menu__link menu__link--verde">MICROFONO</a></li>
                         </ul>
                     </li>
-                    <li><a href="" class="menu__link menu__link--verde">ARMA TU PC</a></li>
+                    <li><a href="/armar" class="menu__link menu__link--verde">ARMA TU PC</a></li>
                     <li><a href="" class="menu__link">ARMA TU COMBO</a></li>
                     <li><a href="" class="menu__link">PAGO QR</a></li>
                 </ul>

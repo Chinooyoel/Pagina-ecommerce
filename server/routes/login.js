@@ -45,7 +45,6 @@ app.post("/login", ( req, res ) => {
         }
 
         let token = jwt.sign({
-            nombre: usuarioDB.nombre,
             email: usuarioDB.email,
             role: usuarioDB.role
         }, '123', { expiresIn: 60 * 60 * 24 * 30 } );

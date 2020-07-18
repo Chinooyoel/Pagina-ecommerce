@@ -86,12 +86,12 @@ function mostrarProductoEnTabla( productoArray ){
         tablaProducto.innerHTML += 
         `<tr class="tabla__fila">
             <th class="tabla__campo">${ index + 1 }</th>
-            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.IdProducto }">${ producto.Nombre }</a></th>
+            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.IdProducto }" class="tabla__campo__link">${ producto.Nombre }</a></th>
             <th class="tabla__campo">${ producto.Categoria }</th>
             <th class="tabla__campo tabla__campo--verde">${ producto.Stock }</th>
             <th class="tabla__campo">$${ producto.Precio }.00</th>
             <th class="tabla__campo">$${ producto.Costo }.00</th>
-            <th class="tabla__campo"><a href="/product/update/${ producto.IdProducto }">Editar</a> - <a href="/product/remove/${ producto.IdProducto }">Eliminar</a></th>
+            <th class="tabla__campo"><a href="/product/update/${ producto.IdProducto }" class="tabla__campo__link">Editar</a> - <a href="/product/remove/${ producto.IdProducto }" class="tabla__campo__link">Eliminar</a></th>
         </tr>`
     })
 }
@@ -226,7 +226,7 @@ function mostrarUsuarioEnTabla( usuarioArray ){
             <th class="tabla__campo tabla__campo--verde">${ usuario.estado }</th>
             <th class="tabla__campo">${ usuario.email }</th>
             <th class="tabla__campo">0</th>
-            <th class="tabla__campo"><a href="/usuario/perfil/${ usuario.idusuario }">Mas info</a></th>
+            <th class="tabla__campo"><a href="/usuario/perfil/${ usuario.idusuario }" class="tabla__campo__link">Mas info</a></th>
         </tr>`
     })
 }

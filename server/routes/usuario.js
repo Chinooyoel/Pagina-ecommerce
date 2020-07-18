@@ -15,7 +15,7 @@ app.get("/usuario" , verificarRole, (req, res) => {
 
 
 
-app.post("/usuario/guardar",  verificarAdminRole, ( req, res ) => {
+app.post("/usuario/guardar", ( req, res ) => {
     let body = req.body;
     body.telefono = Number(body.telefono);
     body.documento = Number(body.documento);

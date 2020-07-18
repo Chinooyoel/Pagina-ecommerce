@@ -94,7 +94,6 @@
     flex-wrap: wrap;
     justify-content: start;
     align-items: start;
-    height: min-content;
 }
 
 .categoria__especificacion__link{
@@ -112,4 +111,7 @@
 .textoCentro{
     text-align: center;
     width: 100%;
+}
+a{
+    cursor: pointer;
 }

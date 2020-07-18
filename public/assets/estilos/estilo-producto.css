@@ -26,6 +26,8 @@
 
     .producto__img{
         width: 100%;
+        height: 250px;
+        object-fit: cover;
     }
     .producto__precio{
         font-size: 1.5em;

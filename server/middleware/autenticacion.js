@@ -29,8 +29,9 @@ let verificarToken = ( req, res, next ) => {
 let verificarRole = ( req, res, next ) => {
     let role = req.usuario.Role;
     if( role != "ADMIN" && role != "TEST" ) {
-        return res.status(401).json({
-            message: "Requiere permisos de administrador"
+        return res.status(401).render("paginaError",{
+            status: 401,
+            mensaje: "Requiere permisos de administrador"
         })
     }
     next();
@@ -40,8 +41,8 @@ let verificarAdminRole = ( req, res, next ) => {
     let role = req.usuario.Role;
 
     if( role !== "ADMIN" ) {
-        return res.status(401).json({
-            message: "Requiere permisos de administrador"
+        return res.status(401).render("paginaError",{
+            mensaje: "Requiere permisos de administrador"
         })
     }
     next();

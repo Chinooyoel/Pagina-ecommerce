@@ -2,9 +2,6 @@
     .listaLightboxMarca__link__img{
         height: 65px;
     }
-    .titulo{
-        background: blue;
-    }
     .titulo::after, .titulo::before{
         width: 10%;
     }
@@ -17,6 +14,9 @@
 
     .especificacion{
         max-width: 42%;
+    }
+    .especificacion__img{
+        height: 200px;
     }
     .producto{
         width: 42%;

@@ -1,0 +1,17 @@
+body{
+    background-image: url("/assets/img/fondoError.jpg");
+    text-align: center;
+}
+.mensajeError{
+    background: #eeeeee;
+    border: 2px solid rgb(185, 185, 185);
+    display: inline-block;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.mensajeError__titular{
+    font-size: 3.5em;
+}

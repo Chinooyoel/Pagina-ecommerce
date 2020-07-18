@@ -2,7 +2,9 @@
     width: 50%;
 }
 .galeria__figure--tamanioPerfil{
-    width: 100%;
+    width: 90%;
+    height: 500px;
+    object-fit: cover;
 }
 .caracteristicas{
     width: 45%;

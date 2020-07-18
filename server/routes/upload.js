@@ -69,9 +69,7 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
                     }
                     productoDB.Img = resultadoImagen[0][0].Img;
                     return res.status(200)
-                    .render("perfilProducto", {
-                        productoDB
-                    })
+                        .redirect(`/product/profile/${ id }`)
                 });
             })
         })

@@ -12,6 +12,12 @@
 .tabla__campo--alignStart{
     text-align: start;
 }
+.tabla__campo__link{
+    color: black;
+}
+.tabla__campo__link:hover{
+    color: #3bb441;
+}
 .tabla__fila:nth-child(odd){
     background: rgb(202, 202, 202);
 }

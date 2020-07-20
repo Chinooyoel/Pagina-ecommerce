@@ -1,0 +1,17 @@
+{{>head }}
+    {{>modal }}
+    {{>modalLogin }}
+
+    <section class="max1400">
+        <h3 class="titular">Confirme su compra</h3>
+        <h2 id="subtitular"><i class="fa fa-arrow-circle-down icono"></i>Productos en su carrito</h2>
+        <section id="listaCarrito">
+        </section>
+    </section>
+
+    <script>
+        mostrarProductosDelCarrito();
+        eventoEliminarProducto();
+        eventoVaciarCarrito();
+    </script>
+{{>footer}}

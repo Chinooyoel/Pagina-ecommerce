@@ -19,20 +19,20 @@
         </section>
         <section class="flex-contenedor max1400">
             <figure class="galeria__figure">
-                <img src="/assets/img/producto/{{ productoDB.Img }}" class="galeria__figure--tamanioPerfil">
+                <img src="/assets/img/producto/{{ productoDB.Img }}" name="imgProducto" class="galeria__figure--tamanioPerfil">
             </figure>
             <article class="caracteristicas">
-                <h2 class="caracteristicas__titulo">{{ productoDB.Nombre }}</h2>
+                <h2 class="caracteristicas__titulo" name="nombreProducto" data-id={{ productoDB.IdProducto }}>{{ productoDB.Nombre }}</h2>
                 <p class="caracteristicas__dato">CODIGO: {{productoDB.Codigo}} || MARCA: {{ productoDB.Marca }} || STOCK: {{ productoDB.Stock }}</p>
                 <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ productoDB.Garantia}}</p>
-                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: ${{ productoDB.Precio }}.00</h2>
+                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: $<span name="precioProducto">{{ productoDB.Precio }}</span>.00</h2>
                 <article class="flex-contenedor caracteristicas__dato">
                     <section>
                         <img src="/assets/img/americanExpressIcon.png">
                         <img src="/assets/img/visaIcon.png">
                         <img src="/assets/img/mastercardIcon.png">
                     </section>
-                    <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-shopping-cart "></i> AGREGAR</button>
+                    <button class="campoBoton campoBoton--verdeOscuro botonAgregarProducto"><i class="fas fa-shopping-cart "></i> AGREGAR</button>
                 </article>
 
                 <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-shipping-fast"></i> CALCULAR ENVIO</button>
@@ -71,5 +71,7 @@
 
     <script>
         copiarEnlace();
+        eventoAñadirProducto();
+        funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
     </script>
 {{>footer}}

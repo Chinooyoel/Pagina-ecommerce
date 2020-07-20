@@ -115,3 +115,67 @@
 a{
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.productoEstandar{
+    border: 1px solid grey;
+    color: #50b942;
+}
+    .productoEstandar:hover{
+        border: 1px solid #50b942;
+    }
+
+.productoFila{
+    width: 100%;
+    height: 130px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.productoFila__link{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.productoFila__link__img{
+    height: 80%;
+    width: 120px;
+    margin-right: 20px;
+}
+
+.productoFila__detalle{
+    color:black;
+    text-align: start;
+}
+#subtitular{
+    font-size: 1.3em;
+    margin: 10px;
+}

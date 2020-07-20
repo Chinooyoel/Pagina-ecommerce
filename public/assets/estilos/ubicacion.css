@@ -62,6 +62,7 @@ form{
     cursor: pointer;
     border: none;
     vertical-align: middle;
+    display: inline-block;
 }
     .campoBoton--azul{
         background: #0359da;
@@ -76,6 +77,14 @@ form{
     }
     .campoBoton--verdeOscuro:hover{
         background:#2f6b27;
+    }
+    .campoBoton--negro{
+        background-color: black;
+        color: white;
+    }
+    .campoBoton--negro:hover{
+        background-color: #2f6b27;
+        color: white;
     }
 
 .formulario__input--corto{

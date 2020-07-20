@@ -1,16 +1,17 @@
 window.onload = () =>{
 
     funcionModal();
-    funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
     funcionParaMostrarSubmenu();
     funcionBuscadorGeneral();
     funcionAbrirMenuResponsive();
     validarLogin();
     cerrarSesion();
+    actualizarCarrito();
 }
 
-// ----------------------------------------FUNCIONES------------------------------------
+let carrito = leerCarrito();
 
+// ----------------------------------------FUNCIONES------------------------------------
 //FUNCION DE MODAL
 function funcionModal(){
     let abrirModalTelefonico = document.getElementsByClassName("abrirModalTelefonico");
@@ -265,7 +266,7 @@ function funcionMostrarYOcultarAyuda(){
         });
     }
 }
-function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
+function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo( ) {
     let elementoInteractivo = document.getElementsByClassName("producto__interaccionArticulo");
 
     for( let i = 0 ; i < elementoInteractivo.length; i++ ){
@@ -276,7 +277,6 @@ function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
 
         hijosDelElementoInteractivo[0].style.opacity = 0.5;
         hijosDelElementoInteractivo[1].style.display = "block";
-
     })  
     
     //evento mouseenter, ocurre cuando el raton sale o no esta encima del elemento
@@ -284,11 +284,8 @@ function funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo() {
         let hijosDelElementoInteractivo = elementoInteractivo[i].children;
         hijosDelElementoInteractivo[0].style.opacity = 1;
         hijosDelElementoInteractivo[1].style.display = "none";
-
     })
     }
-
-
 }
 function funcionAbrirMenuResponsive(){
     let boton = document.getElementById("botonMenuResponsive");
@@ -303,6 +300,71 @@ function funcionAbrirMenuResponsive(){
     })
 }
 
+function ocultarBotonAgregarProducto(){
+    let botonAgregarProducto = document.getElementsByClassName("botonAgregarProducto");
+    for( let i = 0; i < botonAgregarProducto.length ; i++ ){
+        botonAgregarProducto[i].style.display = "none";
+    }
+}
+function mostrarBotonAgregarProducto(){
+    let botonAgregarProducto = document.getElementsByClassName("botonAgregarProducto");
+    for( let i = 0; i < botonAgregarProducto.length ; i++ ){
+        botonAgregarProducto[i].style.display = "inline-block";
+    }
+}
+function eventoCambiarVistaProducto(){
+    let botonVistaCuadricula = document.getElementById("botonVistaCuadricula");
+    let botonVistaFila = document.getElementById("botonVistaFila");
+
+    botonVistaCuadricula.addEventListener("click", () => {
+        ponerProductosEnCuadricula()
+    })
+    botonVistaFila.addEventListener("click", () => {
+        ponerProductosEnFila()
+    })
+}
+function ponerProductosEnFila(){
+    let productosDom = document.querySelectorAll("figure.producto");
+    let img = document.querySelectorAll(".producto__img")
+    let a = document.querySelectorAll("a.producto__interaccionArticulo");
+
+    for( let i = 0; i < productosDom.length ; i++ ){
+        productosDom[i].classList.remove("producto");
+        productosDom[i].classList.add("productoFila");
+
+        a[i].classList.add("productoFila__link");
+
+        img[i].classList.remove("producto__img");
+        img[i].classList.add("productoFila__link__img");
+    }
+    sessionStorage.vistaArticulos = 1;
+    mostrarBotonAgregarProducto()
+
+}
+function ponerProductosEnCuadricula(){
+    let productosDom = document.querySelectorAll("figure.productoFila");
+    let img = document.querySelectorAll("img.productoFila__link__img")
+    let a = document.querySelectorAll("a.productoFila__link");
+
+    for( let i = 0; i < productosDom.length ; i++ ){
+        productosDom[i].classList.remove("productoFila");
+        productosDom[i].classList.add("producto");
+
+        a[i].classList.remove("productoFila__link");
+
+        img[i].classList.remove("productoFila__link__img");
+        img[i].classList.add("producto__img");
+    }
+
+    sessionStorage.vistaArticulos = 2;
+    ocultarBotonAgregarProducto();
+}
+function leerVistaDeArticulos(){
+    let vistaArticulos = Number(sessionStorage.vistaArticulos);
+    if( vistaArticulos === 1 ){
+        ponerProductosEnFila();
+    }
+}
 
 //FUNCION DE VALIDACIONES
 function validarFormularioProducto(){
@@ -539,4 +601,92 @@ function cerrarSesion(){
 }
 function borrarToken(){
     document.cookie = `token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+}
+
+
+//FUNCIONES CARRITO
+function leerCarrito(){
+    if( !localStorage.carrito ){
+        return new Carrito([], 0, 0)
+    }else{
+        let carritoObj = JSON.parse(localStorage.carrito);
+        return new Carrito(carritoObj.productos, carritoObj.total, carritoObj.cantidad )
+    }
+}
+function guardarCarrito( carrito ){
+    let carritoJSON = JSON.stringify( carrito );
+
+    localStorage.carrito = carritoJSON;
+}
+function actualizarCarrito(){
+    let total = document.getElementById("total");
+    total.innerHTML = `( ${ carrito.cantidad } )  $${ carrito.total }.00`
+}
+function eventoAñadirProducto(){
+    const botonAgregarProducto = document.getElementsByClassName("botonAgregarProducto");
+
+    for( let i = 0; i < botonAgregarProducto.length ; i++ ){
+        botonAgregarProducto[i].addEventListener("click", ( e ) => {
+            const productoDOM = e.target.parentNode.parentNode;
+            const producto = carrito.leerProducto( productoDOM );
+            carrito.añadirProducto( producto );
+            guardarCarrito( carrito );
+            actualizarCarrito();
+        })
+    }
+
+}
+function mostrarProductosDelCarrito(){
+    const productos = carrito.productos;
+    let listaCarrito = document.getElementById("listaCarrito");
+    let subtitular = document.getElementById("subtitular");
+    if( productos.length === 0 ){
+        subtitular.innerHTML = `<i class="fa fa-times-circle icono"></i>No hay producto en el carrito`
+        return;
+    }
+
+    listaCarrito.innerHTML = `<a id="botonVaciarCarrito" class="producto__interaccionArticulo"><i class="textoRojo fa fa-times-circle"></i>Vaciar Carrito</a>`;
+    for( let i = 0; i < productos.length; i++ ){
+        listaCarrito.innerHTML +=   `<figure class="productoEstandar productoFila">
+                                        <a href="/product/profile/${ productos[i].id }" class="producto__interaccionArticulo productoFila__link">
+                                            <img src="${ productos[i].img }" class="productoFila__link__img" name="imgProducto">
+                                            <h4 name="nombreProducto" data-id=${ productos[i].id }>${ productos[i].nombre }</h4>
+                                        </a>
+                                        <figcaption class="productoFila__detalle">
+                                            <h4>P.Unitario: $<span name="precioProducto">${ productos[i].precio }</span>.00</h4>
+                                            <h4>Cantidad: ${ productos[i].cantidad }</h4>
+                                            <h4>P.Total: <span class="textoRojo">$${ productos[i].precio * productos[i].cantidad }.00</span></h4>
+                                            <a class="tabla__campo__link botonEliminarProducto"><i class="fa fa-times-circle textoRojo"></i>Eliminar Producto</a>
+                                        </figcaption>
+                                    </figure>`
+    }
+}
+function eventoEliminarProducto(){
+    const botonEliminarProducto = document.getElementsByClassName("botonEliminarProducto");
+
+    for( let i = 0; i < botonEliminarProducto.length ; i++ ){
+        botonEliminarProducto[i].addEventListener("click", ( e ) => {
+            const productoDOM = e.target.parentNode.parentNode;
+            const producto = carrito.leerProducto( productoDOM );
+
+            carrito.eliminarProducto( producto );
+            guardarCarrito( carrito );
+            actualizarCarrito();
+
+            window.location.reload();
+
+        })
+    }
+}
+function eventoVaciarCarrito(){
+    const botonVaciarCarrito = document.getElementById("botonVaciarCarrito");
+
+    if( !botonVaciarCarrito ){
+        return;
+    }
+
+    botonVaciarCarrito.addEventListener("click", () => {
+        localStorage.removeItem("carrito");
+        window.location.reload();
+    })
 }

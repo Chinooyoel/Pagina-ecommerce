@@ -48,4 +48,10 @@ app.get("/armar", ( req, res )=> {
         usuario: req.usuario
     });
 })
+app.get("/carrito", ( req, res )=> {
+
+    res.render("carrito",{
+        usuario: req.usuario
+    });
+})
 module.exports = app;

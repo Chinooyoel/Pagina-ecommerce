@@ -4,8 +4,6 @@
     width: 24%;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 1px solid grey;
-    color: #50b942;
     line-height: 20px;
     background: white;
     margin: 0.5%;
@@ -13,9 +11,7 @@
     /* position relative para el mas-info*/
     position:relative;
 }
-    .producto:hover{
-        border: 1px solid #50b942;
-    }
+
 
     .producto__interaccionArticulo{
         color:black;

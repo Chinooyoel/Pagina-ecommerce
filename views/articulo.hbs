@@ -15,8 +15,8 @@
                         <option value="/producto/buscar/palabra={{ URLPalabra }}/idcat={{ URLidCat }}/idsub={{ URLidSub }}/idmarca={{ URLMarca }}/orden=1">Menor-precio</option>
                         <option value="/producto/buscar/palabra={{ URLPalabra }}/idcat={{ URLidCat }}/idsub={{ URLidSub }}/idmarca={{ URLMarca }}/orden=2">Mayor precio</option>
                     </select>
-                    <a><i class='fas fa-th encabezado--grande verde'></i></a>
-                    <a><i class='fas fa-align-justify encabezado--grande verde'></i></a>
+                    <a id="botonVistaCuadricula"><i class='fas fa-th encabezado--grande verde'></i></a>
+                    <a id="botonVistaFila"><i class='fas fa-align-justify encabezado--grande verde'></i></a>
                 </div>
             </section>
             <!--************ASIDE CATEGORIA**********-->
@@ -45,28 +45,20 @@
                         {{/each}}
                     </li>
                 </ul>
-                <!--
-                <ul class="categoria__especificacion">
-                    <li class="categoria__especificacion--verde">Marca</li>
-                    {{#each marcasDB}}
-                    <li>
-                        <input type="checkbox" id="{{ Nombre }}" name="{{ IdMarca }}" value="{{ IdMarca }}">
-                        <label for="{{ Nombre }}" >{{ Nombre }}</label>
-                    </li>
-                    {{/each}}
-                </ul>
-                -->
             </aside>
             <!--************SECCION PRODUCTOS**********-->
             <section class="flex-contenedor-start lista-productos">
                 {{#each productosDB }}
-                <figure class="producto">
+                <figure class="producto productoEstandar">
                     <a href="/product/profile/{{ IdProducto }}" class="producto__interaccionArticulo">
-                        <img src="/assets/img/producto/{{ Img }}" class="producto__img">
+                        <img src="/assets/img/producto/{{ Img }}" class="producto__img" name="imgProducto">
                         <span class="producto__mas-info">[MÁS INFO]</span>
-                        {{ Nombre }}
+                        <h4 name="nombreProducto" data-id={{ IdProducto }}>{{ Nombre }}</h4>
                     </a>
-                    <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
+                    <figcaption>
+                        <h4 class="producto__precio">ARS <span name="precioProducto">{{ Precio }}</span></h4>
+                        <a class="botonAgregarProducto campoBoton campoBoton--negro" style="display:none">AGREGAR</a>
+                    </figcaption>
                 </figure>
                 {{ else }}
                 <p class="textoCentro">* No hay resultados para esta busqueda *</p>
@@ -76,5 +68,9 @@
 
     <script>
         ordenarProductos();
+        leerVistaDeArticulos();
+        eventoCambiarVistaProducto();
+        funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
+        eventoAñadirProducto()
     </script>
 {{> footer }}

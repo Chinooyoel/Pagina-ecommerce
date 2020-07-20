@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const connection = require("../mysql/mysql");
 const { validarEmail } = require("../middleware/validacion");
 
+const semilla = process.env.semillaToken || "123";
+
 
 app.post("/login", ( req, res ) => {
     let body = req.body;
@@ -47,7 +49,7 @@ app.post("/login", ( req, res ) => {
         let token = jwt.sign({
             email: usuarioDB.email,
             role: usuarioDB.role
-        }, '123', { expiresIn: 60 * 60 * 24 * 30 } );
+        }, semilla, { expiresIn: 60 * 60 * 24 * 30 } );
         
         res.json({
             message: "Credenciales validas",

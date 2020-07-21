@@ -74,7 +74,7 @@ app.get("/usuario/buscar/:data", verificarRole , ( req, res ) => {
 
     let sql = `CALL buscarUsuarios( ? )`;
 
-    connection.query(sql, [${ expresionRegular }], ( error, results ) => {
+    connection.query(sql, [expresionRegular], ( error, results ) => {
         if( error ){
             return res.status(500)
                 .json({

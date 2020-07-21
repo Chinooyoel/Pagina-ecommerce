@@ -9,7 +9,7 @@ let verificarToken = ( req, res, next ) => {
         req.usuario = { logueado : false };
         next();
     }else{
-        jwt.verify(token, '123', ( err, decodificado ) => {
+        jwt.verify(token, process.env.semilla, ( err, decodificado ) => {
             if( err ) {
                 req.usuario = { logueado: false }
                 return res.status(400).json({

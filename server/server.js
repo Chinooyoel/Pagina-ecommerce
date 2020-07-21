@@ -1,3 +1,4 @@
+require("./config/config")
 const hbs = require("hbs");
 const express = require("express");
 const app = express();

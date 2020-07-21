@@ -5,6 +5,7 @@ window.onload = () =>{
     funcionBuscadorGeneral();
     funcionAbrirMenuResponsive();
     validarLogin();
+    validarFormularioUsuario()
     cerrarSesion();
     actualizarCarrito();
 }
@@ -437,7 +438,9 @@ function validarFormularioUsuario(){
     let elementoDocumento = document.getElementById("documento");
     let elementoEmail = document.getElementById("email");
 
-
+    if( !formulario ){
+        return
+    }
     elementoNombre.addEventListener("keyup", ( e ) => {
         validarCampoComun( elementoNombre );
     })

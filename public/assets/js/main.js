@@ -71,7 +71,7 @@ function funcionBuscarProductoParaTabla() {
 
     buscadorTabla.addEventListener("keypress", () => {
         if( buscadorTabla.value ){
-            enviarPeticion("GET", `http://localhost:3000/producto/admin/buscar/${ buscadorTabla.value }`, ( respuesta ) => {
+            enviarPeticion("GET", `${ window.location.origin }/producto/admin/buscar/${ buscadorTabla.value }`, ( respuesta ) => {
 
             mostrarProductoEnTabla( respuesta.productosDB );
             })
@@ -206,7 +206,7 @@ function funcionBuscarUsuario () {
 
     buscador.addEventListener("keydown", () => {
         if( buscador.value ){
-            enviarPeticion("GET", `http://localhost:3000/usuario/buscar/${ buscador.value }`, ( respuesta ) => {
+            enviarPeticion("GET", `${ window.location.origin }/usuario/buscar/${ buscador.value }`, ( respuesta ) => {
                 let usuarioArray = respuesta.usuariosDB;
 
                 mostrarUsuarioEnTabla( usuarioArray );
@@ -596,7 +596,7 @@ function cerrarSesion(){
 
     botonCerrarSesion.addEventListener("click", ( e ) => {
         borrarToken();
-        window.location.href = "http://localhost:3000/";
+        window.location.href = `${ window.location.origin }/`;
     })
 }
 function borrarToken(){

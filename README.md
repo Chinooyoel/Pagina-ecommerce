@@ -1,4 +1,4 @@
-# Ecommerse de computacion
+# Ecommerce de computacion
 El diseño de este proyecto fue copiado de la pagina de computacion [Maximus](https://www.maximus.com.ar/HOME/maximus.aspx).
 
 Esta hecha por html, css, javascript, nodejs, express y mysql. El motor de vista que utilize fue Handlebars.

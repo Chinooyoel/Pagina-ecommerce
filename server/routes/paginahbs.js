@@ -1,10 +1,27 @@
 const express = require("express");
 const app = express();
 const { verificarRole } = require("../middleware/autenticacion");
+const connection = require("../mysql/mysql");
+
 app.get("/", ( req, res ) => {
-    res.render("index",{
-        usuario: req.usuario
-    });
+    let sql = "call buscarProductosMasVendidos( ? )"
+    let datos = [ 4 ];
+
+    connection.query(sql, datos, ( error, resultado ) => {
+        if( error ){
+            return res.status(500)
+                .json({
+                    ok: false,
+                    error
+                })
+        }
+
+        res.render("index",{
+            usuario: req.usuario,
+            productosDB : resultado[0]
+        });
+    })
+
 
 })
 app.get("/ayuda", ( req, res ) => {

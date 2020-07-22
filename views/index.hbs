@@ -105,39 +105,17 @@
         <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
         <section class="centro max1400">
             <h3 class="titulo">PRODUCTOS DESTACADOS</h3>
-            <article class="flex-contenedor">
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
-                <figure class="producto">
-                    <a href="" class="producto__interaccionArticulo">
-                        <img src="/assets/img/hyperx.jpg" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        AURICULARES HYPERX CLOUD ALPHA
-                    </a>
-                    <figcaption class="producto__precio">ARS 2800</figcaption>
-                </figure>
+            <article class="flex-contenedor ">
+                {{#each productosDB }}
+                    <figure class="producto">
+                        <a href="/product/profile/{{ IdProducto}}" class="producto__interaccionArticulo">
+                            <img src="/assets/img/producto/{{ Img }}" class="producto__img">
+                            <span class="producto__mas-info">[MÁS INFO]</span>
+                            {{ Nombre }}
+                        </a>
+                        <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
+                    </figure>
+                {{/each}}
             </article>
         </section>
         <!--*****************************SECCION BANNER**********************************-->         

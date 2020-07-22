@@ -73,6 +73,9 @@
     .categoria, .lista-productos, .caracteristicas, .galeria__figure{
         width: 100%;
     }
+    .lightboxGrande__img{
+        height: 250px;
+    }
 }
 
 @media (max-width: 480px){
@@ -93,8 +96,14 @@
         width: 90vw;
     }
 
-    .lista-productos .producto{
+    .producto{
         width: 90%;
+    }
+    .especificacion{
+        width: 90%;
+    }
+    .lightboxGrande__img{
+        height: 180px;
     }
 
 }

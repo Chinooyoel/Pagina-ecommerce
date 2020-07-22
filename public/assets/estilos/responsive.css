@@ -76,6 +76,19 @@
     .lightboxGrande__img{
         height: 250px;
     }
+    .galeria__figure--tamanioPerfil{
+        height: 400px;
+    }
+    .productoFila__link{
+        width: 60%;
+    }
+    .listaProducto{
+        width: 100%;
+    }
+    .infoArmado{
+        width: 100%;
+    }
+
 }
 
 @media (max-width: 480px){
@@ -99,11 +112,35 @@
     .producto{
         width: 90%;
     }
-    .especificacion{
-        width: 90%;
-    }
     .lightboxGrande__img{
         height: 180px;
     }
+    .galeria__figure--tamanioPerfil{
+        height: 300px;
+    }
 
+    .productoFila{
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .productoFila__link{
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .productoFila__link__img{
+        width: 100%;
+        height: 250px;
+        margin-right: 0px;
+    }
+    .listaProducto__articulo{
+        width: 100%;
+    }
+    .especificacion__img {
+        height: 170px;
+    }
+    .especificacion{
+        height: 200px;
+    }
 }

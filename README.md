@@ -37,7 +37,7 @@ Para probar el proyecto localmente, ejecute
 ```
 npm install
 ```
-Luego en la carpeta principal
+Luego 
 ```
 node server/server
 ```

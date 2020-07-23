@@ -59,7 +59,7 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
     let Orden = Number(req.params.orden);
 
     //let sql = `CALL buscarProductosConFiltro("${ expresionRegular }", ${ idCat }, ${ idSub }, ${ idMarca}, ${ Orden } )`;
-    let valores = [ `${ palabra }`, idCat, idSub, idMarca, Orden ];
+    let valores = [  palabra, idCat, idSub, idMarca, Orden ];
     let sql = `CALL buscarProductosConFiltro( ?, ?, ?, ?, ? )`;
 
     connection.query( sql, valores, ( error, tablas ) => {

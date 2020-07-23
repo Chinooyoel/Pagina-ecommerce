@@ -4,9 +4,8 @@ const connection = require("../mysql/mysql");
 let verificarToken = ( req, res, next ) => {
     let token = req.cookies.token;
 
-    //Si no existe token no hay ningun usuario loguiado, por lo tanto role "DESCONOCIDO"
     if( !token ){
-        req.usuario = { logueado : false };
+        req.usuario = { Logueado : false };
         next();
     }else{
         jwt.verify(token, process.env.semilla, ( err, decodificado ) => {
@@ -40,7 +39,7 @@ let verificarRole = ( req, res, next ) => {
 let verificarAdminRole = ( req, res, next ) => {
     let role = req.usuario.Role;
 
-    if( role !== "ADMIN" ) {
+    if( role != "ADMIN" ) {
         return res.status(401).render("paginaError",{
             mensaje: "Requiere permisos de administrador"
         })
@@ -67,6 +66,7 @@ let obtenerUsuarioLoguiado = ( req, res, next ) => {
             next();
         })
     }else{
+        req.usuario.Admin = false;
         next();
     }
 }

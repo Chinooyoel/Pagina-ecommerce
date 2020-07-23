@@ -1,5 +1,4 @@
 const validator = require("validator");
-const bodyParser = require("body-parser");
 
 function validarFormularioProductos( datos ){
     let nombre = datos.nombre;

@@ -26,10 +26,18 @@ Para interactuar la interfaz como usuario
 Metas faltantes
 - CRUD de pedidos
 - Crear la parte de pagos, utilizar api de mercadopago
-- Autenticacion por Google o Facebook
+- Autenticación por Google o Facebook
 - Diseñar la parte de armar pc del cliente
 - Mejorar la interfaz de subir imagenes
 - Manejo de errores
 - Mejorar la seguridad del token guardado en las Coockies
 
 
+Para probar el proyecto localmente, ejecute
+```
+npm install
+```
+Luego en la carpeta principal
+```
+node server/server
+```

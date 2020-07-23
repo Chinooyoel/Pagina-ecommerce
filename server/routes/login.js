@@ -25,7 +25,7 @@ app.post("/login", ( req, res ) => {
         if( results[0].length === 0 ) {
             return res.status(400)
                 .json({
-                    message: "(Usuario) o contraseña invalidos",
+                    message: "Usuario o contraseña invalidos",
                 })
         }
 
@@ -40,7 +40,7 @@ app.post("/login", ( req, res ) => {
 
         if( !bcrypt.compareSync( body.password, usuarioDB.password, 10) ) {
             return res.status(400).json({
-                message: "Usuario o (contraseña) invalidos",
+                message: "Usuario o contraseña invalidos",
             })
         }
 

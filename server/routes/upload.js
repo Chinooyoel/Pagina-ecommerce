@@ -30,7 +30,7 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
 
     
     if( tipo == "producto"){
-        let sql = `CALL buscarProductoPorId(${ id })`;
+        let sql = `CALL buscarProductoPorId("${ id }")`;
         connection.query(sql, ( error, results ) => {
             if( error ) {
                 return res.status(500).json({
@@ -58,7 +58,7 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
                 if( productoDB.Img != "no-imagen.jpg"){
                     borrarArchivo(`public/assets/img/producto/${ productoDB.Img }`)
                 };
-                let sql = `CALL actualizarImagenProducto(${ productoDB.IdProducto }, "${ nombreGenerado }")`;
+                let sql = `CALL actualizarImagenProducto("${ productoDB.IdProducto }", "${ nombreGenerado }")`;
                 connection.query(sql, ( error, resultadoImagen ) => {
                     if( error ){
                         borrarArchivo(`public/assets/img/producto/${ productoDB.Img }`)

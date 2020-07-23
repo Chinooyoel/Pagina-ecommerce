@@ -5,9 +5,7 @@ const connection = require("../mysql/mysql");
 
 app.get("/", ( req, res ) => {
     let sql = "call buscarProductosMasVendidos( ? )"
-    let datos = [ 4 ];
-
-    connection.query(sql, datos, ( error, resultado ) => {
+    connection.query(sql, [ 4 ], ( error, resultado ) => {
         if( error ){
             return res.status(500)
                 .json({
@@ -15,13 +13,11 @@ app.get("/", ( req, res ) => {
                     error
                 })
         }
-
         res.render("index",{
             usuario: req.usuario,
             productosDB : resultado[0]
         });
     })
-
 
 })
 app.get("/ayuda", ( req, res ) => {

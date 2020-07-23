@@ -33,10 +33,9 @@ app.get("/product/save", verificarRole, ( req, res ) => {
 
 app.get("/producto/admin/buscar/:dato", verificarRole, ( req, res ) => {
     let dato = req.params.dato;
-    let expresionRegular = dato + "+";
     let sql = `CALL buscarProductos( ? );`
 
-    connection.query(sql, [ `${expresionRegular}` ], ( error, results ) => {
+    connection.query(sql, [ `${ dato }` ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -58,15 +57,9 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
     let idSub = traerValorParametro( Number(req.params.idsub) );
     let idMarca = traerValorParametro( Number(req.params.idmarca) );
     let Orden = Number(req.params.orden);
-    let expresionRegular;
-    if( palabra != null ){
-        expresionRegular = palabra + "+";
-    }else{
-        expresionRegular = palabra
-    }
 
     //let sql = `CALL buscarProductosConFiltro("${ expresionRegular }", ${ idCat }, ${ idSub }, ${ idMarca}, ${ Orden } )`;
-    let valores = [ expresionRegular, idCat, idSub, idMarca, Orden ];
+    let valores = [ `${ palabra }`, idCat, idSub, idMarca, Orden ];
     let sql = `CALL buscarProductosConFiltro( ?, ?, ?, ?, ? )`;
 
     connection.query( sql, valores, ( error, tablas ) => {

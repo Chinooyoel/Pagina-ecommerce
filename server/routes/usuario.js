@@ -26,7 +26,7 @@ app.post("/usuario/guardar", ( req, res ) => {
     let valor = [`${ body.nombre }`,`${ body.apellido }`,`${ body.email }`,`${ passwordEncriptada }`, `${ body.documento}`, `${ body.telefono }`]
     let sql = `CALL InsertarUsuario(?, ?, ?, ?, ?, ?);`;
 
-    connection.query( sql, valor, ( error, results, fields) => {
+    connection.query( sql, valor, ( error, results) => {
         if( error ){
             res.status(500)
                 .json({
@@ -70,11 +70,10 @@ app.post("/usuario/actualizar/:id",verificarAdminRole, ( req, res ) => {
 
 app.get("/usuario/buscar/:data", verificarRole , ( req, res ) => {
     let data = req.params.data;
-    let expresionRegular = data + "+";
 
     let sql = `CALL buscarUsuarios( ? )`;
 
-    connection.query(sql, [expresionRegular], ( error, results ) => {
+    connection.query(sql, [ `${ data }` ], ( error, results ) => {
         if( error ){
             return res.status(500)
                 .json({

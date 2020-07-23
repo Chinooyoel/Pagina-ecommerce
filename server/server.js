@@ -5,11 +5,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const connection = require("./mysql/mysql");
-const { verificarToken, obtenerUsuarioLoguiado } = require("./middleware/autenticacion");
 const cookieParser = require("cookie-parser");
-
-let port = process.env.PORT || 3000;
-
+const { verificarToken, obtenerUsuarioLoguiado } = require("./middleware/autenticacion");
 
 
 //Creamos un middleware para la carpeta public
@@ -25,11 +22,8 @@ hbs.registerPartials( __dirname + "/../views/parciales");
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(fileUpload({
-    limits:{
-        fileSize: 5 * 1024 * 1024,
-        }
-}));
+app.use(fileUpload({}));
+
 //middleware
 app.use( verificarToken );
 app.use( obtenerUsuarioLoguiado );
@@ -47,7 +41,7 @@ connection.connect( ( error ) => {
     console.log("Base de datos connectada");
 })
 
-app.listen( port, () => {
-    console.log(`El server se esta ejecutando en el puerto ${ port }`);
+app.listen( process.env.puerto, () => {
+    console.log(`El server se esta ejecutando en el puerto ${ process.env.puerto }`);
 }
 )

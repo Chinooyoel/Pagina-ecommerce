@@ -10,8 +10,8 @@ Para interactuar la interfaz como administrador, (No van a tener permiso para cr
 - password: test
 
 Para interactuar la interfaz como usuario
-- usuario@usuario.com
-- usuario
+- email: usuario@usuario.com
+- password: usuario
 
  Metas completadas
 - CRUD usuario

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const connection = require("../mysql/mysql");
+const { semilla } = require("../config/config");
 
 let verificarToken = ( req, res, next ) => {
     let token = req.cookies.token;
@@ -8,7 +9,7 @@ let verificarToken = ( req, res, next ) => {
         req.usuario = { Logueado : false };
         next();
     }else{
-        jwt.verify(token, process.env.semilla, ( err, decodificado ) => {
+        jwt.verify(token, semilla, ( err, decodificado ) => {
             if( err ) {
                 req.usuario = { logueado: false }
                 return res.status(400).json({

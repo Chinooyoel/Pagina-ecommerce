@@ -588,7 +588,7 @@ function validarLogin(){
     })
 }
 function almacenarToken( token ){
-    document.cookie = `token=${ token }`;
+    document.cookie = `token=${ token }; path=/`;
 }
 function cerrarSesion(){
     let botonCerrarSesion = document.getElementById("botonCerrarSesion");
@@ -617,6 +617,8 @@ async function enviarAutenticacion( formulario ) {
     })
 
     mostrarCargando()
+    let resultado = await fetch(miPeticion)
+    let respuesta = await resultado.json();
 
     setTimeout(() => {
 
@@ -625,13 +627,12 @@ async function enviarAutenticacion( formulario ) {
             mensajeLogin.innerHTML = respuesta.message;
             return;
         }
-
+        
+        mensajeLogin.innerHTML = "<i class='fas fa-check-circle icono'></i>";
         almacenarToken( respuesta.token );
         window.location.reload();
 
     }, 2000)
-    let resultado = await fetch(miPeticion)
-    let respuesta = await resultado.json();
 
 }
 

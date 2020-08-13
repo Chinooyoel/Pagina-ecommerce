@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const connection = require("../mysql/mysql");
 const { validarEmail } = require("../middleware/validacion");
+const { semilla } = require("../config/config");
 
 
 app.post("/login", ( req, res ) => {
@@ -25,7 +26,7 @@ app.post("/login", ( req, res ) => {
         if( results[0].length === 0 ) {
             return res.status(400)
                 .json({
-                    message: "Usuario o contraseña invalidos",
+                    message: "Los datos ingresados son invalidos",
                 })
         }
 
@@ -40,14 +41,14 @@ app.post("/login", ( req, res ) => {
 
         if( !bcrypt.compareSync( body.password, usuarioDB.password, 10) ) {
             return res.status(400).json({
-                message: "Usuario o contraseña invalidos",
+                message: "Los datos ingresados son invalidos",
             })
         }
 
         let token = jwt.sign({
             email: usuarioDB.email,
             role: usuarioDB.role
-        }, process.env.semilla, { expiresIn: 60 * 60 * 24 * 30 } );
+        }, semilla, { expiresIn: 60 * 60 * 24 * 30 } );
         
         res.json({
             message: "Credenciales validas",

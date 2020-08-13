@@ -1,3 +1,10 @@
-process.env.semilla = process.env.semillaToken || "123";
+const semilla = process.env.semillaToken || "123";
 
-process.env.puerto = process.env.PORT || 3000;
+const puerto = process.env.PORT || 3000;
+
+
+
+module.exports= {
+    semilla, 
+    puerto
+}

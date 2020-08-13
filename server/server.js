@@ -1,4 +1,4 @@
-require("./config/config")
+const { puerto } = require("./config/config");
 const hbs = require("hbs");
 const express = require("express");
 const app = express();
@@ -41,7 +41,7 @@ connection.connect( ( error ) => {
     console.log("Base de datos connectada");
 })
 
-app.listen( process.env.puerto, () => {
-    console.log(`El server se esta ejecutando en el puerto ${ process.env.puerto }`);
+app.listen( puerto, () => {
+    console.log(`El server se esta ejecutando en el puerto ${ puerto }`);
 }
 )

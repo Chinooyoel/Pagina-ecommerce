@@ -11,10 +11,10 @@ if( !process.env.NODE_ENV ){
     });
 }else{
     connection = mysql.createConnection({
-        host : process.env.host,
-        user : process.env.user,
-        password : process.env.password,
-        database: process.env.database
+        host : process.env.HOSTDB,
+        user : process.env.USER,
+        password : process.env.PASSWORD,
+        database: process.env.DATABASE
     });
 }
 

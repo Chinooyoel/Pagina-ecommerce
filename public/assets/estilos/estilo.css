@@ -208,6 +208,7 @@ html header{
 .footer{
     background: black;
     color:white;
+    margin-top:20px;
 }
     .footer h3, .footer li{
         padding: 4px;

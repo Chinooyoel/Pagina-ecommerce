@@ -367,6 +367,17 @@ function leerVistaDeArticulos(){
     }
 }
 
+function mostrarCargando(){
+    let spinner = document.getElementsByClassName('sk-chase')[0];
+
+    spinner.style.display="block"
+}
+function ocultarCargando(){
+    let spinner = document.getElementsByClassName('sk-chase')[0];
+
+    spinner.style.display="none"
+}
+
 //FUNCION DE VALIDACIONES
 function validarFormularioProducto(){
     let formulario = document.getElementById("productForm");
@@ -478,31 +489,26 @@ function validarNombre( elementoNombre ) {
     let valor = elementoNombre.value;
     let errorMsj = "";
 
-    if( !validator.isLength( valor, { min: 5, max: 200}) ){ 
+    if( excedeLongitud( valor, 5, 200 ) ){ 
         ponerInputEnColorRojo( elementoNombre );
         return false
-    }
-    if( valor === undefined ){
-        return false;
     }
     ponerInputEnColorNormal(elementoNombre)
     return true
 }
 function validarEmail( elementoEmail ) {
     let valor = elementoEmail.value;
-    let errorMsj = "";
+    let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    if( valor === undefined ){
-        return false;
-    }
-    if( email == "" ){
+    if( estaVacio(valor) ){
         ponerInputEnColorRojo( elementoEmail );
         return false
     }
-    if( !validator.isEmail( valor ) ){
+    if( !regex.test( email ) ){
         ponerInputEnColorRojo( elementoEmail );
         return false
-    } 
+    };
+    
     ponerInputEnColorNormal(elementoEmail);
     return true;
 }
@@ -510,12 +516,9 @@ function validarCampoComun( elementoCodigo ) {
     let valor = elementoCodigo.value;
     let errorMsj = "";
 
-    if( !validator.isLength( valor, { min: 1, max: 45}) ){
+    if( excedeLongitud( valor,  1, 45 ) ){
         ponerInputEnColorRojo( elementoCodigo );
         return false
-    }
-    if( valor === undefined ){
-        return false;
     }
     ponerInputEnColorNormal(elementoCodigo);
     return true
@@ -531,14 +534,12 @@ function ponerInputEnColorNormal( input ){
 function validarCampoNumero( elementoCodigo ) {
     let valor = elementoCodigo.value;
     let errorMsj = "";
-    if( elementoCodigo === undefined ){
-        return false;
-    }
-    if( validator.isEmpty(valor)){
+
+    if( estaVacio(valor)){
         ponerInputEnColorRojo( elementoCodigo );
         return false;
     }
-    if( !validator.isNumeric(valor)){
+    if( isNaN(Number(valor)) ){
         ponerInputEnColorRojo( elementoCodigo );
         return false;
     }
@@ -547,12 +548,25 @@ function validarCampoNumero( elementoCodigo ) {
     return true;
 }
 
+function estaVacio( campo ) {
+    if( campo.trim() === '' ){
+        return true;
+    }
+
+    return false;
+}
+
+function excedeLongitud( campo, min, max ){
+    if( campo.length < min || campo.length > max ){
+        return true;
+    }
+    return false;
+}
 
 //FUNCION DE LOGUEO
 function validarLogin(){
     let formulario = document.getElementById("loginForm");
     let elementoEmail = document.getElementById("emailLogin");
-    let mensajeLogin = document.getElementById("mensajeLogin");
 
     //si no existe el formulario, terminar funcion
     if( !formulario ){
@@ -560,31 +574,17 @@ function validarLogin(){
     }
     formulario.addEventListener("submit", ( e ) => {
         e.preventDefault();
+        let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 
-        if( !validator.isEmail( elementoEmail.value ) ) {
+        if( estaVacio( elementoEmail.value )){
+            return;
+        }
+        if( !regex.test( elementoEmail.value ) ){
             return;
         };
 
-        let formData = new FormData( formulario );
-        const miPeticion =  new Request("/login", {
-            method: "POST",
-            body: formData
-        })
+        enviarAutenticacion( formulario )
 
-        fetch(miPeticion)
-            .then( ( response ) => {
-                if( !response.ok ){
-                    throw new Error("Los datos ingresados son invalidos");
-                }
-                return response.json();
-            })
-            .then( ( datos ) => {
-                almacenarToken( datos.token );
-                window.location.reload();
-            })
-            .catch( error => {
-                mensajeLogin.innerHTML = error;
-            })
     })
 }
 function almacenarToken( token ){
@@ -603,7 +603,36 @@ function cerrarSesion(){
     })
 }
 function borrarToken(){
-    document.cookie = `token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+    document.cookie = `token=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+}
+
+async function enviarAutenticacion( formulario ) {
+    let formData = new FormData( formulario );
+    let mensajeLogin = document.getElementById("mensajeLogin");
+    mensajeLogin.innerHTML = '';
+
+    const miPeticion =  new Request("/login", {
+        method: "POST",
+        body: formData
+    })
+
+    mostrarCargando()
+
+    setTimeout(() => {
+
+        ocultarCargando();
+        if( resultado.status === 400 ){
+            mensajeLogin.innerHTML = respuesta.message;
+            return;
+        }
+
+        almacenarToken( respuesta.token );
+        window.location.reload();
+
+    }, 2000)
+    let resultado = await fetch(miPeticion)
+    let respuesta = await resultado.json();
+
 }
 
 

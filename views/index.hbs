@@ -14,7 +14,33 @@
                 <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=22/orden=-1/"><img src="/assets/img/logo_viewsonic.png" class="listaMarca__img"></a></li>
             </ul>
             <article class="lightboxGrande">
-                <img src="/assets/img/lightbox.png" class="lightboxGrande__img">
+                    <!-- Slideshow container de w3School -->
+                    <div class="slideshow-container">
+
+                    <!-- Full-width images with number and caption text -->
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 3</div>
+                        <a href=""><img src="/assets/img/banner3principal.png" style="width:100%" class='lightboxGrande__img'></a>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 3</div>
+                        <a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=21/orden=-1/"><img src="/assets/img/banner1principal.png" style="width:100%" class='lightboxGrande__img'></a>
+                      </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 3</div>
+                        <a href=""><img src="/assets/img/banner2principal.png" style="width:100%" class='lightboxGrande__img'></a>
+                    </div>
+                    </div>
+                    <br>
+
+                    <!-- The dots/circles -->
+                    <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
             </article>
             <article class="informacion max1400">
                 <div class="informacion__bloque">
@@ -130,5 +156,6 @@
         <script>
             funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
         </script>
+        <script src='/assets/js/slideshow.js'></script>
 
 {{> footer }}

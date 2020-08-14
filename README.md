@@ -32,12 +32,3 @@ Metas faltantes
 - Manejo de errores
 - Mejorar la seguridad del token guardado en las Coockies
 
-
-Para probar el proyecto localmente, ejecute
-```
-npm install
-```
-Luego 
-```
-node server/server
-```

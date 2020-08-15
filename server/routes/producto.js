@@ -1,5 +1,5 @@
 const express = require("express");
-const connection = require("../mysql/mysql");
+const pool = require("../mysql/mysql");
 const { validarFormularioProductos } = require("../middleware/validacion");
 const { verificarRole, verificarAdminRole } = require("../middleware/autenticacion");
 let app = express();
@@ -12,7 +12,7 @@ app.get("/producto", verificarRole, ( req, res ) => {
 app.get("/product/save", verificarRole, ( req, res ) => {
     let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
 
-    connection.query(sql, ( error, tablas ) => {
+    pool.query(sql, ( error, tablas ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -35,7 +35,7 @@ app.get("/producto/admin/buscar/:dato", verificarRole, ( req, res ) => {
     let dato = req.params.dato;
     let sql = `CALL buscarProductos( ? );`
 
-    connection.query(sql, [ `${ dato }` ], ( error, results ) => {
+    pool.query(sql, [ `${ dato }` ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -62,7 +62,7 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
     let valores = [  palabra, idCat, idSub, idMarca, Orden ];
     let sql = `CALL buscarProductosConFiltro( ?, ?, ?, ?, ? )`;
 
-    connection.query( sql, valores, ( error, tablas ) => {
+    pool.query( sql, valores, ( error, tablas ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -90,7 +90,7 @@ app.get("/product/profile/:id", ( req, res ) => {
     let id = req.params.id;
     let sql = `CALL buscarProductoPorId(?)`;
 
-    connection.query( sql, [ id ], ( error, results ) => {
+    pool.query( sql, [ id ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -100,7 +100,7 @@ app.get("/product/profile/:id", ( req, res ) => {
         }
         let productoDB = results[0][0];
         let sql = `CALL buscarProductosRelacionados( ?, ?, 4)`
-        connection.query( sql, [ id, `${ productoDB.Subcategoria }` ], ( error, resultadoSubcategorias ) => {
+        pool.query( sql, [ id, `${ productoDB.Subcategoria }` ], ( error, resultadoSubcategorias ) => {
             if( error ) {
                 res.status(500)
                     .json({
@@ -138,7 +138,7 @@ app.post("/product/save", verificarAdminRole, ( req, res ) => {
     let valores = [ `${ body.nombre }`, `${ body.descripcion }`, body.stock, `${ body.garantia }`, `${ body.codigo }`, 
                     body.precio, body.costo, body.marca, body.subcategoria, body.proveedor,]
 
-    connection.query( sql, valores, ( error, results ) => {
+    pool.query( sql, valores, ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -160,7 +160,7 @@ app.get("/product/update/:id", verificarRole, ( req, res )=> {
     let id = req.params.id;
     let sql = `CALL buscarProductoPorId( ? )`;
 
-    connection.query(sql, [ id ], ( error, results ) => {
+    pool.query(sql, [ id ], ( error, results ) => {
         if( error ) {
             res.status(500)
                 .json({
@@ -170,7 +170,7 @@ app.get("/product/update/:id", verificarRole, ( req, res )=> {
         }
         let productoDB = results[0][0];
         let sql = "CALL mostrarTablasCat_Subcat_Marca_Prov();"
-        connection.query(sql, ( error, tablas ) => {
+        pool.query(sql, ( error, tablas ) => {
             if( error ) {
                 res.status(500)
                     .json({
@@ -210,7 +210,7 @@ app.post("/product/update/:id", verificarAdminRole, ( req, res ) => {
     let valores = [ id, `${body.nombre}`, `${body.descripcion}`, body.stock, `${body.garantia}`, `${ body.codigo }`, 
                     body.precio, body.costo, body.marca, body.subcategoria, body.proveedor]
 
-    connection.query(sql, valores,  ( error, results ) =>{
+    pool.query(sql, valores,  ( error, results ) =>{
         if( error ){
             return res.status(500).json({
                 ok: false,
@@ -233,7 +233,7 @@ app.get("/product/remove/:id", verificarAdminRole, ( req, res ) => {
     let id = req.params.id;
     let sql = `CALL borrarProducto( ? )`;
 
-    connection.query(sql, [ id ], ( error ) => {
+    pool.query(sql, [ id ], ( error ) => {
         if( error ){
             return res.status(500).json({
                 ok: false,

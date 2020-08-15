@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const connection = require("../mysql/mysql");
+const pool = require("../mysql/mysql");
 const { validarEmail } = require("../middleware/validacion");
 const { semilla } = require("../config/config");
 
@@ -14,7 +14,7 @@ app.post("/login", ( req, res ) => {
 
     let sql = `CALL autenticacion( ? )`;
 
-    connection.query( sql, [ `${ body.email }` ], ( error, results ) => {
+    pool.query( sql, [ `${ body.email }` ], ( error, results ) => {
         if( error ){
             return res.status(500)
                 .json({

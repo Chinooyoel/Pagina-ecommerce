@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-const connection = require("../mysql/mysql");
+const pool = require("../mysql/mysql");
 
 app.post("/upload/:tipo/:id", ( req, res ) => {
     if(!req.files){
@@ -31,7 +31,7 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
     
     if( tipo == "producto"){
         let sql = `CALL buscarProductoPorId("${ id }")`;
-        connection.query(sql, ( error, results ) => {
+        pool.query(sql, ( error, results ) => {
             if( error ) {
                 return res.status(500).json({
                     ok: false,
@@ -59,7 +59,7 @@ app.post("/upload/:tipo/:id", ( req, res ) => {
                     borrarArchivo(`public/assets/img/producto/${ productoDB.Img }`)
                 };
                 let sql = `CALL actualizarImagenProducto("${ productoDB.IdProducto }", "${ nombreGenerado }")`;
-                connection.query(sql, ( error, resultadoImagen ) => {
+                pool.query(sql, ( error, resultadoImagen ) => {
                     if( error ){
                         borrarArchivo(`public/assets/img/producto/${ productoDB.Img }`)
                         return res.status(500).json({

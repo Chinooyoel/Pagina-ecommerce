@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const connection = require("../mysql/mysql");
+const pool = require("../mysql/mysql");
 const { semilla } = require("../config/config");
 
 let verificarToken = ( req, res, next ) => {
@@ -53,7 +53,7 @@ let obtenerUsuarioLoguiado = ( req, res, next ) => {
     if( req.usuario.Logueado  ){
         let sql = "CALL buscarUsuarioPorEmail( ? );"
 
-        connection.query(sql, [req.usuario.Email], ( error, results ) => {
+        pool.query(sql, [req.usuario.Email], ( error, results ) => {
             if( error ){
                 return res.status(500).json({
                     ok: false,

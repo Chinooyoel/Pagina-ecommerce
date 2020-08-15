@@ -4,9 +4,9 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
-const connection = require("./mysql/mysql");
 const cookieParser = require("cookie-parser");
 const { verificarToken, obtenerUsuarioLoguiado } = require("./middleware/autenticacion");
+const pool = require("./mysql/mysql");
 
 
 //Creamos un middleware para la carpeta public
@@ -31,15 +31,14 @@ app.use( obtenerUsuarioLoguiado );
 //rutas
 app.use(require("./routes/index"));
 
-//Conectamos a la base de datos
-connection.connect( ( error ) => {
-    if( error ){
-        console.log("No se pudo conectar a la base de datos.\n", error);
-        return;
-    }
+//conectamos a la base de datos
+pool.getConnection(function(err) {     
+    if(err) {                                                       
+      console.log('Error al conectar la base de datos:', err);                          
+    }        
+    console.log('Base de datos conectada')                           
+  });    
 
-    console.log("Base de datos connectada");
-})
 
 app.listen( puerto, () => {
     console.log(`El server se esta ejecutando en el puerto ${ puerto }`);

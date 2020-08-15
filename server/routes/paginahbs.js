@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const { verificarRole } = require("../middleware/autenticacion");
-const connection = require("../mysql/mysql");
+const pool = require("../mysql/mysql");
 
 app.get("/", ( req, res ) => {
     let sql = "call buscarProductosMasVendidos( ? )"
-    connection.query(sql, [ 4 ], ( error, resultado ) => {
+    pool.query(sql, [ 4 ], ( error, resultado ) => {
         if( error ){
             return res.status(500)
                 .json({

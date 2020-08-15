@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
 const { verificarAdminRole, verificarRole } = require("../middleware/autenticacion");
-const connection = require("../mysql/mysql");
+const pool = require("../mysql/mysql");
 const { validarFormularioUsuarios, validarEstado } = require("../middleware/validacion");
 
 
@@ -26,7 +26,7 @@ app.post("/usuario/guardar", ( req, res ) => {
     let valor = [`${ body.nombre }`,`${ body.apellido }`,`${ body.email }`,`${ passwordEncriptada }`, `${ body.documento}`, `${ body.telefono }`]
     let sql = `CALL InsertarUsuario(?, ?, ?, ?, ?, ?);`;
 
-    connection.query( sql, valor, ( error, results) => {
+    pool.query( sql, valor, ( error, results) => {
         if( error ){
             res.status(500)
                 .json({
@@ -54,7 +54,7 @@ app.post("/usuario/actualizar/:id",verificarAdminRole, ( req, res ) => {
     let valor = [ `${ id }`, `${ body.nombre }`,`${ body.apellido }`,`${ body.email }`, `${ body.estado }`, `${ body.nota }`, `${ body.documento}`, `${ body.telefono }`]
     let sql = `CALL actualizarUsuario( ?, ?, ?, ?, ?, ?, ?, ? )`;
 
-    connection.query( sql, valor, (error) => {
+    pool.query( sql, valor, (error) => {
         if ( error ) {
             return res.status(500)
                 .json({
@@ -73,7 +73,7 @@ app.get("/usuario/buscar/:data", verificarRole , ( req, res ) => {
 
     let sql = `CALL buscarUsuarios( ? )`;
 
-    connection.query(sql, [ `${ data }` ], ( error, results ) => {
+    pool.query(sql, [ `${ data }` ], ( error, results ) => {
         if( error ){
             return res.status(500)
                 .json({
@@ -94,7 +94,7 @@ app.get("/usuario/perfil/:id", verificarRole, ( req, res ) => {
 
     let sql = `CALL buscarUsuarioPorId( ? );`;
 
-    connection.query( sql, [ id ], ( error, results, fields ) => {
+    pool.query( sql, [ id ], ( error, results, fields ) => {
         if ( error ) {
             return res.status(500)
                 .json({

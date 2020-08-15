@@ -100,6 +100,7 @@
     }
     .informacion{
         flex-direction: column;
+        margin-top: -35px;
     }
     .informacion__bloque{
         border-bottom: 1px solid grey;
@@ -110,7 +111,7 @@
     }
 
     .producto{
-        width: 90%;
+        width: 100%;
     }
     .lightboxGrande__img{
         height: 180px;
@@ -142,5 +143,29 @@
     }
     .especificacion{
         height: 200px;
+    }
+    .menuContacto {
+        height: 9px;
+    }
+    .menuContacto li {
+        display: none;
+    }
+    .menuSecundario__logo{
+        font-size: 1.4em;
+    }
+    .puntosCarousel{
+        display: none;
+    }
+    .carrito{
+        padding:0;
+    }
+    .carrito--total{
+        display: none;
+    }
+    #botonVistaFila{
+        display: none;
+    }
+    #botonVistaCuadricula{
+        display: none;
     }
 }

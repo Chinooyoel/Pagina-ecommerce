@@ -260,3 +260,18 @@ html header{
         top: 45vh;
     }
 }
+.linkNone{
+    color:black;
+    text-decoration:none;
+}
+
+.botonesComunicaciones{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.iconoBoton{
+    width: 70px;
+}

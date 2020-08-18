@@ -85,6 +85,30 @@ app.get("/producto/buscar/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:id
     })
 });
 
+app.get("/producto/buscar/json/palabra=:palabra/idcat=:idcat/idsub=:idsub/idmarca=:idmarca/orden=:orden/", ( req, res ) => {
+    let palabra = traerValorParametro( req.params.palabra );
+    let idCat = traerValorParametro( Number(req.params.idcat) );
+    let idSub = traerValorParametro( Number(req.params.idsub) );
+    let idMarca = traerValorParametro( Number(req.params.idmarca) );
+    let Orden = Number(req.params.orden);
+
+    //let sql = `CALL buscarProductosConFiltro("${ expresionRegular }", ${ idCat }, ${ idSub }, ${ idMarca}, ${ Orden } )`;
+    let valores = [  palabra, idCat, idSub, idMarca, Orden ];
+    let sql = `CALL buscarProductosConFiltro( ?, ?, ?, ?, ? )`;
+
+    pool.query( sql, valores, ( error, tablas ) => {
+        if( error ) {
+            res.status(500)
+                .json({
+                    ok:false,
+                    error
+                })
+        }
+        res.json({
+            productosDB: tablas[0],
+        });
+    })
+});
 
 app.get("/product/profile/:id", ( req, res ) => {
     let id = req.params.id;

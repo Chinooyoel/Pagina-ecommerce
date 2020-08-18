@@ -1,3 +1,33 @@
+@media (max-width: 1150px){
+    .menuSecundario{
+        flex-direction: column;
+    }
+    .menuSecundario > div{
+        margin-bottom: 10px;
+    }
+    .usuarioCarrito{
+        justify-content: space-evenly;
+    }
+    .buscador{
+        width: 80%;
+    }
+    .menu{
+        flex-direction: column;
+        display:none;
+    }
+    .menu__link{
+        text-align: center;
+        font-size: 1.1em
+    }
+    .menu__submenu{
+        position: static;
+        background: rgb(51, 51, 51);
+    }
+    #botonMenuResponsive{
+        display: block;
+    }
+}
+
 @media (max-width: 767px){
     .listaLightboxMarca__link__img{
         height: 65px;
@@ -33,35 +63,9 @@
     .banner2{
         max-width: 75%;
     }
-    .menuSecundario{
-        flex-direction: column;
-    }
-    .menuSecundario > div{
-        margin-bottom: 10px;
-    }
-    .usuarioCarrito{
-        justify-content: space-evenly;
-    }
-    .buscador{
-        width: 80%;
-    }
+
     .lightboxMarca{
         display: none;
-    }
-    .menu{
-        flex-direction: column;
-        display:none;
-    }
-    .menu__link{
-        text-align: center;
-        font-size: 1.1em
-    }
-    .menu__submenu{
-        position: static;
-        background: rgb(51, 51, 51);
-    }
-    #botonMenuResponsive{
-        display: block;
     }
     .ubicacion, .formulario{
         width: 100%;
@@ -87,6 +91,9 @@
     }
     .infoArmado{
         width: 100%;
+    }
+    .infoArmado__articulo__img{
+        width: 15%;
     }
 
 }

@@ -22,12 +22,12 @@ Para interactuar la interfaz como usuario
 - Auntenticacion por JWT almacenado en Cookies
 - Carrito de la parte del cliente
 - Permisos de acceso dependiendo del role del usuario loguiado
+- Diseñar la parte de armar pc del cliente
 
 Metas faltantes
 - CRUD de pedidos
 - Crear la parte de pagos, utilizar api de mercadopago
 - Autenticación por Google o Facebook
-- Diseñar la parte de armar pc del cliente
 - Mejorar la interfaz de subir imagenes
 - Manejo de errores
 - Mejorar la seguridad del token guardado en las Coockies

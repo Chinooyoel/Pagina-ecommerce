@@ -55,11 +55,13 @@
     align-items: center;
 }
 .infoArmado__articulo__img{
-    width: 60px;
+    width: 30%;
+    border: 1px solid rgb(197, 197, 197)
 }
 .infoArmado__texto{
     text-align: start;
-    margin-left: 30px;
+    width: 68%;
+    margin-left: 2%;
 }
 
 .listaProducto{
@@ -67,16 +69,17 @@
 }
 
 .listaProducto__articulo{
-    border: 1px solid rgb(129, 129, 129);
+    border: 1px solid rgb(197, 197, 197);
     width: 46%;
-    min-height: 100px;
     align-items: center;
     flex-wrap: nowrap;
+    padding: 10px;
     margin-right: 4%;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .listaProducto__articulo:hover{
-    border: 1px solid rgb(0, 95, 0);
+    border: 1px solid rgb(8, 170, 8);
 }
 .listaProducto__encabezado{
     width: 100%;
@@ -85,15 +88,19 @@
     align-items: center;
 }
 .listaProducto__articulo__img{
-    width: 70px;
-    margin-right: 5px;
+    width: 30%;
+    border: 1px solid rgb(197, 197, 197)
 }
-
+.listaProducto__articulo__img--titular{
+    width: 100px;
+    margin-right: 35px;
+    border: 1px solid rgb(197, 197, 197);
+}
 .flex-contenedor-start{
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
-    align-items: start;
+    align-content: start;
 }
 
 .categoria__especificacion__link{
@@ -116,28 +123,39 @@ a{
     cursor: pointer;
 }
 
+.botonNegro{
+    border-radius: none;
+    border: none;
+    width: 60%;
+    margin-top: 5px;
+    background-color: #3a3a3a;
+    color: rgb(160, 228, 51);
+    font-weight: 800;
+    padding: 10px;
+    cursor: pointer;
+}
 
+.botonNegro:hover{
+    background-color: #070707;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.marcaLogo{
+    width: 48%;
+    opacity: 0.7;
+    margin-right: 2%;
+}
+.marcaLogo img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border: 1px solid black;
+}
+.marcaLogo:hover{
+    opacity: 1;
+}
+.anchoFullMedio{
+    width: 100%;
+}
 .productoEstandar{
     border: 1px solid grey;
     color: #50b942;
@@ -169,6 +187,7 @@ a{
     height: 80%;
     width: 120px;
     margin-right: 20px;
+    border: 1px solid rgb(197, 197, 197);
 }
 
 .productoFila__detalle{
@@ -178,4 +197,10 @@ a{
 #subtitular{
     font-size: 1.3em;
     margin: 10px;
+}
+
+.modificarComponente{
+    margin-top: 4px;
+    border: none;
+    padding: 10px;
 }

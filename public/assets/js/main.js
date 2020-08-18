@@ -372,7 +372,7 @@ function mostrarCargando(){
 
     spinner.style.display="block"
 }
-function ocultarCargando(){
+function ocultarCargando( posicion ){
     let spinner = document.getElementsByClassName('sk-chase')[0];
 
     spinner.style.display="none"

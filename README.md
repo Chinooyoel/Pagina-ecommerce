@@ -3,13 +3,13 @@ El diseño de este proyecto fue copiado de la pagina de computacion [Maximus](ht
 
 Esta hecha por html, css, javascript, nodejs, express y mysql. El motor de vista que utilize fue Handlebars.
 
-[Les invito a mirar el proyecto](https://yoel-ecommerse.herokuapp.com/)
+[Les invito a mirar el proyecto](https://yoel-ecommerce.herokuapp.com/)
 
 Para interactuar la interfaz como administrador, (No van a tener permiso para crear, ni modificar productos, ni usuarios)
 - email: test@test.com
 - password: test
 
-Para interactuar la interfaz como usuario
+Para interactuar la interfaz como usuario o pueden crearse la cuenta
 - email: usuario@usuario.com
 - password: usuario
 

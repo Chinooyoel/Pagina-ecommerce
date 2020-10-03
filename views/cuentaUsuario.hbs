@@ -1,0 +1,56 @@
+{{>head}}
+    {{> modal }}
+        <section class="max1400">
+            <h3 class="titular">
+                <i class="fas fa-user verde" aria-hidden="true"></i>
+                Mi Cuenta
+            </h3>
+        </section>
+        <section class="flex-contenedor max1400">
+            <figure class="galeria__figure">
+                <img src="/assets/img/usuario.png" class="foto-perfil">
+            </figure>
+            <article class="caracteristicas">
+                <p>Nombre: {{ usuario.Nombre }}</p>
+                <br />
+                <p>Apellido: {{ usuario.Apellido }}</p>
+                <br />
+                <p>Email: {{ usuario.Email }}</p>
+             </article>
+        </section>
+        <section class="max1400">
+            <h3 class="titular">
+                <i class="fas fa-shopping-cart verde" aria-hidden="true"></i>
+                Mis Pedidos
+            </h3>
+        </section>
+        <table class="tabla max1400">
+            <thead>
+                <tr class="tabla__fila--encabezado">
+                    <th class="tabla__campo">Pedido N°</th>
+                    <th class="tabla__campo">Fecha</th>
+                    <th class="tabla__campo">Metodo de pago</th>                 
+                    <th class="tabla__campo">Estado</th>
+                    <th class="tabla__campo">Total</th>
+                    <th class="tabla__campo">Accion</th>
+                </tr>
+            </thead>
+            {{#each pedidosDB}}
+                <tbody>
+                    <tr class="tabla__fila">
+                        <th class="tabla__campo">{{ id }}</th>
+                        <th class="tabla__campo">{{ fecha }}</th>
+                        <th class="tabla__campo tabla__campo--verde">{{ medios_pago }}</th>
+                        <th class="tabla__campo">{{ estado }}</th>
+                        <th class="tabla__campo">${{ total }}.00</th>
+                        <th class="tabla__campo"><a href="/pedido/{{ id }}" class="tabla__campo__link">Mas info</a></th>
+                    </tr>
+                </tbody>
+                {{ else }}
+                <tbody>
+                    <th class="textoCentro" colspan="6">* No hay pedidos hechos *</th>
+                </tbody>
+            {{/each}}
+        </table>
+
+{{> footer }}

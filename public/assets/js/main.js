@@ -673,11 +673,13 @@ function mostrarProductosDelCarrito(){
     const productos = carrito.productos;
     let listaCarrito = document.getElementById("listaCarrito");
     let subtitular = document.getElementById("subtitular");
+    let interfazComprar = document.getElementById("interfazComprar");
     if( productos.length === 0 ){
         subtitular.innerHTML = `<i class="fa fa-times-circle icono"></i>No hay producto en el carrito`
         return;
     }
 
+    //mostramos los productos del carrito
     listaCarrito.innerHTML = `<a id="botonVaciarCarrito" class="producto__interaccionArticulo"><i class="textoRojo fa fa-times-circle"></i>Vaciar Carrito</a>`;
     for( let i = 0; i < productos.length; i++ ){
         listaCarrito.innerHTML +=   `<figure class="productoEstandar productoFila">
@@ -693,6 +695,36 @@ function mostrarProductosDelCarrito(){
                                         </figcaption>
                                     </figure>`
     }
+
+    //mostramos la insterfaz para confirmar la compra
+    interfazComprar.innerHTML = `<section>
+                                    <h2>Medios de pago</h2>
+                                    <br/>
+                                    <input type="radio" name="medio_pago" value="1" form="carritoForm" checked/>
+                                    <label>Efectivo</label>
+                                    <br/>
+                                    <br/>
+                                    <input type="radio" name="medio_pago" value="1" form="carritoForm"/>
+                                    <label>Transferencia</label>
+                                    <br/>
+                                    <br/>
+                                    <input type="radio" name="medio_pago" value="1" form="carritoForm"/>
+                                    <label>Mercado Pago</label>
+                                </section>
+                                <section>
+                                    <h2>Informacion del carrito</h2>
+                                    <br/>
+                                    <h4 class="textoRojo">Total: $${carrito.total}.00</h4>
+                                    <br/>
+                                    Cantidad de componentes: ${carrito.cantidad}
+                                </section>
+                                <section>
+                                    <form id="carritoForm" action="/pedido/guardar" method="post">
+                                        <button type="submit" class="campoBoton campoBoton--verdeOscuro">Confirmar compra</button>
+                                    </form>
+                                </section>`
+
+
 }
 function eventoEliminarProducto(){
     const botonEliminarProducto = document.getElementsByClassName("botonEliminarProducto");
@@ -722,4 +754,62 @@ function eventoVaciarCarrito(){
         localStorage.removeItem("carrito");
         window.location.reload();
     })
+}
+
+function eventoEnviarCarrito(){
+    let carritoForm = document.getElementById("carritoForm");
+
+    if( !carritoForm ){
+        return;
+    }
+    carritoForm.addEventListener("submit", async ( e ) => {
+        e.preventDefault();
+
+        //Agregamos al formulario un valor que va a especificar si quiere o no el envio
+        // y otro valor que va a ser los productos del carrito pero transformado a un string
+        let objetoFormulario = new FormData( carritoForm );
+
+        objetoFormulario.append("envio", "false");
+        objetoFormulario.append("productos", JSON.stringify(carrito.productos));
+
+        //Si el usuario no tiene el token no esta logueado, abrir ventana de logueo
+        if( leerCookie('token') === null  ){
+            abrirModal( document.getElementById("modalLogin") );
+            return;
+        }
+        
+        
+        let miPeticion = new Request("/pedido/guardar", {
+            method : "POST",
+            body: objetoFormulario
+        });
+
+        let resultado = await fetch(miPeticion);
+        let respuesta = await resultado.json();
+        
+        //vaciamos el carrito, ya que ya se compraron los productos
+        localStorage.removeItem("carrito");
+
+        window.location.href=`/pedido/${ respuesta.idPedido }`;
+
+
+    })
+}
+
+//funcion para leerCookie
+function leerCookie(nombre) {
+    var nombreIgual = nombre + "=";
+    var ca = document.cookie.split(';');
+
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+
+        while (c.charAt(0)==' ') 
+            c = c.substring(1,c.length);
+
+        if (c.indexOf(nombreIgual) == 0) 
+            return c.substring(nombreIgual.length,c.length);
+
+    }
+    return null;
 }

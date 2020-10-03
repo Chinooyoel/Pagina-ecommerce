@@ -28,6 +28,9 @@ app.use(fileUpload({}));
 app.use( verificarToken );
 app.use( obtenerUsuarioLoguiado );
 
+//helpers
+hbs.registerHelper("multiplicar", ( a, b ) => a * b );
+
 //rutas
 app.use(require("./routes/index"));
 

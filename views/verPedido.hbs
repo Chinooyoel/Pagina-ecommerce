@@ -1,0 +1,36 @@
+{{> head }}
+
+    {{> modal }}
+
+    <section class="max1400">
+        <h3 class="titular">Pedido N° {{ pedidoDB.id }}</h3>
+        <section class="max1400">
+            <p class="caracteristicas__titulo">Fecha del pedido: {{ pedidoDB.fecha }}</p>
+            <br/>
+            <br/>
+            <p class="caracteristicas__titulo">Medio de pago: {{ pedidoDB.medios_pago }}</p>
+            <br/>
+            <br/>
+            <p class="caracteristicas__titulo">Total: ${{ pedidoDB.total }}.00</p>
+            <br/>
+            <br/>
+            <p class="caracteristicas__titulo">Estado: {{ pedidoDB.estado }}</p>
+        </section>
+        <section id="listaCarrito">
+            {{#each productosDB}}
+            <figure class="productoEstandar productoFila">
+                <a href="/product/profile/{{ idproducto }}" class="producto__interaccionArticulo productoFila__link">
+                <img src="/assets/img/producto/{{ img }}" class="productoFila__link__img" name="imgProducto">
+                <h4 name="nombreProducto">{{ nombre }}</h4>
+                </a>
+                <figcaption class="productoFila__detalle">
+                    <h4>P.Unitario: $<span name="precioProducto">{{ preciounitario }}</span>.00</h4>
+                    <h4>Cantidad: {{ cantidad }}</h4>
+                    <h4>P.Total: <span class="textoRojo">${{multiplicar preciounitario cantidad }}.00</span></h4>
+                    </figcaption>
+                </figure>
+            {{/each}}
+        </section>
+    </section>
+
+{{> footer }}

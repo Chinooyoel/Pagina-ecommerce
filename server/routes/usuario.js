@@ -87,9 +87,39 @@ app.get("/usuario/buscar/:data", verificarRole , ( req, res ) => {
     })
 })
 
+app.get("/usuario/perfil", ( req, res ) => {
+    let idUsuario = req.usuario.IdUsuario;
 
+    //Si no hay usuario loguiado
+    if( idUsuario === undefined ){
+        return res.status(401).render("paginaError",{
+            mensaje: "Requiere loguiarse"
+        })
+    }
 
+    //buscamos los pedidos por el id del usuario loguiado
+    let sql = `SELECT p.id, p.fecha, p.total,
+                ( SELECT descripcion FROM estado WHERE id = p.estado_id) estado,
+                ( SELECT descripcion FROM medios_pago WHERE id = p.medios_pago_id ) medios_pago 
+                FROM pedido p WHERE p.usuario_idusuario = ?;`;
+    pool.query(sql, [ idUsuario ], ( error, pedidosDB ) => {
+        if( error ){
+            return res.status(500).json({
+                ok: false,
+                error
+            })
+        }
+
+        res.render("cuentaUsuario", {
+            usuario: req.usuario,
+            pedidosDB
+        })
+    })
+})
+
+/* EDITAR PERFIL USUARIO
 app.get("/usuario/perfil/:id", verificarRole, ( req, res ) => {
+    
     let id = req.params.id;
 
     let sql = `CALL buscarUsuarioPorId( ? );`;
@@ -121,7 +151,7 @@ app.get("/usuario/perfil/:id", verificarRole, ( req, res ) => {
         })
     })
 })
-
+*/
 
 
 module.exports = app;

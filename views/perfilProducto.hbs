@@ -7,25 +7,25 @@
         </section>
         <section class="max1400">
             <section class="encabezado">
-                <h3>{{ productoDB.Categoria }}</h3>
+                <h3>{{ producto.subcategoria.nombre }}</h3>
             </section>
             {{#if usuario.Admin }}
                 <section class="panelControl">
-                    <a href="/product/remove/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Eliminar Producto</a>
-                    <a href="/product/update/{{productoDB.IdProducto}}" class="campoBoton campoBoton--azul">Editar Producto</a>
+                    <a href="/producto/borrar/{{producto.idproducto}}" class="campoBoton campoBoton--azul">Eliminar Producto</a>
+                    <a href="/producto/actualizar/{{producto.idproducto}}" class="campoBoton campoBoton--azul">Editar Producto</a>
                     <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
                 </section>
             {{/if}}  
         </section>
         <section class="flex-contenedor max1400">
             <figure class="galeria__figure">
-                <img src="/assets/img/producto/{{ productoDB.Img }}" name="imgProducto" class="galeria__figure--tamanioPerfil">
+                <img src="/assets/img/producto/{{ producto.img }}" name="imgProducto" class="galeria__figure--tamanioPerfil">
             </figure>
             <article class="caracteristicas">
-                <h2 class="caracteristicas__titulo" name="nombreProducto" data-id={{ productoDB.IdProducto }}>{{ productoDB.Nombre }}</h2>
-                <p class="caracteristicas__dato">CODIGO: {{productoDB.Codigo}} || MARCA: {{ productoDB.Marca }} || STOCK: {{ productoDB.Stock }}</p>
-                <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ productoDB.Garantia}}</p>
-                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: $<span name="precioProducto">{{ productoDB.Precio }}</span>.00</h2>
+                <h2 class="caracteristicas__titulo" name="nombreProducto" data-id={{ producto.idproducto }}>{{ producto.nombre }}</h2>
+                <p class="caracteristicas__dato">CODIGO: {{producto.codigo}} || MARCA: {{ producto.marca.nombre }} || STOCK: {{ producto.stock }}</p>
+                <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ producto.garantia}}</p>
+                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: $<span name="precioProducto">{{ producto.precio }}</span>.00</h2>
                 <article class="flex-contenedor caracteristicas__dato">
                     <section>
                         <img src="/assets/img/americanExpressIcon.png">
@@ -39,8 +39,8 @@
                 <button class="campoBoton campoBoton--verdeOscuro abrirModalCopiarEnlace" id="botonCopiarEnlace"><i class="fas fa-clone"></i> COPIAR ENLANCE</button>
 
                 <section class="caracteristicas__dato caracteristicas__infoPrecio">
-                    <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ productoDB.Precio }}.00</span></p>
-                    <p>Precio MercadoPago: <span class="letraVerdeOscuro">${{ precioLista }}.00</span></p>
+                    <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ producto.precio }}.00</span></p>
+                    <p>Precio MercadoPago: <span class="letraVerdeOscuro">${{ preciolista }}.00</span></p>
                 </section>
             </article>
         </section>
@@ -48,7 +48,7 @@
 
         <section class="max1400 textoDescripcion">
             <h3 class="letraVerdeOscuro">DESCRIPCION</h3>
-            <p >{{productoDB.Descripcion}}</p>
+            <p >{{producto.descripcion}}</p>
         </section>
             
         <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
@@ -57,12 +57,12 @@
             <article class="flex-contenedor">
                 {{#each productosRelacionados }}
                 <figure class="producto">
-                    <a href="/product/profile/{{ IdProducto}}" class="producto__interaccionArticulo">
-                        <img src="/assets/img/producto/{{ Img }}" class="producto__img">
+                    <a href="/producto/perfil/{{ idproducto}}" class="producto__interaccionArticulo">
+                        <img src="/assets/img/producto/{{ img }}" class="producto__img">
                         <span class="producto__mas-info">[MÁS INFO]</span>
-                        {{ Nombre }}
+                        {{ nombre }}
                     </a>
-                    <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
+                    <figcaption class="producto__precio">ARS {{ precio }}</figcaption>
                 </figure>
                 {{/each}}
             </article>

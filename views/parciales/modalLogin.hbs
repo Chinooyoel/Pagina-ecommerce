@@ -28,11 +28,8 @@
                 <i class="fas fa-times verde modalVentana__cerrar"></i>
 
                 <h3 class="linea-separadora">REGISTRARSE</h3>
-                <form id="usuarioForm" action="/usuario/guardar" method="POST">
+                <form id="usuarioForm" action="/usuario/crear" method="POST">
                     <input type="text" name="nombre" class="campo-imput" placeholder="Ingrese su nombre" minlength="1" maxlength="45" id="nombre">
-                    <input type="text" name="apellido" class="campo-imput" placeholder="Ingrese su apellido" minlength="1" maxlength="45" id="apellido">
-                    <input type="number" name="telefono" class="campo-imput" placeholder="Ingrese su telefono" id="telefono">
-                    <input type="number" name="documento" class="campo-imput" placeholder="Ingrese su DNI/CUIT" max="99999999" min="10000000" id="documento">
                     <input type="email" name="email" class="campo-imput" placeholder="Ingrese su email" id="email">
                     <input type="password" name="password" class="campo-imput" placeholder="Ingrese su contraseña" id="password">
                     <input type="submit" value="REGISTRARME" class="campoBoton campoBoton--verdeOscuro">

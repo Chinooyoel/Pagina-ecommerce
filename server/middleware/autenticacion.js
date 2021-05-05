@@ -1,90 +1,98 @@
 const jwt = require("jsonwebtoken");
-const pool = require("../mysql/mysql");
 const { semilla } = require("../config/config");
+const Usuarios = require("../models/Usuarios");
 
-let verificarToken = ( req, res, next ) => {
-    let token = req.cookies.token;
+let verificarToken = (req, res, next) => {
+  // obtenemos el token de las cookies
+  const token = req.cookies.token;
 
-    if( !token ){
-        req.usuario = { Logueado : false };
-        next();
-    }else{
-        jwt.verify(token, semilla, ( err, decodificado ) => {
-            if( err ) {
-                req.usuario = { logueado: false }
-                return res.status(400).json({
-                    message: "Token invalido",
-                })
-            }
-            
-            req.usuario = { Email: decodificado.email, 
-                            Role: decodificado.role, 
-                            Logueado: true }
-            next();
-        })
-    }
-}
-
-
-let verificarRole = ( req, res, next ) => {
-    let role = req.usuario.Role;
-    if( role != "ADMIN" && role != "TEST" ) {
-        return res.status(401).render("paginaError",{
-            status: 401,
-            mensaje: "Requiere permisos de administrador"
-        })
-    }
+  //si no existe token, no hay ningun usuario loguiado
+  if (!token) {
+    req.usuario = { Logueado: false };
     next();
-}
+  } else {
+    //veriamos el token
+    jwt.verify(token, semilla, (err, decodificado) => {
+      if (err) {
+        req.usuario = { logueado: false };
+        return res.status(400).json({
+          message: "Token invalido",
+        });
+      }
 
-let verificarAdminRole = ( req, res, next ) => {
-    let role = req.usuario.Role;
+      //guardamos el email y el rol en la peticion
+      req.usuario = {
+        Email: decodificado.email,
+        Role: decodificado.role,
+        Logueado: true,
+      };
 
-    if( role != "ADMIN" ) {
-        return res.status(401).render("paginaError",{
-            mensaje: "Requiere permisos de administrador"
-        })
+      next();
+    });
+  }
+};
+
+let verificarRole = (req, res, next) => {
+  let rol = req.usuario.rol;
+
+  if (rol != "ADMIN" && rol != "ESPECTADOR") {
+
+    return res.status(401).render("paginaError", {
+      status: 401,
+      mensaje: "Requiere permisos de administrador",
+    });
+
+  }
+  next();
+};
+
+let verificarAdminRole = (req, res, next) => {
+  let rol = req.usuario.rol;
+
+  if (rol != "ADMIN") {
+    return res.status(401).render("paginaError", {
+      mensaje: "Requiere permisos de administrador",
+    });
+  }
+  next();
+};
+
+let obtenerUsuarioLoguiado = async (req, res, next) => {
+  if (req.usuario.Logueado) {
+    try {
+      //buscamos al usuario por el email
+      const usuario = await Usuarios.findOne({ 
+        attributes: { exclude: 'password'},
+        where: { email: req.usuario.Email } });
+
+      req.usuario = usuario;
+      req.usuario.Logueado = true;
+      req.usuario.Admin = esAdminOTest(req.usuario.rol);
+      next();
+    } catch (error) {
+      if (error) {
+        return res.status(500).json({
+          ok: false,
+          error,
+        });
+      }
     }
+  } else {
+    req.usuario.Admin = false;
     next();
-}
-
-let obtenerUsuarioLoguiado = ( req, res, next ) => {
-
-    if( req.usuario.Logueado  ){
-        let sql = "CALL buscarUsuarioPorEmail( ? );"
-
-        pool.query(sql, [req.usuario.Email], ( error, results ) => {
-            if( error ){
-                return res.status(500).json({
-                    ok: false,
-                    error
-                })
-            }
-            
-            req.usuario = results[0][0];
-            req.usuario.Logueado = true;
-            req.usuario.Admin = esAdminOTest( req.usuario.Role );
-            next();
-        })
-    }else{
-        req.usuario.Admin = false;
-        next();
-    }
-}
+  }
+};
 
 module.exports = {
-    verificarToken,
-    verificarRole,
-    verificarAdminRole,
-    obtenerUsuarioLoguiado
-}
+  verificarToken,
+  verificarRole,
+  verificarAdminRole,
+  obtenerUsuarioLoguiado,
+};
 
-
-let esAdminOTest = ( role ) => {
-    if( role === "ADMIN" || role === "TEST"){
-        return true;
-    }
-    return false;
-}
-
-
+let esAdminOTest = (rol) => {
+  if (rol === "ADMIN" || rol === "ESPECTADOR") {
+    return true;
+  }
+  return false;
+};

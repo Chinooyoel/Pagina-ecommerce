@@ -12,8 +12,8 @@
                 <div>
                     <select name="ordenar" id="ordenar">
                         <option value="">Ordenar por</option>
-                        <option value="/producto/buscar/palabra={{ URLPalabra }}/idcat={{ URLidCat }}/idsub={{ URLidSub }}/idmarca={{ URLMarca }}/orden=1">Menor-precio</option>
-                        <option value="/producto/buscar/palabra={{ URLPalabra }}/idcat={{ URLidCat }}/idsub={{ URLidSub }}/idmarca={{ URLMarca }}/orden=2">Mayor precio</option>
+                        <option value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=asc">Menor-precio</option>
+                        <option value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=desc">Mayor precio</option>
                     </select>
                     <a id="botonVistaCuadricula"><i class='fas fa-th encabezado--grande verde'></i></a>
                     <a id="botonVistaFila"><i class='fas fa-align-justify encabezado--grande verde'></i></a>
@@ -24,39 +24,39 @@
                 <ul class="categoria__especificacion">
                     <li class="categoria__especificacion--verde">Categoria</li>
                     <li>
-                        {{#each categoriasDB}}
-                        <a href="/producto/buscar/palabra={{ ../URLPalabra }}/idcat={{ IdCategoria }}/idsub={{ ../URLidSub }}/idmarca={{ ../URLMarca }}/orden=-1" class="categoria__especificacion__link">{{ Nombre }} ( {{ Cantidad }} )</a>
+                        {{#each categorias}}
+                        <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ idcategoria }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ ../marcaFiltro }}/orden=-1" class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
                         {{/each}}
                     </li>
                 </ul>
                 <ul class="categoria__especificacion">
                     <li class="categoria__especificacion--verde">Subategoria</li>
                     <li>
-                        {{#each subcategoriasDB}}
-                        <a href="/producto/buscar/palabra={{ ../URLPalabra }}/idcat={{ ../URLidCat }}/idsub={{ IdSubcategoria }}/idmarca={{ ../URLMarca }}/orden=-1" class="categoria__especificacion__link">{{ Nombre }} ( {{ Cantidad }} )</a>
+                        {{#each subcategorias}}
+                        <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ idsubcategoria }}/idmarca={{ ../marcaFiltro }}/orden=-1" class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
                         {{/each}}
                     </li>
                 </ul>
                 <ul class="categoria__especificacion">
                     <li class="categoria__especificacion--verde">Marca</li>
                     <li>
-                        {{#each marcasDB}}
-                        <a href="/producto/buscar/palabra={{ ../URLPalabra }}/idcat={{ ../URLidCat }}/idsub={{ ../URLidSub }}/idmarca={{ IdMarca }}/orden=-1" class="categoria__especificacion__link">{{ Nombre }} ( {{ Cantidad }} )</a>
+                        {{#each marcas}}
+                        <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ idmarca }}/orden=-1" class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
                         {{/each}}
                     </li>
                 </ul>
             </aside>
             <!--************SECCION PRODUCTOS**********-->
             <section class="flex-contenedor-start lista-productos">
-                {{#each productosDB }}
+                {{#each productos }}
                 <figure class="producto productoEstandar">
-                    <a href="/product/profile/{{ IdProducto }}" class="producto__interaccionArticulo">
-                        <img src="/assets/img/producto/{{ Img }}" class="producto__img" name="imgProducto">
+                    <a href="/producto/perfil/{{ idproducto }}" class="producto__interaccionArticulo">
+                        <img src="/assets/img/producto/{{ img }}" class="producto__img" name="imgProducto">
                         <span class="producto__mas-info">[MÁS INFO]</span>
-                        <h4 name="nombreProducto" data-id={{ IdProducto }}>{{ Nombre }}</h4>
+                        <h4 name="nombreProducto" data-id={{ idproducto }}>{{ nombre }}</h4>
                     </a>
                     <figcaption>
-                        <h4 class="producto__precio">ARS <span name="precioProducto">{{ Precio }}</span></h4>
+                        <h4 class="producto__precio">ARS <span name="precioProducto">{{ precio }}</span></h4>
                         <a class="botonAgregarProducto campoBoton campoBoton--negro" style="display:none">AGREGAR</a>
                     </figcaption>
                 </figure>

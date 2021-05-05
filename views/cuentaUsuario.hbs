@@ -11,11 +11,9 @@
                 <img src="/assets/img/usuario.png" class="foto-perfil">
             </figure>
             <article class="caracteristicas">
-                <p>Nombre: {{ usuario.Nombre }}</p>
+                <p>Nombre: {{ usuario.nombre }}</p>
                 <br />
-                <p>Apellido: {{ usuario.Apellido }}</p>
-                <br />
-                <p>Email: {{ usuario.Email }}</p>
+                <p>Email: {{ usuario.email }}</p>
              </article>
         </section>
         <section class="max1400">
@@ -35,15 +33,15 @@
                     <th class="tabla__campo">Accion</th>
                 </tr>
             </thead>
-            {{#each pedidosDB}}
+            {{#each pedidos}}
                 <tbody>
                     <tr class="tabla__fila">
-                        <th class="tabla__campo">{{ id }}</th>
+                        <th class="tabla__campo">{{ idpedido }}</th>
                         <th class="tabla__campo">{{ fecha }}</th>
-                        <th class="tabla__campo tabla__campo--verde">{{ medios_pago }}</th>
-                        <th class="tabla__campo">{{ estado }}</th>
+                        <th class="tabla__campo tabla__campo--verde">efectivo</th>
+                        <th class="tabla__campo">{{ estado.nombre }}</th>
                         <th class="tabla__campo">${{ total }}.00</th>
-                        <th class="tabla__campo"><a href="/pedido/{{ id }}" class="tabla__campo__link">Mas info</a></th>
+                        <th class="tabla__campo"><a href="/pedido/{{ idpedido }}" class="tabla__campo__link">Mas info</a></th>
                     </tr>
                 </tbody>
                 {{ else }}

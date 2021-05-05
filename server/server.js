@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const { verificarToken, obtenerUsuarioLoguiado } = require("./middleware/autenticacion");
-const pool = require("./mysql/mysql");
+const db = require("./mysql/mysql");
 
 
 //Creamos un middleware para la carpeta public
@@ -34,13 +34,31 @@ hbs.registerHelper("multiplicar", ( a, b ) => a * b );
 //rutas
 app.use(require("./routes/index"));
 
+//importamos los modelos
+require('./models/Marcas')
+require('./models/Productos');
+require('./models/Categorias')
+require('./models/Usuarios')
+require('./models/Subcategorias')
+require('./models/Proveedores')
+require('./models/Pedidos')
+
 //conectamos a la base de datos
-pool.getConnection(function(err) {     
-    if(err) {                                                       
-      console.log('Error al conectar la base de datos:', err);                          
-    }        
-    console.log('Base de datos conectada')                           
-  });    
+// pool.getConnection(function(err) {     
+//     if(err) {                                                       
+//       console.log('Error al conectar la base de datos:', err);                          
+//     }        
+//     console.log('Base de datos conectada')                           
+//   });    
+// try {
+//   db.authenticate();
+//   console.log('Base de datos conectada')
+// } catch (error) {
+//   console.error('Error al conectar la base de datos:', error)
+// }
+db.sync()
+  .then(() => console.log('Base de datos conectada'))
+  .catch(error => console.error('Error al conectar la base de datos:', error))
 
 
 app.listen( puerto, () => {

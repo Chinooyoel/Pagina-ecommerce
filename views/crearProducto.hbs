@@ -4,7 +4,7 @@
         <section class="panelControl">
             <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
         </section>        
-        <form id="productForm" method="POST" action="/product/save" class="flex-contenedor" enctype="multipart/form-data">
+        <form id="productForm" method="POST" action="/producto/crear" class="flex-contenedor" enctype="multipart/form-data">
             <figure class="galeria__figure">
                 <img src="/assets/img/producto/no-imagen.jpg" class="galeria__figure--tamanioPerfil" id="imagenProducto">
                 <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
@@ -15,27 +15,27 @@
                     <label for="nombre" class="formulario__label">Nombre</label>
                     <input type="text" name="nombre" id="nombre" class="inputEdicion formulario__input" maxlength="200" minlength="5">
                     <label for="marca" class="formulario__label">Marca</label>
-                    <select id="marca" name="marca" class="inputEdicion formulario__input">
-                        {{#each marcasDB }}
-                        <option value="{{ IdMarca }}">{{Nombre}}</option>
+                    <select id="marca" name="marca_id" class="inputEdicion formulario__input">
+                        {{#each marcas }}
+                        <option value="{{ idmarca }}">{{nombre}}</option>
                         {{/each}}
                     </select>    
                     <label for="categoria" class="formulario__label">Categoria</label>
-                    <select id="categoria" name="categoria" class="inputEdicion formulario__input">
-                        {{#each categoriasDB }}
-                        <option value="{{ IdCategoria }}" >{{Nombre}}</option>
+                    <select id="categoria" name="categoria_id" class="inputEdicion formulario__input">
+                        {{#each categorias }}
+                        <option value="{{ idcategoria }}" >{{nombre}}</option>
                         {{/each}}
                     </select> 
                     <label for="subcategoria" class="formulario__label">Subcategoria</label>
-                    <select id="subcategoria" name="subcategoria" class="inputEdicion formulario__input">
-                        {{#each subcategoriasDB}}
-                        <option value="{{IdSubcategoria}}"  data-categoria="{{Categoria_IdCategoria}}"  class="subcategoria">{{Nombre}}</option>
+                    <select id="subcategoria" name="subcategoria_id" class="inputEdicion formulario__input">
+                        {{#each subcategorias}}
+                        <option value="{{idsubcategoria}}"  data-categoria="{{categoria_id}}"  class="subcategoria">{{nombre}}</option>
                         {{/each}}
                     </select> 
                     <label for="proveedor" class="formulario__label">Proveedor</label>
-                    <select id="proveedor" name="proveedor" class="inputEdicion formulario__input">
-                        {{#each proveedoresDB }}
-                        <option value="{{ IdProveedor }}">{{Nombre}}</option>
+                    <select id="proveedor" name="proveedor_id" class="inputEdicion formulario__input">
+                        {{#each proveedores }}
+                        <option value="{{ idproveedor }}">{{nombre}}</option>
                         {{/each}}
                     </select> 
                     <label for="codigo" class="formulario__label">Codigo</label>

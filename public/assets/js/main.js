@@ -74,7 +74,7 @@ function funcionBuscarProductoParaTabla() {
         if( buscadorTabla.value ){
             enviarPeticion("GET", `${ window.location.origin }/producto/admin/buscar/${ buscadorTabla.value }`, ( respuesta ) => {
 
-            mostrarProductoEnTabla( respuesta.productosDB );
+            mostrarProductoEnTabla( respuesta.productos );
             })
         }       
     }, false)
@@ -88,12 +88,12 @@ function mostrarProductoEnTabla( productoArray ){
         tablaProducto.innerHTML += 
         `<tr class="tabla__fila">
             <th class="tabla__campo">${ index + 1 }</th>
-            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.IdProducto }" class="tabla__campo__link">${ producto.Nombre }</a></th>
-            <th class="tabla__campo">${ producto.Categoria }</th>
-            <th class="tabla__campo tabla__campo--verde">${ producto.Stock }</th>
-            <th class="tabla__campo">$${ producto.Precio }.00</th>
-            <th class="tabla__campo">$${ producto.Costo }.00</th>
-            <th class="tabla__campo"><a href="/product/update/${ producto.IdProducto }" class="tabla__campo__link">Editar</a> - <a href="/product/remove/${ producto.IdProducto }" class="tabla__campo__link">Eliminar</a></th>
+            <th class="tabla__campo tabla__campo--alignStart"><a href="product/profile/${ producto.idproducto }" class="tabla__campo__link">${ producto.nombre }</a></th>
+            <th class="tabla__campo">${ producto.subcategoria.nombre }</th>
+            <th class="tabla__campo tabla__campo--verde">${ producto.stock }</th>
+            <th class="tabla__campo">$${ producto.precio }.00</th>
+            <th class="tabla__campo">$${ producto.costo }.00</th>
+            <th class="tabla__campo"><a href="/producto/actualizar/${ producto.idproducto }" class="tabla__campo__link">Editar</a> - <a href="/producto/borrar/${ producto.idproducto }" class="tabla__campo__link">Eliminar</a></th>
         </tr>`
     })
 }
@@ -208,7 +208,7 @@ function funcionBuscarUsuario () {
     buscador.addEventListener("keydown", () => {
         if( buscador.value ){
             enviarPeticion("GET", `${ window.location.origin }/usuario/buscar/${ buscador.value }`, ( respuesta ) => {
-                let usuarioArray = respuesta.usuariosDB;
+                let usuarioArray = respuesta.usuarios;
 
                 mostrarUsuarioEnTabla( usuarioArray );
             })
@@ -224,7 +224,7 @@ function mostrarUsuarioEnTabla( usuarioArray ){
         tablaUsuario.innerHTML += 
         `<tr class="tabla__fila">
             <th class="tabla__campo">${ usuario.idusuario }</th>
-            <th class="tabla__campo tabla__campo--alignStart">${ usuario.apellido}, ${ usuario.nombre}</th>
+            <th class="tabla__campo tabla__campo--alignStart">${ usuario.nombre}</th>
             <th class="tabla__campo tabla__campo--verde">${ usuario.estado }</th>
             <th class="tabla__campo">${ usuario.email }</th>
             <th class="tabla__campo">0</th>
@@ -719,7 +719,7 @@ function mostrarProductosDelCarrito(){
                                     Cantidad de componentes: ${carrito.cantidad}
                                 </section>
                                 <section>
-                                    <form id="carritoForm" action="/pedido/guardar" method="post">
+                                    <form id="carritoForm" action="/pedido/crear" method="post">
                                         <button type="submit" class="campoBoton campoBoton--verdeOscuro">Confirmar compra</button>
                                     </form>
                                 </section>`
@@ -779,7 +779,7 @@ function eventoEnviarCarrito(){
         }
         
         
-        let miPeticion = new Request("/pedido/guardar", {
+        let miPeticion = new Request("/pedido/crear", {
             method : "POST",
             body: objetoFormulario
         });

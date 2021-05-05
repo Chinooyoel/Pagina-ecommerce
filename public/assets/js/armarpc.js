@@ -264,10 +264,10 @@ function cambiarPasoYTotal(){
 }
 //realiza una peticion y trae los productos para ser elegidos por el usuario
 async function consultarProductos(){
-    let resultado = await fetch(`/producto/buscar/json/palabra=${componentesPc[paso].palabra}/idcat=${componentesPc[paso].categoria}/idsub=${componentesPc[paso].subcategoria}/idmarca=${componentesPc[paso].marca}/orden=1/`);
+    let resultado = await fetch(`/producto/buscar/palabra=${componentesPc[paso].palabra}/idcat=${componentesPc[paso].categoria}/idsub=${componentesPc[paso].subcategoria}/idmarca=${componentesPc[paso].marca}/orden=1?JSON=true`);
     let respuesta = await resultado.json();
 
-    const productosDB = respuesta.productosDB;
+    const productosDB = respuesta.productos;
     
     return productosDB;
 }
@@ -303,11 +303,11 @@ function cargarVistaComponentesAElegir( productosDB ){
     for(let i = 0; i < productosDB.length; i++ ){
         listaProducto.innerHTML += `
         <article class="listaProducto__articulo flex-contenedor">
-            <img src="/assets/img/producto/${productosDB[i].Img}" class="listaProducto__articulo__img"s/>
+            <img src="/assets/img/producto/${productosDB[i].img}" class="listaProducto__articulo__img"s/>
             <div>
-                <h3 class="nombre">${productosDB[i].Nombre}</h3>
-                <p class="producto__precio letraVerdeOscuro">ARS <span class="precio">${productosDB[i].Precio}</span>.00</p>
-                <button class="seleccionarComponente botonNegro" data-id='${productosDB[i].IdProducto}'>Elegir</button>
+                <h3 class="nombre">${productosDB[i].nombre}</h3>
+                <p class="producto__precio letraVerdeOscuro">ARS <span class="precio">${productosDB[i].precio}</span>.00</p>
+                <button class="seleccionarComponente botonNegro" data-id='${productosDB[i].idproducto}'>Elegir</button>
             </div>
         </article>
         `

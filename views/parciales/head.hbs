@@ -1,109 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <link rel="icon" href="/favicon.ico">
 
-        <link href="/assets/estilos/estilo.css" rel="stylesheet">
-        <link href="/assets/estilos/resetEstilos.css" rel="stylesheet">
-        <link href="/assets/estilos/estilo-producto.css" rel="stylesheet">
-        <link href="/assets/estilos/articulos.css" rel="stylesheet">
-        <link href="/assets/estilos/ayuda.css" rel="stylesheet">
-        <link href="/assets/estilos/lightbox.css" rel="stylesheet">
-        <link href="/assets/estilos/principal.css" rel="stylesheet">
-        <link href="/assets/estilos/ubicacion.css" rel="stylesheet">
-        <link href="/assets/estilos/tablas.css" rel="stylesheet">
-        <link href="/assets/estilos/perfilUsuario.css" rel="stylesheet">
-        <link href="/assets/estilos/responsive.css" rel="stylesheet">
-        <link href="/assets/estilos/spinner.css" rel="stylesheet">
-        <link href="/assets/estilos/slideshow.css" rel="stylesheet">
-        <script src="/assets/js/carritoControlador.js"></script>
-        <script src="/assets/js/main.js"></script>
+<head>
+    <link rel="icon" href="/favicon.ico">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ComputadorasYA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 
-        <!--Actualizar estos para los iconos-->
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <!--*************************************HEADER*******************************************-->
-        <header>
-            <section>
-                <ul class="menuContacto">
-                    <li><a href="/ayuda" class="menuContacto__link"><i class='fas fa-question-circle icono'></i>Ayuda</a></li>
-                    <li><a href="/ubicacion" class="menuContacto__link"><i class='fas fa-map-marker-alt icono'></i>Ubicacion</a></li>
-                    <li><a class="abrirModalTelefonico menuContacto__link" ><i class='fas fa-phone icono'></i>Venta telefonica</a></li>
-                    <li><a href="" class="menuContacto__link"><i class='fas fa-comments icono'></i>Whatsapp</a></li>
-                </ul>
-            </section>
-            <section class="menuSecundario max1400">
-                <div>
-                    <a href="/" class="menuSecundario__logo"><i class='fas fa-tv icono'></i>ComputadorasYA</a>
-                </div>
-                <div>
-                    <input type="text" placeholder="BUSCAR..." id="inputBuscar" class="buscador"/>
-                    <button type="button" id="buscadorGeneral" class="campoBoton campoBoton--verdeOscuro menuSecundario--botonPosicion"><i class='fas fa-search'></i></button>
-                </div>
-                <div class="usuarioCarrito">
-                    <div id="botonMenuResponsive">
-                        <i class="fas fa-align-justify"></i>
-                    </div>
-                    <div>
-                        <ul>
-                            {{#if usuario.Logueado }}
-                                <li><a href="/usuario/perfil" class="menu__link--verde"><i class="fas fa-user icono"></i>MI CUENTA</a></li>
-                                <li><a id="botonCerrarSesion"><i class="fas fa-door-open icono"></i>CERRAR SESIÓN</a></li>
-                            {{else}}
-                                <li><a class="abrirModalLogin">INICIA SESIÓN</a></li>
-                                <li><a class="abrirModalRegistrarse abrilModalRegistrarse--verde">REGISTRATE</a></li>
-                            {{/if}}
-                        </ul>
-                    </div>
-                    <a href="/carrito" class="carrito">
-                        <i class='fas fa-shopping-cart carrito--icono'></i>
-                        <span id="total" class="carrito--total"></span>
-                    </a>
-                </div>
-            </section>
-            <nav >
-                <ul class="menu">
-                    {{#if usuario.Admin}}
-                        <li><a href="/admin" class="menu__link menu__link--verde">ADMINISTRACION</a></li>
-                    {{/if}}
-                    <li><a href="/producto/buscar/palabra=-1/idcat=10/idsub=-1/idmarca=-1/orden=-1/" class="menu__link">NOTEBOOK</a></li>
-                    <li>
-                        <a class="menu__link">PRODUCTOS</a>
-                        <ul class="menu__submenu">
-                            <li><a href="/producto/buscar/palabra=-1/idcat=2/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">MICROPROCESADORES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=3/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">MOTHERBOARDS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=5/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">PLACAS DE VIDEO</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=6/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">ALMACENAMIENTO</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=4/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">MEMORIAS RAMS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=8/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">FUENTES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=9/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">GABINETES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=7/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">REFRIGERACION</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=12/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">LECTORAS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=13/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">ACCESORIOS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=14/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">ASIENTOS</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="menu__link">PERIFERICOS</a>
-                        <ul class="menu__submenu">
-                            <li><a href="/producto/buscar/palabra=-1/idcat=15/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">TECLADOS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=16/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">MOUSES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=17/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">PADS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=18/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">AURICULARES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=19/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">PARLANTES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=20/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">JOYSTICKS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=21/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">MONITORES</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=22/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">IMPRESORAS</a></li>
-                            <li><a href="/producto/buscar/palabra=-1/idcat=11/idsub=-1/idmarca=-1/orden=-1/" class="menu__link menu__link--verde">MICROFONO</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/armar" class="menu__link menu__link--verde">ARMA TU PC</a></li>
-                </ul>
+    <link href="/assets/estilos/estilo.css" rel="stylesheet">
+    <link href="/assets/estilos/lightbox.css" rel="stylesheet">
+
+    <script src="/assets/js/carritoControlador.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComputadorasYA</title>
+    <!--Actualizar estos para los iconos-->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+
+<body>
+    {{> modal }}
+    <header>
+        <section class='text-end bg-secondary text-white p-2 p-md-0'>
+            <nav class='d-none d-md-inline-block mx-3 my-1'>
+                <a class='mx-2' href="/ayuda"><i class='fas fa-question-circle me-1 textoVerde'></i> Subir
+                    Comprobantes</a>
+                <a class='mx-2' href="/ayuda"><i class='fas fa-question-circle me-1 textoVerde'></i>Tramite RMA</a>
+                <a class='mx-2' href="/ayuda"><i class='fas fa-question-circle me-1 textoVerde'></i>Ayuda</a>
+                <a class='mx-2' href="/ubicacion"><i class='fas fa-map-marker-alt me-1 textoVerde'></i>Ubicacion</a>
+                <a data-bs-toggle="modal" data-bs-target="#modalTelefonico"><i
+                        class='fas fa-phone me-1 textoVerde'></i>Venta telefonica</a>
             </nav>
-        </header>
+        </section>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-1 px-md-4 py-2 flex-wrap justify-content-between">
+            {{!-- BOTON RESPONSIVE DEL MENU Y LOGO --}}
+            <section>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="/" class="textoVerde marca">
+                    <i class="fas fa-tv mx-1 d-none d-sm-inline"></i>
+                    ComputadorasYa
+                </a>
+            </section>
+
+            {{!-- BUSCADOR GENERAL --}}
+            <form class="d-none d-md-flex w-35 buscadorGeneral">
+                <input class='form-control' type="text" placeholder="Buscar" name='palabra' />
+                <button class="btn btn-violeta px-4">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            {{!-- Iconos responsive del usuario, buscador y carrito --}}
+            <section class="d-md-none">
+                {{#if usuario.Logueado }}
+                <a href="/usuario/perfil" class="p-2">
+                    <i class="fas fa-user"></i>
+                </a>
+                {{else}}
+                <a href="/login" class="p-2">
+                    <i class="fas fa-user"></i>
+                </a>
+                {{/if}}
+                <span class="dropleft">
+                    <a class="dropdown-toggle p-1" href="#" role="button" id="dropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-search"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end bg-dark w-100" aria-labelledby="dropdownMenuLink">
+                        <form class="d-flex buscadorGeneral">
+                            <input class='form-control' type="text" placeholder="Buscar" name='palabra' />
+                            <button class="btn btn-violeta px-4">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </span>
+                <span class="dropleft">
+                    <a class="dropdown-toggle p-1" href="#" role="button" id="dropdownMenuLink-carrito"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end bg-dark w-100"
+                        aria-labelledby="dropdownMenuLink-carrito">
+                        <div class="d-flex justify-content-between p-3">
+                            <section>
+                                <p class="d-inline textoVerde">Su Pedido</p>
+                                <br />
+                                <p class="d-inline text-white">
+                                    Cantidad de Items <span class='total'></span>
+                                </p>
+                            </section>
+                            <section>
+                                <a href='/carrito' class="btn btn-violeta">VER</a>
+                            </section>
+                        </div>
+                    </div>
+                </span>
+            </section>
+
+            {{!-- MENU DE LOGEO Y CARRITO --}}
+            <section
+                class="d-none d-md-flex align-items-center justify-content-between text-white flex-grow-1 flex-lg-grow-0 my-2">
+                <div class='pe-4'>
+                    {{#if usuario.Logueado }}
+                    <a href="/usuario/perfil" class='textoVerde'>
+                        <i class="fas fa-user me-2"></i> MI CUENTA
+                    </a>
+                    <br />
+                    <a class="botonCerrarSesion">
+                        <i class="fas fa-door-open me-2"></i>CERRAR SESIÓN
+                    </a>
+                    {{else}}
+                    <a href='/login' class="d-inline ">INICIAR SESION</a>
+                    <br />
+                    <a href='/registrarse' class="d-inline textoVerde">REGISTRARSE</a>
+                    {{/if}}
+
+                </div>
+                <a href="/carrito">
+                    <i class="fas fa-shopping-cart textoVerde"></i>
+                    <span class="total"></span>
+                </a>
+            </section>
+
+            {{!-- MENU PRINCIPAL--}}
+            <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto text-center">
+                    {{#if usuario.Admin}}
+                    <li class="nav-item">
+                        <a class="nav-link textoVerde" href="/admin">ADMINISTRACION</a>
+                    </li>
+                    {{/if}}
+                    <li class="nav-item">
+                        <a href='/producto/buscar/palabra=-1/idcat=10/idsub=-1/idmarca=-1/orden=-1' class="nav-link" href="#">NOTEBOOK</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            COMPONENTES
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href='/producto/buscar/palabra=-1/idcat=2/idsub=-1/idmarca=-1/orden=-1'>MICROPROCESADORES</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=3/idsub=-1/idmarca=-1/orden=-1">MOTHERBOARD</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=4/idsub=-1/idmarca=-1/orden=-1">MEMORIAS RAM</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=5/idsub=-1/idmarca=-1/orden=-1">PLACAS DE VIDEO</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=6/idsub=-1/idmarca=-1/orden=-1">ALMACENAMIENTO</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=8/idsub=-1/idmarca=-1/orden=-1">FUENTES</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=9/idsub=-1/idmarca=-1/orden=-1">GABINETES</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=7/idsub=-1/idmarca=-1/orden=-1">REGRIGERACION</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            PERIFERICOS
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {{!-- <li><a class="dropdown-item" href='/producto/buscar/palabra=-1/idcat=11/idsub=-1/idmarca=-1/orden=-1'>MICROFONOS</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=12/idsub=-1/idmarca=-1/orden=-1">LECTORAS</a></li> --}}
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=15/idsub=-1/idmarca=-1/orden=-1">TECLADOS</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=17/idsub=-1/idmarca=-1/orden=-1">MOUSEPAD</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=16/idsub=-1/idmarca=-1/orden=-1">MOUSE</a></li>
+                            <li><a class="dropdown-item" href="/producto/buscar/palabra=-1/idcat=21/idsub=-1/idmarca=-1/orden=-1">MONITORES</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link textoVerde" href="/armar">ARMA TU PC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ayuda">AYUDA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ubicacion">CONTACTO</a>
+                    </li>
+                    {{#if usuario.Logueado }}
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link botonCerrarSesion textoVerde">CERRAR SESIÓN</a>
+                    </li>
+                    <br />
+                    {{/if}}
+                </ul>
+            </div>
+        </nav>
+    </header>

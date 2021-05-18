@@ -1,76 +1,147 @@
-
 {{> head }}
-
-    {{> modal }}
-    {{> modalLogin}}
-        <section class="max1400 flex-contenedor">
-            <section class="encabezado">
-                <div>
-                    <i class="fa fa-arrow-circle-right"></i>
-                    <a>Resultado</a> 
-                </div>
-                <div>
-                    <select name="ordenar" id="ordenar">
-                        <option value="">Ordenar por</option>
-                        <option value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=asc">Menor-precio</option>
-                        <option value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=desc">Mayor precio</option>
-                    </select>
-                    <a id="botonVistaCuadricula"><i class='fas fa-th encabezado--grande verde'></i></a>
-                    <a id="botonVistaFila"><i class='fas fa-align-justify encabezado--grande verde'></i></a>
-                </div>
-            </section>
-            <!--************ASIDE CATEGORIA**********-->
-            <aside class="categoria">
-                <ul class="categoria__especificacion">
-                    <li class="categoria__especificacion--verde">Categoria</li>
+<section class="container">
+    <div class='row'>
+        <aside class='col col-md-3 my-3'>
+            <ul class='filtros-ul text-center text-md-start'>
+                <li class='h5'>Ordenar productos</li>
+                <select name="ordenar" id="ordenar">
+                    <option value="">Ordenar por</option>
+                    <option
+                        value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=asc">
+                        Menor-precio</option>
+                    <option
+                        value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=desc">
+                        Mayor precio</option>
+                </select>
+            </ul>
+            <button class="accordion-button collapsed border border-5 my-2 d-md-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                FILTRAR
+            </button>
+            <div id="collapseOne" class="accordion-collapse collapse d-md-block" aria-labelledby="headingOne">
+                <ul class='filtros-ul'>
+                    <li class='h5'>Categoria</li>
+                    {{#each categorias}}
                     <li>
-                        {{#each categorias}}
-                        <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ idcategoria }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ ../marcaFiltro }}/orden=-1" class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
-                        {{/each}}
+                        <a
+                            href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ idcategoria }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ ../marcaFiltro }}/orden=-1">{{
+                            nombre }} ( {{ dataValues.cantidad }} )</a>
                     </li>
+                    {{/each}}
                 </ul>
-                <ul class="categoria__especificacion">
-                    <li class="categoria__especificacion--verde">Subategoria</li>
+                <ul class='filtros-ul'>
+                    <li class='h5'>Subcategoria</li>
+                    {{#each subcategorias}}
                     <li>
-                        {{#each subcategorias}}
-                        <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ idsubcategoria }}/idmarca={{ ../marcaFiltro }}/orden=-1" class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
-                        {{/each}}
+                        <a
+                            href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ idsubcategoria }}/idmarca={{ ../marcaFiltro }}/orden=-1">{{
+                            nombre }} ( {{ dataValues.cantidad }} )</a>
                     </li>
+                    {{/each}}
                 </ul>
-                <ul class="categoria__especificacion">
-                    <li class="categoria__especificacion--verde">Marca</li>
+                <ul class='filtros-ul'>
+                    <li class='h5'>Marca</li>
+                    {{#each marcas}}
                     <li>
-                        {{#each marcas}}
-                        <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ idmarca }}/orden=-1" class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
-                        {{/each}}
+                        <a
+                            href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ idmarca }}/orden=-1">{{
+                            nombre }} ( {{ dataValues.cantidad }} )</a>
                     </li>
+                    {{/each}}
                 </ul>
-            </aside>
-            <!--************SECCION PRODUCTOS**********-->
-            <section class="flex-contenedor-start lista-productos">
+                {{!-- <ul className='filtros-ul'>
+                    <li className='h5'>Marca</li>
+                    <li>
+                        <input type='checkbox' className='me-2' />
+                        <label>Marca <span className='text-muted'>(33)</span></label>
+                    </li>
+                    <li>
+                        <input type='checkbox' className='me-2' />
+                        <label>Marca <span className='text-muted'>(33)</span></label>
+                    </li>
+                </ul> --}}
+            </div>
+        </aside>
+        <!--************SECCION PRODUCTOS**********-->
+        <section class="col-12 col-md-9 my-3">
+            <div class="flex-wrap d-flex">
                 {{#each productos }}
-                <figure class="producto productoEstandar">
-                    <a href="/producto/perfil/{{ idproducto }}" class="producto__interaccionArticulo">
-                        <img src="/assets/img/producto/{{ img }}" class="producto__img" name="imgProducto">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        <h4 name="nombreProducto" data-id={{ idproducto }}>{{ nombre }}</h4>
-                    </a>
-                    <figcaption>
-                        <h4 class="producto__precio">ARS <span name="precioProducto">{{ precio }}</span></h4>
-                        <a class="botonAgregarProducto campoBoton campoBoton--negro" style="display:none">AGREGAR</a>
-                    </figcaption>
-                </figure>
+                <a class="card text-center sombraVerde p-2 w-producto" href="/producto/perfil/{{ idproducto }}">
+                    <img class="card-img-top" src="/assets/img/producto/{{ img }}" alt="" />
+                    <section class='card-body' as="section">
+                        <p class="text-uppercase my-0">{{ nombre }}</p>
+                    </section>
+                    <div>
+                        <p class="textoVerde h3 my-0">ARS {{ precio }}</p>
+                        <p>
+                            <strong>18 cuotas de ${{ precioCuotas precio 18 }}.00</strong>
+                        </p>
+                        <button class="btn btn-violeta w-100">VER PRODUCTO</button>
+                    </div>
+                </a>
                 {{ else }}
-                <p class="textoCentro">* No hay resultados para esta busqueda *</p>
+                <p class="text-center w-100">* No hay resultados para esta busqueda *</p>
                 {{/each}}
-            </section>
+            </div>
         </section>
+    </div>
+</section>
 
-    <script>
-        ordenarProductos();
-        leerVistaDeArticulos();
-        eventoCambiarVistaProducto();
-        funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
-        eventoAñadirProducto()
-    </script>
+
+<script>
+    ordenarProductos();
+</script>
+
 {{> footer }}
+
+
+
+        {{!-- <section class="encabezado">
+            <div>
+                <i class="fa fa-arrow-circle-right"></i>
+                <a>Resultado</a>
+            </div>
+            <div>
+                <select name="ordenar" id="ordenar">
+                    <option value="">Ordenar por</option>
+                    <option
+                        value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=asc">
+                        Menor-precio</option>
+                    <option
+                        value="/producto/buscar/palabra={{ palabraFiltro }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=desc">
+                        Mayor precio</option>
+                </select>
+                <a id="botonVistaCuadricula"><i class='fas fa-th encabezado--grande verde'></i></a>
+                <a id="botonVistaFila"><i class='fas fa-align-justify encabezado--grande verde'></i></a>
+            </div>
+        </section> --}}
+        <!--************ASIDE CATEGORIA**********-->
+        {{!-- <aside class="categoria col-12 col-md-3 my-3">
+            <ul class="categoria__especificacion">
+                <li class="categoria__especificacion--verde">Categoria</li>
+                <li>
+                    {{#each categorias}}
+                    <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ idcategoria }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ ../marcaFiltro }}/orden=-1"
+                        class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
+                    {{/each}}
+                </li>
+            </ul>
+            <ul class="categoria__especificacion">
+                <li class="categoria__especificacion--verde">Subategoria</li>
+                <li>
+                    {{#each subcategorias}}
+                    <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ idsubcategoria }}/idmarca={{ ../marcaFiltro }}/orden=-1"
+                        class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
+                    {{/each}}
+                </li>
+            </ul>
+            <ul class="categoria__especificacion">
+                <li class="categoria__especificacion--verde">Marca</li>
+                <li>
+                    {{#each marcas}}
+                    <a href="/producto/buscar/palabra={{ ../palabraFiltro }}/idcat={{ ../categoriaFiltro }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ idmarca }}/orden=-1"
+                        class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
+                    {{/each}}
+                </li>
+            </ul>
+        </aside> --}}

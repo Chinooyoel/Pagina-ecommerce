@@ -1,161 +1,189 @@
-
 {{> head }}
+<section>
+    {{!-- CAROUSEL BOOTSTRAP --}}
+    <div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a href="/armar"><img src="/assets/img/banner2principal.png" class="d-block w-100 img-carousel"></a>
+            </div>
+            <div class="carousel-item">
+                <a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=21/orden=-1/"><img
+                        src="/assets/img/banner1principal.png" class="d-block w-100 img-carousel"></a>
+            </div>
+            <div class="carousel-item">
+                <a href='/producto/buscar/palabra=-1/idcat=2/idsub=2/idmarca=-1/orden=-1'><img
+                        src="/assets/img/banner3principal.png" class="d-block w-100 img-carousel"></a>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 
-    {{> modal }}
-    {{> modalLogin}}
-        <!--*******************SECCION LISTA-DE-MARCAS LIGHTBOX ARTICULOS Y LISTA-LIGHTBOX**********************-->
-        <section>
-            <ul class="listaMarca">
-                <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=10/orden=-1/"><img src="/assets/img/logo_amd.jpg" class="listaMarca__img"></a></li>
-                <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=9/orden=-1/"><img src="/assets/img/logo_intel.jpg" class="listaMarca__img"></a></li>
-                <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=21/orden=-1/"><img src="/assets/img/logo_logitech.png" class="listaMarca__img"></a></li>
-                <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=7/orden=-1/"><img src="/assets/img/logo_redragon.png" class="listaMarca__img"></a></li>
-                <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=100/orden=-1/"><img src="/assets/img/logo_nvidia.png" class="listaMarca__img"></a></li>
-                <li><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=22/orden=-1/"><img src="/assets/img/logo_viewsonic.png" class="listaMarca__img"></a></li>
-            </ul>
-            <article class="lightboxGrande">
-                    <!-- Slideshow container de w3School -->
-                    <div class="slideshow-container">
-
-                    <!-- Full-width images with number and caption text -->
-                    <div class="mySlides fade">
-                        <div class="numbertext">1 / 3</div>
-                        <a href="/armar"><img src="/assets/img/banner2principal.png" style="width:100%" class='lightboxGrande__img'></a>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">2 / 3</div>
-                        <a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=21/orden=-1/"><img src="/assets/img/banner1principal.png" style="width:100%" class='lightboxGrande__img'></a>
-                      </div>
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">3 / 3</div>
-                        <a href="/producto/buscar/palabra=-1/idcat=2/idsub=2/idmarca=-1/orden=-1"><img src="/assets/img/banner3principal.png" style="width:100%" class='lightboxGrande__img'></a>
-                    </div>
-                    </div>
-                    <br>
-
-                    <!-- The dots/circles -->
-                    <div style="text-align:center" class="puntosCarousel">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                    </div>
-            </article>
-            <article class="informacion max1400">
-                <div class="informacion__bloque">
-                    <h3 class="informacion__bloque__texto"><i class="far fa-credit-card icono"></i>PAGA EN CUOTAS</h3>
-                    <p class="informacion__bloque__texto"><a class="abrirModalMediosDePago">Ver promociones</a></p>
-                </div>
-                <div class="informacion__bloque">
-                    <h3 class="informacion__bloque__texto"><i class="far fa-calendar-alt icono"></i>HORARIOS</h3>
-                    <p class="informacion__bloque__texto">Lunes a viernes de 9:30 a 19:30 hs.</br>
+    <div class="container">
+        {{!-- INFORMACION --}}
+        <div class="row text-center">
+            <div class="col-12 col-sm-6 col-md-3 border-start border-dark py-2">
+                <h5><i class="far fa-credit-card me-2 text-violeta"></i>PAGA EN CUOTAS</h5>
+                <a data-bs-toggle="modal" data-bs-target="#modalMediosDePago">
+                    Ver promociones
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 border-start border-dark py-2">
+                <h5><i class="far fa-calendar-alt me-2 text-violeta"></i>HORARIOS</h5>
+                <p class="informacion__bloque__texto">Lunes a viernes de 9:30 a 19:30 hs.<br>
                     Sabados de 9:30 a 17hs.</p>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 border-start border-dark py-2">
+                <h5><i class="fas fa-map-marker-alt me-2 text-violeta"></i>RETIRA GRATIS</h5>
+                <a href='/ubicacion' class='linkNone'>¿Donde estamos?</a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 border-start border-dark py-2">
+                <h5><i class="fas fa-shipping-fast me-2 text-violeta"></i>ENVIOS A TODO EL PAIS</h5>
+                <p>Rapido y seguro</p>
+            </div>
+
+            {{!-- GAMA DE PC --}}
+            <div class="col-12 my-3">
+                <h2 class='text-violeta'>PC RECOMENDADAS</h2>
+            </div>
+            <a href="/producto/buscar/palabra=-1/idcat=-1/idsub=34/idmarca=-1/orden=-1" class="mb-3 text-center col-md-3 col-6">
+                <div class="sombraVerde card"><img class="card-img-top" src="/assets/img/equipo1.jpg" alt="equipo1.jpg">
+                    <div class="card-body"><button class="btn btn-violeta w-100">ENTRADA</button></div>
                 </div>
-                <div class="informacion__bloque">
-                    <h3 class="informacion__bloque__texto"><i class="fas fa-map-marker-alt icono"></i>RETIRA GRATIS</h3>
-                    <p class="informacion__bloque__texto"><a href='/ubicacion' class='linkNone'>¿Donde estamos?</a></p>
+            </a><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=35/idmarca=-1/orden=-1" class="mb-3 text-center col-md-3 col-6">
+                <div class="sombraVerde card"><img class="card-img-top" src="/assets/img/equipo2.jpg" alt="equipo2.jpg">
+                    <div class="card-body"><button class="btn btn-violeta w-100">BAJA</button></div>
                 </div>
-                <div class="informacion__bloque">
-                    <h3 class="informacion__bloque__texto"><i class="fas fa-shipping-fast icono"></i>ENVIOS A TODO EL PAIS</h3>
-                    <p class="informacion__bloque__texto">Rapido y seguro</p>
+            </a><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=36/idmarca=-1/orden=-1" class="mb-3 text-center col-md-3 col-6">
+                <div class="sombraVerde card"><img class="card-img-top" src="/assets/img/equipo3.jpg" alt="equipo3.jpg">
+                    <div class="card-body"><button class="btn btn-violeta w-100">MEDIA</button></div>
                 </div>
-            </article>
-            <article class="lightboxMarca">
-                <ul class="flex-contenedor listaLightboxMarca">
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=23/orden=-1/"><img src="/assets/img/logo_cougar.png" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=8/orden=-1/"><img src="/assets/img/logo_samsung.jfif" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=11/orden=-1/"><img src="/assets/img/logo_kingston.png" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=10/orden=-1/"><img src="/assets/img/logo_amd2.jpg" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=6/orden=-1/"><img src="/assets/img/logo_asus.jpg" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=9/orden=-1/"><img src="/assets/img/logo_intel2.jpg" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=24/orden=-1/"><img src="/assets/img/logo_zotac.png" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=3/orden=-1/"><img src="/assets/img/logo_msi.jpg" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=25/orden=-1/"><img src="/assets/img/logo_evga.jpg" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=21/orden=-1/"><img src="/assets/img/logo_logitech2.png" class="listaLightboxMarca__link__img"></a></li>
-                    <li class="listaLightboxMarca__link"><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=26/orden=-1/"><img src="/assets/img/logo_ballistic.jpg" class="listaLightboxMarca__link__img"></a></li>
-                </ul>
-            </article>
-        </section>
-        <!--*****************************SECCION PC-GAMERS**********************************-->   
-        <section class="centro max1400">
-            <h3 class="titulo">PRODUCTOS</h2>
-            <article class="flex-contenedor">
-                    <figure class="especificacion">
-                        <a href="/producto/buscar/palabra=-1/idcat=21/idsub=-1/idmarca=-1/orden=-1/"><img src="/assets/img/monitor.jpg" class="especificacion__img"></a>
-                        <figcaption class="especificacion__titulo">MONITORES</figcaption>
-                    </figure>
-
-                    <figure class="especificacion">
-                        <a href="/producto/buscar/palabra=-1/idcat=5/idsub=-1/idmarca=-1/orden=-1/"><img src="/assets/img/gpu.jpg" class="especificacion__img"></a>
-                        <figcaption class="especificacion__titulo">PLACAS DE VIDEO</figcaption>
-                    </figure>
-
-                    <figure class="especificacion">
-                        <a href="/producto/buscar/palabra=-1/idcat=2/idsub=-1/idmarca=-1/orden=-1/"><img src="/assets/img/microprocesador.jpg" class="especificacion__img"></a>
-                        <figcaption class="especificacion__titulo">MICROPROCESADORES</figcaption>
-                    </figure>
-
-                    <figure class="especificacion">
-                        <a href="/producto/buscar/palabra=-1/idcat=15/idsub=-1/idmarca=-1/orden=-1/"><img src="/assets/img/teclado.jpg" class="especificacion__img"></a>
-                        <figcaption class="especificacion__titulo">TECLADOS</figcaption>
-                    </figure>
-            </article>
-        </section>
-        <!--*****************************SECCION PC-RECOMENDADAS**********************************-->   
-        <section class="centro max1400">
-            <h3 class="titulo">PC RECOMENDADAS</h3>
-            <article class="flex-contenedor">
-                <figure class="especificacion">
-                    <a href="/producto/buscar/palabra=-1/idcat=10/idsub=-1/idmarca=-1/orden=-1/"><img src="/assets/img/notebook.png" class="especificacion__img"></a>
-                    <figcaption class="especificacion__titulo">NOTEBOOK</figcaption>
-                </figure>
-
-                <figure class="especificacion">
-                    <a href="/producto/buscar/palabra=-1/idcat=23/idsub=32/idmarca=-1/orden=-1"><img src="/assets/img/diseño.jpg" class="especificacion__img"></a>
-                    <figcaption class="especificacion__titulo">DISEÑO</figcaption>
-                </figure>
-
-                <figure class="especificacion">
-                    <a href="/producto/buscar/palabra=-1/idcat=-1/idsub=31/idmarca=-1/orden=-1"><img src="/assets/img/streaming.png" class="especificacion__img"></a>
-                    <figcaption class="especificacion__titulo">STREAMING</figcaption>
-                </figure>
-
-                <figure class="especificacion">
-                    <a href="/producto/buscar/palabra=-1/idcat=-1/idsub=33/idmarca=-1/orden=-1"><img src="/assets/img/oficina.png" class="especificacion__img"></a>
-                <figcaption class="especificacion__titulo">OFICINA</figcaption>
-            </figure>
-        </article>
-
-        </section>
-        <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
-        <section class="centro max1400">
-            <h3 class="titulo">PRODUCTOS DESTACADOS</h3>
-            <article class="flex-contenedor ">
-                {{#each productosDB }}
-                    <figure class="producto">
-                        <a href="/product/profile/{{ IdProducto}}" class="producto__interaccionArticulo">
-                            <img src="/assets/img/producto/{{ Img }}" class="producto__img">
-                            <span class="producto__mas-info">[MÁS INFO]</span>
-                            {{ Nombre }}
-                        </a>
-                        <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
-                    </figure>
-                {{/each}}
-            </article>
-        </section>
-        <!--*****************************SECCION BANNER**********************************-->         
-        <section class="banner">
-            <a src=""> 
-                <img src="/assets/img/banner.png" class="banner__img">
+            </a><a href="/producto/buscar/palabra=-1/idcat=-1/idsub=37/idmarca=-1/orden=-1" class="mb-3 text-center col-md-3 col-6">
+                <div class="sombraVerde card"><img class="card-img-top" src="/assets/img/equipo4.jpg" alt="equipo4.jpg">
+                    <div class="card-body"><button class="btn btn-violeta w-100">ALTA</button></div>
+                </div>
             </a>
-            <a class="abrirModalMediosDePago">
-                <img src="/assets/img/banner2.png" class="banner2">
+
+            {{!-- BANNER --}}
+            <a class='col-12 my-2 my-sm-5' data-bs-toggle="modal" data-bs-target="#modalMediosDePago">
+                <img src="/assets/img/banner.jpg" class="my-3 img-fluid">
             </a>
-        </section>
-        <script>
-            funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
-        </script>
-        <script src='/assets/js/slideshow.js'></script>
+
+            {{!-- SUBCATEGORIAS --}}
+            <section class="col-12 my-2">
+                <div class="d-flex flex-wrap justify-content-between text-center">
+                    <a href='/producto/buscar/palabra=-1/idcat=10/idsub=-1/idmarca=-1/orden=-1' class="categoriaIcono animacionAgrandarse my-sm-4" href="!#">
+                        <img src="/assets/img/notebook.jpg" alt="NOTEBOOK" class="img-fluid">
+                        <p class="mt-2 text-violeta">NOTEBOOK</p>
+                    </a>
+                    <a href='/producto/buscar/palabra=-1/idcat=16/idsub=-1/idmarca=-1/orden=-1' class="categoriaIcono animacionAgrandarse my-sm-4" href="!#">
+                        <img src="/assets/img/mouse.jpg" alt="MOUSE" class="img-fluid">
+                        <p class="mt-2 text-violeta">MOUSE</p>
+                    </a>
+                    <a href='/producto/buscar/palabra=-1/idcat=100/idsub=-1/idmarca=-1/orden=-1' class="categoriaIcono animacionAgrandarse my-sm-4" href="!#">
+                        <img src="/assets/img/auricular.jpg" alt="AURICULARES" class="img-fluid">
+                        <p class="mt-2 text-violeta">AURICULARES</p>
+                    </a>
+                    <a href='/producto/buscar/palabra=-1/idcat=100/idsub=-1/idmarca=-1/orden=-1' class="categoriaIcono animacionAgrandarse my-sm-4" href="!#">
+                        <img src="/assets/img/joystick.jpg" alt="JOYSTICK" class="img-fluid">
+                        <p class="mt-2 text-violeta">JOYSTICK</p>
+                    </a>
+                    <a href='/producto/buscar/palabra=-1/idcat=15/idsub=-1/idmarca=-1/orden=-1' class="categoriaIcono animacionAgrandarse my-sm-4" href="!#">
+                        <img src="/assets/img/teclado.jpg" alt="TECLADOS" class="img-fluid">
+                        <p class="mt-2 text-violeta">TECLADOS</p>
+                    </a>
+                    <a href='/producto/buscar/palabra=-1/idcat=100/idsub=-1/idmarca=-1/orden=-1' class="categoriaIcono animacionAgrandarse my-sm-4" href="!#">
+                        <img src="/assets/img/mousepad.jpg" alt="MOUSEPAD" class="img-fluid">
+                        <p class="mt-2 text-violeta">MOUSEPAD</p>
+                    </a>
+                </div>
+            </section>
+
+            {{!-- OFERTAS DESTACADAS --}}
+            <div class="col-12 my-3">
+                <h2 class='text-violeta'>OFERTAS DESTACADAS</h2>
+            </div>
+
+            {{!-- MARCAS --}}
+            <section class="col-12 my-2 my-sm-5 d-none d-md-block">
+                <article class="lightboxMarca">
+                    <ul class="d-flex justify-content-around listaLightboxMarca">
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=23/orden=-1/"><img
+                                    src="/assets/img/logo_cougar.png" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=8/orden=-1/"><img
+                                    src="/assets/img/logo_samsung.jfif" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=11/orden=-1/"><img
+                                    src="/assets/img/logo_kingston.png" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=10/orden=-1/"><img
+                                    src="/assets/img/logo_amd2.jpg" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=6/orden=-1/"><img
+                                    src="/assets/img/logo_asus.jpg" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=9/orden=-1/"><img
+                                    src="/assets/img/logo_intel2.jpg" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=24/orden=-1/"><img
+                                    src="/assets/img/logo_zotac.png" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=3/orden=-1/"><img
+                                    src="/assets/img/logo_msi.jpg" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=25/orden=-1/"><img
+                                    src="/assets/img/logo_evga.jpg" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=21/orden=-1/"><img
+                                    src="/assets/img/logo_logitech2.png" class="listaLightboxMarca__link__img"></a></li>
+                        <li class="listaLightboxMarca__link"><a
+                                href="/producto/buscar/palabra=-1/idcat=-1/idsub=-1/idmarca=26/orden=-1/"><img
+                                    src="/assets/img/logo_ballistic.jpg" class="listaLightboxMarca__link__img"></a></li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </div>
+</section>
+
+{{!--
+</section>
+
+<!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->
+<section class="centro max1400">
+    <h3 class="titulo">PRODUCTOS DESTACADOS</h3>
+    <article class="flex-contenedor ">
+        {{#each productosDB }}
+        <figure class="producto">
+            <a href="/product/profile/{{ IdProducto}}" class="producto__interaccionArticulo">
+                <img src="/assets/img/producto/{{ Img }}" class="producto__img">
+                <span class="producto__mas-info">[MÁS INFO]</span>
+                {{ Nombre }}
+            </a>
+            <figcaption class="producto__precio">ARS {{ Precio }}</figcaption>
+        </figure>
+        {{/each}}
+    </article>
+</section>
+--}}
 
 {{> footer }}
+

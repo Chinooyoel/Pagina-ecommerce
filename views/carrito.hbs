@@ -1,20 +1,24 @@
 {{>head }}
-    {{>modal }}
-    {{>modalLogin }}
 
-    <section class="max1400">
-        <h3 class="titular">Confirme su compra</h3>
-        <h2 id="subtitular"><i class="fa fa-arrow-circle-down icono"></i>Productos en su carrito</h2>
-        <section id="listaCarrito">
-        </section>
-        <section class="flex-contenedor" id="interfazComprar">
-        </section>
-    </section>
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <h3 class="bg-dark text-white p-3 my-3 rounded-3">Confirme su compra</h3>
+            <h4 id="subtitular" class='text-center'><i class="fa fa-arrow-circle-down icono"></i>Productos en su carrito
+            </h4>
+            <article id="listaCarrito">
 
-    <script>
-        mostrarProductosDelCarrito();
-        eventoEliminarProducto();
-        eventoVaciarCarrito();
-        eventoEnviarCarrito()
-    </script>
+            </article>
+            <article id='interfazComprar'>
+            </article>
+        </div>
+    </div>
+</section>
+
+<script>
+    mostrarProductosDelCarrito();
+    eventoEliminarProducto();
+    eventoVaciarCarrito();
+    eventoEnviarCarrito()
+</script>
 {{>footer}}

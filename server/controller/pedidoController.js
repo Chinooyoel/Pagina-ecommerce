@@ -12,6 +12,7 @@ exports.crearPedido = async (req, res) => {
   //si el usuario no esta loguiado
   if (idUsuario === undefined) {
     return res.status(401).render("paginaError", {
+      status: 401,
       mensaje: "Requiere loguiarse",
     });
   }
@@ -31,7 +32,9 @@ exports.crearPedido = async (req, res) => {
     carrito.forEach(async (producto, index) => {
 
       //buscamos el producto del carrito en la base de datos por id
-      const productoDB = await Productos.findOne({ id_producto: producto.id });
+      const productoDB = await Productos.findOne({
+        where: { idproducto: producto.id }
+      });
 
       //si no existe el producto o no hay stock, terminar la funcion y continue con el proximo producto
       if (productoDB === null || productoDB.stock < producto.cantidad) {
@@ -101,6 +104,7 @@ exports.obtenerPedido = async (req, res) => {
     //Comprobamos que exista el pedido
     if (pedido === null) {
       return res.status(401).render("paginaError", {
+        status: 401,
         mensaje: "No existe el pedido",
       });
     }

@@ -20,7 +20,9 @@ exports.loguearse = async (req, res) => {
     //comprobamos que existe el usuario
     if (usuario === null) {
       return res.status(400).json({
-        message: "Los datos ingresados son invalidos",
+        errores: [
+          { msg: "Los datos ingresados son invalidos" }
+        ]
       });
     }
 
@@ -35,7 +37,9 @@ exports.loguearse = async (req, res) => {
     //comparamos las password
     if (!bcrypt.compareSync(password, usuario.password, 10)) {
       return res.status(400).json({
-        message: "Los datos ingresados son invalidos",
+        errores: [
+          { msg: "Los datos ingresados son invalidos" }
+        ]
       });
     }
 

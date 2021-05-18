@@ -1,0 +1,46 @@
+{{> head }}
+
+<div class="container">
+    <div class="row">
+        <div class="text-center my-2 col-lg-4 col-md-6 col-sm-8 offset-lg-4 offset-md-3 offset-sm-2">
+            <h3>Inicia Sesion / Registrate</h3>
+            <p>INGRESAR AUTOMATICAMENTE CON CUENTA ROL 'ESPECTADOR'</p>
+            <button type="button" class="mb-2 btn btn-primary" id='ingresoAutomatico'>INGRESAR AUTOMATICO</button>
+            <p class="m-0 h2">O</p>
+            <section class="p-3 my-1 bg-gris">
+                <form id='loginForm'>
+                    <div class="alert alert-danger" role="alert" id='alertaLogin'>
+                    </div>
+                    <p>INGRESA CON TU CUENTA</p>
+                    <div class="mb-2 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input placeholder="Ingresa tu e-mail" class="form-control" name='email' type='email' id='email' maxlength='50' required>
+                    </div>
+                    <div class="mb-2 input-group">
+                        <div class="input-group-prepend">
+                            <span class="d-block input-group-text">
+                                <i class="fas fa-unlock-alt" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input placeholder="Ingresa tu password" type="password" class="form-control" name='password' id='password' maxlength='15' required>
+                    </div>
+
+                    <button type="submit" class="btn btn-violeta mb-2">Ingresar</button>
+                </form>
+                <a href="/">Olvide mi clave</a>
+                <hr>
+                <p class="m-0">NO SOY CLIENTE</p><a href="/registrarse">Quiero registrarme</a>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+    usuarioLoguiadoRedirigir();
+    ingresoAutomatico();
+    loguearse();
+</script>
+
+{{> footer }}

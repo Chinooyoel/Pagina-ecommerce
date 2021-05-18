@@ -1,77 +1,143 @@
 {{>head}}
-    {{> modal }}
-    {{> modalLogin}}
-        <section class="modal" id="modalCopiarEnlace">
-            <section class="modalVentana modalCopiarEnlace">
-            </section>
+
+<!-- Modal Alerta Eliminar Producto -->
+<div class="modal fade" id="alertaEliminar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Borrar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Estas seguro que desea eliminar <strong>{{producto.nombre}}</strong>?
+            </div>
+            <div class="modal-footer">
+                <a href='/producto/borrar/{{ producto.idproducto }}' class="btn btn-danger">Aceptar</a>
+                <a class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {{#if usuario.Admin}}
+        <section class="col-12 justify-content-end d-flex mt-3">
+            <a data-bs-toggle="modal" data-bs-target="#alertaEliminar" class="btn btn-danger me-2">Borrar Producto</a>
+            <a href="/producto/actualizar/{{producto.idproducto}}" class="btn btn-violeta me-2">Editar Producto</a>
+            <a href="/admin" class="btn btn-violeta">Inicio</a>
         </section>
-        <section class="max1400">
-            <section class="encabezado">
-                <h3>{{ producto.subcategoria.nombre }}</h3>
-            </section>
-            {{#if usuario.Admin }}
-                <section class="panelControl">
-                    <a href="/producto/borrar/{{producto.idproducto}}" class="campoBoton campoBoton--azul">Eliminar Producto</a>
-                    <a href="/producto/actualizar/{{producto.idproducto}}" class="campoBoton campoBoton--azul">Editar Producto</a>
-                    <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
+        {{/if}}
+        <div class="col-12">
+            <article class='my-3'>
+                <a href='/producto/buscar/palabra=-1/idcat={{producto.subcategoria.categoria.idcategoria}}/idsub=-1/idmarca=-1/orden=-1'
+                    class='text-primary'>{{producto.subcategoria.categoria.nombre}}</a> >
+                <a href='/producto/buscar/palabra=-1/idcat=-1/idsub={{producto.subcategoria.idsubcategoria}}/idmarca=-1/orden=-1'
+                    class='text-primary'>{{producto.subcategoria.nombre}}</a>
+            </article>
+            <article class="bg-blanco border row p-3">
+                <section class="col-12 col-md-8 my-2">
+                    <h2 class='text-center text-md-start' name='nombreProducto' data-id={{ producto.idproducto }}>
+                        {{producto.nombre}}</h2>
+                    <hr>
+                    <img src="/assets/img/producto/{{producto.img}}" alt="producto" class='img-fluid img-thumbnail'
+                        name='imgProducto'>
                 </section>
-            {{/if}}  
-        </section>
-        <section class="flex-contenedor max1400">
-            <figure class="galeria__figure">
-                <img src="/assets/img/producto/{{ producto.img }}" name="imgProducto" class="galeria__figure--tamanioPerfil">
-            </figure>
-            <article class="caracteristicas">
-                <h2 class="caracteristicas__titulo" name="nombreProducto" data-id={{ producto.idproducto }}>{{ producto.nombre }}</h2>
-                <p class="caracteristicas__dato">CODIGO: {{producto.codigo}} || MARCA: {{ producto.marca.nombre }} || STOCK: {{ producto.stock }}</p>
-                <p class="caracteristicas__dato"><i class="fas fa-check-circle letraVerdeOscuro"></i> GARANTIA: {{ producto.garantia}}</p>
-                <h2 class="caracteristicas__titulo letraVerdeOscuro">PRECIO: $<span name="precioProducto">{{ producto.precio }}</span>.00</h2>
-                <article class="flex-contenedor caracteristicas__dato">
-                    <section>
-                        <img src="/assets/img/americanExpressIcon.png">
-                        <img src="/assets/img/visaIcon.png">
-                        <img src="/assets/img/mastercardIcon.png">
-                    </section>
-                    <button class="campoBoton campoBoton--verdeOscuro botonAgregarProducto"><i class="fas fa-shopping-cart "></i> AGREGAR</button>
-                </article>
+                <section class="col-12 col-md-4 my-2">
+                    <div class='text-center'>
+                        <h2 class="h1 textoVerdeOscuro">$<span name='precioProducto'>{{producto.precio}}</span></h2>
+                        <p class='my-1'><strong>PRECIO LISTA ${{ precioCuotas producto.precio 1 }}.00</strong></p>
+                    </div>
+                    <hr>
+                    <div class='d-flex text-secondary align-items-center'>
+                        <i class="fas fa-money-bill-wave h2 me-2 text-primary"></i>
+                        <div>
+                            <p class='my-0'>12 cuotas sin interes de $ {{ precioCuotas producto.precio 12 }}.00 a precio de lista</p>
+                            <a class='text-primary'>Ver cuotas</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class='d-flex align-items-center textoVerdeOscuro'>
+                        <i class="fas fa-check-square h2 me-2"></i>
+                        <p class='my-0'><strong>STOCK: {{producto.stock}}</strong></p>
+                    </div>
+                    <hr>
+                    <div class="d-flex text-secondary align-items-center">
+                        <i class="fas fa-archway h2 me-2"></i>
+                        <div>
+                            <p class='my-0'><strong>RETIRO <span class='textoVerdeOscuro'>GRATIS!</span></strong></p>
+                            <p class="my-0">Devoto (CABA)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex text-secondary align-items-center">
+                        <i class="fas fa-truck h2 me-2"></i>
+                        <div>
+                            <p class='my-0'><strong>ENVIO CABA <span class='textoVerdeOscuro'>$300</span></strong></p>
+                            <p class="my-0">A toda Capital Federal</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex text-secondary align-items-center">
+                        <i class="fas fa-truck h2 me-2"></i>
+                        <div>
+                            <p class='my-0'>Envio a todo el pais</p>
+                            <a href="" class="text-primary">Ver costo de envio</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex text-primary align-items-center">
+                        <i class="fas fa-shield-alt h2 me-2 text-violeta"></i>
+                        <div>
+                            <p class='my-0'><strong>GARANTÍA</strong></p>
+                            <p class='my-0'>{{ producto.garantia }}</p>
+                        </div>
+                    </div>
+                    <hr>
 
-                <button class="campoBoton campoBoton--verdeOscuro"><i class="fas fa-shipping-fast"></i> CALCULAR ENVIO</button>
-                <button class="campoBoton campoBoton--verdeOscuro abrirModalCopiarEnlace" id="botonCopiarEnlace"><i class="fas fa-clone"></i> COPIAR ENLANCE</button>
-
-                <section class="caracteristicas__dato caracteristicas__infoPrecio">
-                    <p>Precio deposito/transferencia: <span class="letraVerdeOscuro">${{ producto.precio }}.00</span></p>
-                    <p>Precio MercadoPago: <span class="letraVerdeOscuro">${{ preciolista }}.00</span></p>
+                    <div class='text-center'>
+                        <button class='btn btn-violeta botonAgregarProducto'>
+                            <i class="fas fa-shopping-cart "></i>
+                            AÑADIR AL CARRITO</button>
+                    </div>
+                    <div class='d-flex justify-content-around mt-2'>
+                        <p class='my-0 text-secondary'><strong>Marca:</strong> {{producto.marca.nombre}}</p>
+                        <p class='my-0 text-secondary'><strong>Código:</strong> {{producto.codigo}}</p>
+                    </div>
+                </section>
+                <section class="col-12">
+                    <h6>Descripcion</h6>
+                    <pre>{{producto.descripcion}}</pre>
                 </section>
             </article>
-        </section>
-        <section></section>
-
-        <section class="max1400 textoDescripcion">
-            <h3 class="letraVerdeOscuro">DESCRIPCION</h3>
-            <p >{{producto.descripcion}}</p>
-        </section>
-            
-        <!--*****************************SECCION PRODUCTOS-DESTACADOS**********************************-->        
-        <section class="centro max1400">
-            <h3 class="titulo">PRODUCTOS RELACIONADOS</h3>
-            <article class="flex-contenedor">
+            <h2 class='text-violeta my-3 text-center'>PRODUCTOS RELACIONADOS</h2>
+            <div class="flex-wrap d-flex justify-content-center">
                 {{#each productosRelacionados }}
-                <figure class="producto">
-                    <a href="/producto/perfil/{{ idproducto}}" class="producto__interaccionArticulo">
-                        <img src="/assets/img/producto/{{ img }}" class="producto__img">
-                        <span class="producto__mas-info">[MÁS INFO]</span>
-                        {{ nombre }}
-                    </a>
-                    <figcaption class="producto__precio">ARS {{ precio }}</figcaption>
-                </figure>
+                <a class="card text-center sombraVerde p-2 w-producto" href="/producto/perfil/{{ idproducto }}">
+                    <img class="card-img-top" src="/assets/img/producto/{{ img }}" alt="" />
+                    <section class='card-body' as="section">
+                        <p class="text-uppercase my-0">{{ nombre }}</p>
+                    </section>
+                    <div>
+                        <p class="textoVerde h3 my-0">ARS {{ precio }}</p>
+                        <p>
+                            <strong>18 cuotas de ${{ precioCuotas precio 18 }}.00</strong>
+                        </p>
+                        <button class="btn btn-violeta w-100">VER PRODUCTO</button>
+                    </div>
+                </a>
+                {{ else }}
+                <p class="text-center w-100">* No hay resultados para esta busqueda *</p>
                 {{/each}}
-            </article>
-        </section>
-    </section>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        copiarEnlace();
-        eventoAñadirProducto();
-        funcionParaQueElArticuloSeOpaqueYAparezcaMasInfo();
-    </script>
+<script>
+    eventoAñadirProducto()
+</script>
+{{!-- <script>
+    copiarEnlace();
+</script> --}} --}}
 {{>footer}}

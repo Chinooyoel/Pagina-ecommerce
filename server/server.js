@@ -30,6 +30,7 @@ app.use( obtenerUsuarioLoguiado );
 
 //helpers
 hbs.registerHelper("multiplicar", ( a, b ) => a * b );
+hbs.registerHelper("precioCuotas", ( totalContado, cuotas ) => (Math.floor((totalContado * 1.35) / cuotas)))
 
 //rutas
 app.use(require("./routes/index"));

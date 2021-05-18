@@ -1,36 +1,47 @@
 {{> head }}
 
-    {{> modal }}
-
-    <section class="max1400">
-        <h3 class="titular">Pedido N° {{ pedido.id }}</h3>
-        <section class="max1400">
-            <p class="caracteristicas__titulo">Fecha del pedido: {{ pedido.fecha }}</p>
-            <br/>
-            <br/>
-            <p class="caracteristicas__titulo">Medio de pago: {{ pedido.medios_pago }} efectivo</p>
-            <br/>
-            <br/>
-            <p class="caracteristicas__titulo">Total: ${{ pedido.total }}</p>
-            <br/>
-            <br/>
-            <p class="caracteristicas__titulo">Estado: {{ pedido.estado.nombre }}</p>
-        </section>
-        <section id="listaCarrito">
+<section class="container">
+    <div class="row">
+        <article class="col">
+            <h3 class="bg-dark text-white p-3 my-3 rounded-3">Pedido N° {{ pedido.idpedido }}</h3>
+            <div class="text-center">
+                <p class="my-1 h4">
+                    Fecha del pedido: {{ pedido.fecha }}
+                </p>
+                <p class="my-1 h4">
+                    Medio de pago: {{ pedido.medios_pago }} efectivo
+                </p>
+                <p class="my-1 h4">
+                    Total: ${{ pedido.total }}
+                </p>
+                <p class="my-1 h4">
+                    Estado: {{ pedido.estado.nombre }}
+                </p>
+            </div>
+        </article>
+        <article class='mt-3'>
             {{#each productos}}
-            <figure class="productoEstandar productoFila">
-                <a href="/producto/perfil/{{ producto.idproducto }}" class="producto__interaccionArticulo productoFila__link">
-                <img src="/assets/img/producto/{{ producto.img }}" class="productoFila__link__img" name="imgProducto">
-                <h4 name="nombreProducto">{{ producto.nombre }}</h4>
-                </a>
-                <figcaption class="productoFila__detalle">
-                    <h4>P.Unitario: $<span name="precioProducto">{{ preciounitario }}.00</span></h4>
-                    <h4>Cantidad: {{ cantidad }}</h4>
-                    <h4>P.Total: <span class="textoRojo">${{multiplicar preciounitario cantidad }}.00</span></h4>
-                    </figcaption>
+            <a href="/producto/perfil/{{ producto.idproducto }}">
+                <figure class="row mb-3 border p-2 sombraVerde">
+                    <div class="col-12 col-md-3 col-lg-2">
+                        <img src="/assets/img/producto/{{ producto.img }}" class='img-thumbnail w-100 img-producto'>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7 d-flex align-items-center text-center text-md-start ">
+                        <h3 class='h3 w-100'>{{ producto.nombre }}</h3>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex align-items-center">
+                        <figcaption class='text-center text-md-start w-100'>
+                            <p class='my-0 w-100'><strong>P.Unitario: ${{ preciounitario }}</strong></p>
+                            <p class='my-0 w-100'><strong>Cantidad: {{ cantidad }}</strong></p>
+                            <p class='my-0 w-100'><strong>P.Total: <span class="textoRojo">${{multiplicar preciounitario
+                                        cantidad }}.00</span></strong></p>
+                        </figcaption>
+                    </div>
                 </figure>
+            </a>
             {{/each}}
-        </section>
-    </section>
+        </article>
+    </div>
+</section>
 
 {{> footer }}

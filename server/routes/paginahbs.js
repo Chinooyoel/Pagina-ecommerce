@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const { verificarRole } = require("../middleware/autenticacion");
-const pool = require("../mysql/mysql");
 
 app.get("/", ( req, res ) => {
     let sql = "call buscarProductosMasVendidos( ? )"
@@ -19,6 +18,12 @@ app.get("/", ( req, res ) => {
         });
     // })
 
+})
+app.get('/login', (req, res) => {
+    res.render('login');
+})
+app.get('/registrarse', (req, res) => {
+    res.render('registrarse');
 })
 app.get("/ayuda", ( req, res ) => {
     res.render("ayuda",{

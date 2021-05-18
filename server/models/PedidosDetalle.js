@@ -10,6 +10,7 @@ const PedidosDetalle = db.define('pedidosdetalle', {
     },
     preciounitario: {
         type: DataTypes.DECIMAL(10,2),
+        allowNull: false
     },
     cantidad: {
         type: DataTypes.TINYINT,

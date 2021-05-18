@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const { verificarAdminRole, verificarRole } = require("../middleware/autenticacion");
-const { crearUsuario, actualizarUsuario, buscarUsuariosPorEmail, obtenerPerfilUsuario, mostrarTablaDeUsuarios } = require("../controller/usuarioController");
+const { crearUsuario, actualizarUsuario, buscarUsuariosPorEmail, obtenerPerfilUsuario, mostrarTablaDeUsuarios, obtenerPerfilUsuarioPorId } = require("../controller/usuarioController");
+const { validarRegistrarse } = require("../middleware/validaciones");
 
 // /usuario/
 router.get("/" , verificarRole, mostrarTablaDeUsuarios)
 
 //registrarse
 // /usuario/crear
-router.post('/crear', crearUsuario);
+router.post('/crear', validarRegistrarse, crearUsuario);
 
 //Para que el admin pueda actualizar al usuario del cliente
 // /usuario/actualizar/:id
@@ -17,6 +18,10 @@ router.post('/actualizar/:id', verificarAdminRole, actualizarUsuario)
 //Para buscar a los usuarios por el email
 // /usuario/buscar/:data
 router.get("/buscar/:data", verificarRole , buscarUsuariosPorEmail)
+
+//obtener perfil del usuario, loguiado como admin
+// /usuario/perfil
+router.get("/perfil/:id", verificarRole, obtenerPerfilUsuarioPorId)
 
 //obtener perfil del usuario
 // /usuario/perfil

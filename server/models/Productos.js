@@ -10,11 +10,11 @@ const Productos = db.define("productos", {
     allowNull: false,
   },
   nombre: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(200),
     allowNull: false,
   },
   descripcion: {
-    type: DataTypes.STRING(500),
+    type: DataTypes.STRING(1500),
     allowNull: true,
   },
   stock: {
@@ -22,11 +22,11 @@ const Productos = db.define("productos", {
     allowNull: false,
   },
   garantia: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(45),
     allowNull: false,
   },
   codigo: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(45),
     allowNull: true,
   },
   precio: {
@@ -38,7 +38,7 @@ const Productos = db.define("productos", {
     allowNull: false,
   },
   img: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(100),
     allowNull: false,
     //Ponemos por defecto el nombre de una imagen estandar
     defaultValue: 'no-imagen.jpg'

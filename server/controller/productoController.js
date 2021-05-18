@@ -27,6 +27,7 @@ exports.crearProducto = async (req, res) => {
      */
     if (!req.files) {
       res.redirect(`/producto/perfil/${producto.idproducto}`);
+      
     } else {
       res.redirect(307, `/producto/upload/${producto.idproducto}`);
     }
@@ -50,12 +51,19 @@ exports.obtenerPerfilDelProductoPorId = async (req, res) => {
       where: {
         idproducto: id,
       },
-      include: [Marcas, Subcategorias, Proveedores],
+      include: [
+        Marcas, 
+        Proveedores, 
+        {
+          model: Subcategorias,
+          include: [Categorias]
+        }],
     });
 
     // chequiamos si existe el producto
     if (producto === null) {
       return res.status(401).render("paginaError", {
+        status: 401,
         mensaje: "No existe el producto",
       });
     }
@@ -102,12 +110,13 @@ exports.borrarProductoPorId = async (req, res) => {
     // chequiamos si existe el producto
     if (producto === null) {
       return res.status(401).render("paginaError", {
+        status: 401,
         mensaje: "El producto no existe",
       });
     }
 
-    //cambiamos el estado del producto a 'B' de borrado
-    await Productos.update({ estado: "B" }, { where: { idproducto: id } });
+    //borramos el producto
+    await Productos.destroy( { where: { idproducto: id } });
 
     res.render("admin", {
       usuario: req.usuario,
@@ -144,6 +153,7 @@ exports.actulizarProductoPorId = async (req, res) => {
     // chequiamos si existe el producto
     if (producto === null) {
       return res.status(401).render("paginaError", {
+        status: 401,
         mensaje: "No existe el producto",
       });
     }
@@ -217,6 +227,7 @@ exports.mostrarFormularioParaActualizarProducto = async (req, res) => {
     //comprobamos si existe
     if (producto === null) {
       return res.status(401).render("paginaError", {
+        status: 401,
         mensaje: "El producto no existe",
       });
     }
@@ -335,7 +346,7 @@ exports.subirImagenDelProducto = async (req, res) => {
     archivoImagen = req.files.imagen;
   }
 
-  let extensionesValidas = ["jpg", "png", "jpeg"];
+  const extensionesValidas = ["jpg", "png", "jpeg"];
   let nombreArchivoDividido = archivoImagen.name.split(".");
   let extensionDelArchivoImagen =
     nombreArchivoDividido[nombreArchivoDividido.length - 1];
@@ -350,12 +361,13 @@ exports.subirImagenDelProducto = async (req, res) => {
   //comprobamos si el producto existe
   if (producto === null) {
     return res.status(401).render("paginaError", {
+      status: 401,
       mensaje: "El producto no existe",
     });
   }
 
   //generamos un nombre
-  nombreGenerado = generarNombreImagen(
+  const nombreGenerado = generarNombreImagen(
     producto.idproducto,
     extensionDelArchivoImagen
   );
@@ -393,7 +405,7 @@ exports.subirImagenDelProducto = async (req, res) => {
         //Si hubo un error al actualizar el producto, borramos el archivo
         //Ya que no se pudo actualizar la BD y la img va a quedar sin uso
         if (error) {
-          borrarArchivo(`public/assets/img/producto/${productoDB.Img}`);
+          borrarArchivo(`public/assets/img/producto/${producto.img}`);
           return res.status(500).json({
             ok: false,
             error,
@@ -439,8 +451,8 @@ exports.buscarProductosConFiltros = async (req, res) => {
   if (categoriaFiltro != -1) {
     filtroCategoria = { categoria_id: categoriaFiltro };
   }
-  if (ordenPrecio != -1) {
-    [["precio", orden]];
+  if (orden != -1) {
+    ordenPrecio = [["precio", orden]];
   }
 
   try {
@@ -584,7 +596,7 @@ exports.buscarProductosConFiltros = async (req, res) => {
 };
 
 
-let ponerTrueAlElementoIgualALaPalabra = (palabra, array) => {
+const ponerTrueAlElementoIgualALaPalabra = (palabra, array) => {
   for (let i = 0; i < array.length; i++) {
     if (array[i].nombre === palabra) {
       array[i].objetivo = true;
@@ -595,12 +607,12 @@ let ponerTrueAlElementoIgualALaPalabra = (palabra, array) => {
   return array;
 };
 
-let borrarArchivo = (path) => {
+const borrarArchivo = (path) => {
   if (fs.existsSync(path)) fs.unlinkSync(path);
 };
 
-let generarNombreImagen = (id, extensionDelArchivo) => {
-  let nombreGenerado = `${id}--${new Date().getMilliseconds()}.${extensionDelArchivo}`;
+const generarNombreImagen = (id, extensionDelArchivo) => {
+  const nombreGenerado = `${id}--${new Date().getMilliseconds()}.${extensionDelArchivo}`;
 
   return nombreGenerado;
 };

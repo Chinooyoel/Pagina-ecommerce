@@ -8,7 +8,7 @@ const Estado = db.define('estado', {
         primaryKey: true
     },
     nombre: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(50),
         allowNull: false,
         unique: true
     }

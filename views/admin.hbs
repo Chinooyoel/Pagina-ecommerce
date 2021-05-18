@@ -1,22 +1,26 @@
 {{> head }}
-    {{> modal }}
-            <section class="max1400">
-                <h3 class="titular"><i class="fas fa-wrench verde"></i>PANEL DE ADMINISTRACION</h3>
-            </section>
+<section class="container">
+    <div class="row">
+        <article class="col">
+            <h3 class="bg-dark text-white p-3 my-3 rounded-3"><i class="fas fa-wrench textoVerde me-3"></i>Panel de administración
+            </h3>
+        </article>
 
-            <section class="max1400">
-                <a href="" class="botonLargo">
-                    <i class="fas fa-chart-line botonLargo__icono--verde"></i>
-                    ADMINISTRAR COMPRAS
-                </a>
-                <a href="/producto" class="botonLargo">
-                    <i class="fas fa-poll botonLargo__icono--verde"></i>
-                    ADMINISTRAR PRODUCTOS
-                </a>
-                <a href="/usuario" class="botonLargo">
-                    <i class="fas fa-address-card botonLargo__icono--verde"></i>
-                    ADMINISTRAR USUARIOS
-                </a>
-            </section>
+        <article>
+            <a href="" class="h4 btn-violeta p-3 my-3 rounded-3 mb-3 d-block">
+                <i class="fas fa-chart-line textoVerde"></i>
+                Administrar compras
+            </a>
+            <a href="/producto" class="h4 btn-violeta p-3 my-3 rounded-3 mb-3 d-block">
+                <i class="fas fa-poll textoVerde"></i>
+                Administrar productos
+            </a>
+            <a href="/usuario" class="h4 btn-violeta p-3 my-3 rounded-3 mb-3 d-block">
+                <i class="fas fa-address-card textoVerde"></i>
+                Administrar usuarios
+            </a>
+        </article>
+    </div>
+</section>
 
 {{> footer }}

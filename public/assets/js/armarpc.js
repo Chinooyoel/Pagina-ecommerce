@@ -190,38 +190,39 @@ function cargarVistaComponentesSeleccionados(){
     const infoArmado = document.getElementsByClassName('infoArmado')[0];
     
     infoArmado.innerHTML = `
-    <article class="infoArmado__articulo flex-contenedor">
-        <img src="/assets/img/${componentesPc[0].icono}" class="infoArmado__articulo__img">
-        <div class="infoArmado__texto">
-            <h3 id="infoPaso">Paso 1 de 14</h3>
-            <p>Total acumulado</p>
-            <h2 class="letraVerdeOscuro" id="totalComponentes">ARS 0.00</h2>
+    <article class="d-flex align-items-center my-3 p-2 border-bottom">
+        <img src="/assets/img/${componentesPc[0].icono}" class="img-small me-3">
+        <div>
+            <h6 id="infoPaso" class='mb-0'>Paso 1 de 14</h6>
+            <p class='mb-0'>Total acumulado</p>
+            <h5 class="textoVerdeOscuro mb-0" id="totalComponentes">ARS 0.00</h5>
         </div>
     </article>
-    <article class="infoArmado__articulo">
-        <h2 class="letraVerdeOscuro">COMPONENTES AGREGADOS</h2>
-    </article>
+    <h5 class="textoVerdeOscuro text-center my-5">COMPONENTES AGREGADOS</h5>
     `;
 
     for( let i = 0; i < componentesPc.length; i++ ){
         if( componentesPc[i].producto === ""){
             infoArmado.innerHTML += `
-            <article class="infoArmado__articulo flex-contenedor paso">
-                <img src="/assets/img/${componentesPc[i].icono}" class="infoArmado__articulo__img"/>
-                <div class="infoArmado__texto">
-                    <h3>${componentesPc[i].nombre}</h3>
-                    <p class="textoInstructivo">Todavia no seleccionaste tu ${componentesPc[i].nombre}</p>
+            <article class="d-flex align-items-center my-3 p-2 border-bottom paso">
+                <img src="/assets/img/${componentesPc[i].icono}" class="img-small me-3"/>
+                <div class='textoInstructivo'>
+                    <h6 class='mb-1'>${componentesPc[i].nombre}</h6>
+                    <p class="my-0">Todavia no seleccionaste tu ${componentesPc[i].nombre}</p>
                 </div>
             </article>
             `
         }else{
             infoArmado.innerHTML += `
-            <article class="infoArmado__articulo flex-contenedor paso">
-                <img src="${componentesPc[i].producto.img}" class="infoArmado__articulo__img"/>
-                <div class="infoArmado__texto">
-                    <h3>${componentesPc[i].producto.nombre}</h3>
-                    <h2 class="letraVerdeOscuro">ARS ${componentesPc[i].producto.precio}.00</h2>
-                    <button class="modificarComponente botonNegro" data-paso="${i}">Modificar</button>
+            <article class="d-flex align-items-center my-3 p-2 border-bottom paso">
+                <img src="${componentesPc[i].producto.img}" class="img-small me-3"/>
+                <div>
+                    <h6>${componentesPc[i].producto.nombre}</h6>
+                    <p class="my-2 textoVerdeOscuro h5">ARS ${componentesPc[i].producto.precio}.00</p>
+                    <a class="modificarComponente text-danger font-weight-bold" data-paso="${i}">
+                        <i class='fas fa-marker'></i>
+                        Modificar
+                    </a>
                 </div>
             </article>
             `
@@ -249,7 +250,7 @@ function cambiarPasoYTotal(){
     //cambiamos y ponemos 'Estas en este paso'
     let pasoHTML = document.getElementsByClassName("paso")[paso];
     let cajaTexto = pasoHTML.getElementsByClassName("textoInstructivo")[0];
-    cajaTexto.innerHTML = `<h2 class="letraVerdeOscuro">Estas en este paso</h2>`
+    cajaTexto.innerHTML = `<h5 class="textoVerdeOscuro">Estas en este paso</h5>`
 
     // ponemos el fondo verde
 
@@ -264,7 +265,7 @@ function cambiarPasoYTotal(){
 }
 //realiza una peticion y trae los productos para ser elegidos por el usuario
 async function consultarProductos(){
-    let resultado = await fetch(`/producto/buscar/palabra=${componentesPc[paso].palabra}/idcat=${componentesPc[paso].categoria}/idsub=${componentesPc[paso].subcategoria}/idmarca=${componentesPc[paso].marca}/orden=1?JSON=true`);
+    let resultado = await fetch(`/producto/buscar/palabra=${componentesPc[paso].palabra}/idcat=${componentesPc[paso].categoria}/idsub=${componentesPc[paso].subcategoria}/idmarca=${componentesPc[paso].marca}/orden=ASC?JSON=true`);
     let respuesta = await resultado.json();
 
     const productosDB = respuesta.productos;
@@ -277,22 +278,22 @@ function cargarVistaComponentesAElegir( productosDB ){
     
     //muestra el titular y el spinner
     listaProducto.innerHTML = `
-    <article class="listaProducto__encabezado flex-contenedor">
-        <img src="/assets/img/${componentesPc[paso].icono}" class="listaProducto__articulo__img--titular" s="">
+    <article class="col-12 d-flex align-items-center my-1 p-2">
+        <img src="/assets/img/${componentesPc[paso].icono}" class="img-small me-3">
         <div>
-            <h2>Selecciona tu ${componentesPc[paso].nombre}</h2>
+            <h4>Seleccioná tu ${componentesPc[paso].nombre}</h4>
         </div>
     </article>
     `
     //Si no es requerido el componente, agregar opcion saltar paso
     if( !componentesPc[paso].requerido ){
         listaProducto.innerHTML += `
-        <article class="listaProducto__articulo flex-contenedor">
-            <img src="/assets/img/producto/no-imagen.jpg" class="listaProducto__articulo__img"s/>
-            <div>
-                <h3 class="nombre">No agregar ${componentesPc[paso].nombre}</h3>
-                <p class="producto__precio letraVerdeOscuro">ARS <span class="precio">0</span>.00</p>
-                <button class="seleccionarComponente botonNegro" data-id='-1'>Elegir</button>
+        <article class="col-12 col-lg-6 d-flex flex-column flex-md-row align-items-center my-1 p-2 border">
+            <img src="/assets/img/producto/no-imagen.jpg" class="img-mediano me-md-3"/>
+            <div class='text-center text-md-start'>
+                <h6 class="my-1 nombre">No agregar ${componentesPc[paso].nombre}</h6>
+                <p class="my-2 textoVerdeOscuro h4">ARS <span class="precio">0</span></p>
+                <button class="seleccionarComponente btn btn-violeta" data-id='-1'>Elegir</button>
             </div>
         </article>
         `
@@ -302,12 +303,12 @@ function cargarVistaComponentesAElegir( productosDB ){
     //muestra los productos traidos de la base de datos
     for(let i = 0; i < productosDB.length; i++ ){
         listaProducto.innerHTML += `
-        <article class="listaProducto__articulo flex-contenedor">
-            <img src="/assets/img/producto/${productosDB[i].img}" class="listaProducto__articulo__img"s/>
-            <div>
-                <h3 class="nombre">${productosDB[i].nombre}</h3>
-                <p class="producto__precio letraVerdeOscuro">ARS <span class="precio">${productosDB[i].precio}</span>.00</p>
-                <button class="seleccionarComponente botonNegro" data-id='${productosDB[i].idproducto}'>Elegir</button>
+        <article class="col-12 col-lg-6 d-flex flex-column flex-md-row align-items-center my-1 p-2 border">
+            <img src="/assets/img/producto/${productosDB[i].img}" class="img-mediano me-md-3"/>
+            <div class='text-center text-md-start'>
+                <h6 class="my-1 nombre">${productosDB[i].nombre}</h6>
+                <p class="my-2 textoVerdeOscuro h4">ARS <span class="precio">${productosDB[i].precio}</span></p>
+                <button class="seleccionarComponente btn btn-violeta" data-id='${productosDB[i].idproducto}'>Elegir</button>
             </div>
         </article>
         `

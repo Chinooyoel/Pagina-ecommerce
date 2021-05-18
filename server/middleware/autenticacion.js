@@ -51,6 +51,7 @@ let verificarAdminRole = (req, res, next) => {
 
   if (rol != "ADMIN") {
     return res.status(401).render("paginaError", {
+      status: 401,
       mensaje: "Requiere permisos de administrador",
     });
   }

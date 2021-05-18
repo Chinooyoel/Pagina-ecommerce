@@ -1,277 +1,221 @@
-/*--------------------------------------ETIQUETAS GENERALES-----------------------------------*/
-li{
-    list-style: none;
-}
-a{
-    text-decoration: none;
-}
-html body{
-    font-family: 'Roboto Slab', serif;
-    background-color: #eeeeee;
-}
-html header{
-    background: black;
-}
-/*--------------------------------------ID-----------------------------------*/
 
-.buscador{
-    width: 500px;
-    height: 40px;
-    border-radius: 4px;
-    border-style: none;
-    padding-left: 10px;
-}
-.menuSecundario--botonPosicion{
-    position: relative;
-    right: 41px;
-    top:2px
-}
-/*--------------------------------------CLASES GENERALES-----------------------------------*/
-.icono{
-    color: #50b942;
-    margin-right: 4px;
-}
-.carrito{
-    padding-left:20px;
-    color: white;
-}
-    .carrito--icono{
-        font-size: 1.7em;
-    }
-    .carrito--total{
-        padding: 5px;
-    }
-.max1400{
-    max-width: 1400px;
-    margin: auto;
-    text-align: center;
-    padding: 20px;
-}
-.flex-contenedor{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-.verde{
-    color: #1eff00;
-    padding: 4px;
-}
-.menu_secundario .logo a{
-    color: #1eff00;
-}
-.linea-separadora{
-    border-bottom: rgb(136, 136, 136) solid 1px;
-    padding-bottom: 15px;
-}
-/*---------------------------------------------MODAL GENERALES----------------------------------------------*/
-.modal{
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1;
-    
-    position: fixed;
-    top:0;
-    left:0;
+.modalCopiarEnlace {
+  top: 45vh;
+  background: #3a8530;
+  color: white;
+  font-size: 1.7em;
+  font-weight: 700;
+  border: none;
 
-    display: none;
-    justify-content: center;
-}
-.modalVentana{
-    border: #949393 solid 1px;
-    border-radius: 4px;
-    text-align: center;
-    padding: 10px;
-    background: #f5f5f5;
-    width: 480px;
-
-    position:fixed;
-    top:20px;
-
-    animation-name: animacionModal;
-    animation-duration: 0.4s;
+  animation-name: animacionModalCentro;
+  animation-duration: 0.3s;
 }
 
-@keyframes animacionModal{
-    from {
-        top: -100vw;
-    }
-    to {
-        top: 20px;
-    }
-}
-.modalVentana__cerrar{
-    position: absolute;
-    right: 10px;
-    top:8px;
-    cursor: pointer;
-    color: rgb(151, 151, 151);
-}
-/*-------------------------------------MODAL TELEFONICO-----------------------------------*/
-.modalTelefonico__link{
-    font-size: 2.0em;
-    font-weight: 800;
-    padding: 10px;
-    display: block;
-}
-    .modalTelefonico__lista{
-        text-align: start;
-        padding: 10px;
-    }
-        .modalTelefonico__lista__li{
-            list-style-type: disc;
-            padding: 3px;
-            margin-left: 10px;
-        }
-/*-------------------------------------MODAL MEDIOS-DE-PAGO-----------------------------------*/
-
-/*-------------------------------------MODAL LOGIN----------------------------------*/
-.modalVentana .campo-imput {
-    width: 93%;
-}
-.modalVentana--loginGoogle{
-    width: 96%;
-}
-
-    .modalVentana--loginGoogle:hover{
-        background: #0248af;
-    }
-    .loginGoogle--ancho{
-        padding: 5px;
-    }
-.modalVentana__parrafo{
-    padding: 10px;
-}
-/*--------------------------------------MENU CONTACTO-----------------------------------*/
-.menuContacto{
-    background-color: #525252;
-
-    display: flex;
-    justify-content: flex-end;
-}
-    .menuContacto__link{
-        color:white;
-        padding: 8px;
-        cursor: pointer;
-        display: block;
-    }
-    .menuContacto__link:hover{
-        text-decoration-line:underline ;
-    }
-
-/*--------------------------------------MENU SECUNDARIO-----------------------------------*/
-.menuSecundario{
-    padding-top: 8px;
-    padding-bottom: 8px;
-
-    display:flex;
-    justify-content: space-around;
-}
-    .menuSecundario__logo{
-        color: #1eff00;
-        font-size: 2.0em;
-    }
-
-
-/*--------------------------------------MENU-----------------------------------*/
-.menu{
-    background-color: black;
-
-    display: flex;
-    justify-content: center;
-}
-    .menu__link{
-        color:white;
-        padding: 14px;
-
-        display: block;
-    }
-    .menu__link:hover{
-        color: #1eff00;
-    }
-    .menu__link--verde{
-        color:#1eff00;
-    }
-    .menu__link--verde:hover{
-        color:#1e8610;
-    }
-
-
-/*--------------------------------------USUARIO CARRITO-----------------------------------*/
-.usuarioCarrito{
-    color:white;
-
-    display: flex;
-    justify-content: space-between;
-}
-/*--------------------------------------FOOTER-----------------------------------*/
-.footer{
-    background: black;
-    color:white;
-    margin-top:20px;
-}
-    .footer h3, .footer li{
-        padding: 4px;
-    }
-    .footer__link{
-        color:white;
-        cursor: pointer;
-    }
-    .footer__link:hover{
-        text-decoration-line: underline;
-    }
-.iconos{
-    width: 50px;
-}
-.abrilModalRegistrarse--verde{
-    color: #1eff00;
-}
-
-#botonMenuResponsive{
-    display:none;
-}
-#botonMenuResponsive i{
-    font-size: 2.1em;
-}
-
-.panelControl{
-    width: 100%;
-    text-align: end;
-    margin-top: 19px;
-}
-
-.modalCopiarEnlace{
+@keyframes animacionModalCentro {
+  from {
+    top: -100vw;
+  }
+  to {
     top: 45vh;
-    background: #3a8530;
-    color: white;
-    font-size: 1.7em;
-    font-weight: 700;
-    border: none;
-
-    animation-name: animacionModalCentro;
-    animation-duration: 0.3s ;
+  }
 }
 
-@keyframes animacionModalCentro{
-    from {
-        top: -100vw;
-    }
-    to {
-        top: 45vh;
-    }
-}
-.linkNone{
-    color:black;
-    text-decoration:none;
+.textoRojo {
+  color: red;
+  padding: 5px;
 }
 
-.botonesComunicaciones{
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
+body {
+  background-color: #f3f3f3;
 }
-.iconoBoton{
-    width: 70px;
+.textoVerde {
+  color: #1eff00!important;
+}
+nav a:hover,
+footer a:hover {
+  color: #04e63c;
+}
+
+.navbar {
+  font-weight: 700;
+}
+.sombraVerde:hover {
+  box-shadow: 0 0 10px #04e63c;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.btn-violeta {
+  background: #5f20dd;
+  border: #5f20dd;
+  color: white;
+  font-weight: 500;
+}
+.btn-violeta:hover {
+  opacity: 0.9;
+  color: white;
+}
+
+.icono {
+  width: 40px;
+}
+
+.categoriaIcono {
+  width: 30%;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.text-violeta {
+  color: #5f20dd;
+}
+
+footer a {
+  display: block;
+  cursor: pointer;
+}
+
+nav a,
+footer a, 
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+.img-carousel {
+  height: 30vh;
+  object-fit: cover;
+}
+
+.animacionAgrandarse {
+  transition: transform 500ms;
+}
+.animacionAgrandarse:hover {
+  transform: scale(1.2);
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.bg-blanco{
+  background: white;
+}
+.textoVerdeOscuro{
+  color:#00e602;
+}
+
+/* GRID */
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.grid-item-principal {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.w-producto {
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+.oferta .w-producto {
+  margin-bottom: 0;
+}
+
+.marca {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.filtros-ul {
+  padding: 0px;
+}
+
+.filtros-ul > li {
+  list-style-type: none;
+}
+
+.bg-gris {
+  background: rgb(226, 226, 226);
+}
+
+#alertaLogin, #alerta {
+  display: none;
+}
+.foto-perfil {
+  width: 30%;
+}
+
+.mapa, .mapa__iframe{
+  width: 100%;
+}
+.mapa__iframe{
+  height: 350px;
+}
+.img-small{
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+.img-mediano{
+  width: 115px;
+  height: 115px;
+  object-fit: cover;
+}
+.img-grande{
+  height: 230px;
+  object-fit: cover;
+}
+.img-fondo{
+  background-image: url("/assets/img/fondoError.jpg");
+}
+.bg-gris{
+  background: #eeeeee;
+}
+
+@media (min-width: 480px) {
+  .marca {
+    font-size: 1.6em;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 16% 16% 16% 16% 16% 16%;
+  }
+  .grid-item-principal {
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  .img-carousel {
+    height: 50vh;
+  }
+  .w-producto {
+    width: 48%;
+    margin-right: 2%;
+  }
+  .img-producto {
+    max-height: 160px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .categoriaIcono {
+    width: 14%;
+  }
+
+  .w-producto {
+    width: 23%;
+  }
+
+  .marca {
+    font-size: 1.9em;
+  }
 }

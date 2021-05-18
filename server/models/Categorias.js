@@ -4,7 +4,7 @@ const Subcategorias = require('../models/Subcategorias');
 
 const Categorias = db.define('categorias', {
     idcategoria: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.TINYINT.UNSIGNED,
         autoIncrement: true,
         primaryKey: true
     },
@@ -19,6 +19,10 @@ const Categorias = db.define('categorias', {
 Categorias.hasMany(Subcategorias, {
     foreignKey: 'categoria_id'
 })
+Subcategorias.belongsTo(Categorias, {
+    foreignKey: 'categoria_id'
+})
+
 
 
 module.exports = Categorias;

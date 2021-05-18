@@ -1,24 +1,29 @@
-let mysql = require("mysql");
+const Sequelize = require('sequelize');
 
-let db_config;
+let db;
 
 if( !process.env.NODE_ENV ){
-    db_config = {
-        host : "localhost",
-        user : "root",
-        password : "123456",
-        database: "ecommerse"
-    };
+    db = new Sequelize('computadoras_ya', 'root', '123456', {
+        //para no ver las sentencias sql generadas por sequalize
+        logging: false,
+        host: '127.0.0.1',
+        dialect: 'mysql',
+        port: '3306'
+    })
 }else{
-    db_config = {
-        host : process.env.HOSTDB,
-        user : process.env.USER,
-        password : process.env.PASSWORD,
-        database: process.env.DATABASE
-    };
+    db = new Sequelize(process.env.DATABASE, process.env.USER, process.env.PASSWORD, {
+        //para no ver las sentencias sql generadas por sequalize
+        logging: false,
+        host: process.env.HOSTDB,
+        dialect: 'mysql',
+        pool: {
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
+    })
 }
 
-let pool = mysql.createPool(db_config);                                                 
 
-
-module.exports = pool;
+module.exports = db;

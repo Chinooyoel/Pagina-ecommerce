@@ -1,7 +1,5 @@
 .lightboxMarca{
-    width: 80%;
     overflow: hidden;
-    margin:auto
 }
 .listaLightboxMarca{
     width: 157.2%;
@@ -12,6 +10,7 @@
 }
 .listaLightboxMarca__link{
     width: 14.3%;
+    list-style-type: none;
 }
 .listaLightboxMarca__link__img{
     width: 100%;

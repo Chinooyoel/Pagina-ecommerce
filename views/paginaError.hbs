@@ -1,20 +1,30 @@
+{
 <!DOCTYPE html>
 <html>
-    <head>
-        <link href="/assets/estilos/paginaError.css" rel="StyleSheet"/>
-        <link href="/assets/estilos/estilo.css" rel="StyleSheet"/>
-        <link href="/assets/estilos/ubicacion.css" rel="StyleSheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/assets/img/icono.png" sizes="32x32" type="image/png">
-        <title>ComputadorasYA</title>
-    </head>
-    <body>
-        <div class="mensajeError">
-            <h3 class="mensajeError__titular">Ooooops. Error {{ status }}</h3>
-            <p>{{ mensaje }}</p>
-            <p>Disculpe las molestias</p>
-            <a href="/" class="campoBoton campoBoton--verdeOscuro">Inicio</a>
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="/assets/estilos/estilo.css" rel="StyleSheet" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/icono.png" sizes="32x32" type="image/png">
+    <title>ComputadorasYA</title>
+</head>
+
+<body class='img-fondo'>
+    <div class="container">
+        <div class="col-12 d-flex justify-content-center align-items-center h-100 w-100">
+            <section class='bg-gris p-5 rounded-3 text-center'>
+                <h3 class="text-danger h1">Ooooops, Error {{ status }}</h3>
+                <p class='h5'><strong>{{ mensaje }}</strong></p>
+                <p class='h6 my-1'>Disculpe las molestias</p>
+                <a href="/" class="btn btn-violeta my-3">Inicio</a>
+            </section>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

@@ -1,64 +1,120 @@
 {{>head}}
-    {{> modal }}
-    <section class="max1400">
-        <section class="panelControl">
-            <a href="/admin" class="campoBoton campoBoton--azul">Inicio</a>
-        </section>        
-        <form id="productForm" method="POST" action="/product/save" class="flex-contenedor" enctype="multipart/form-data">
-            <figure class="galeria__figure">
-                <img src="/assets/img/producto/no-imagen.jpg" class="galeria__figure--tamanioPerfil" id="imagenProducto">
-                <button type="button" id="botonInputFileEstilizado" class="campoBoton campoBoton--azul">Editar foto</button>
-                <input type="file" name="imagen" id="elegirFoto" accept="image/*">
-            </figure>
-            <article class="caracteristicas">
-                <section>
-                    <label for="nombre" class="formulario__label">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" class="inputEdicion formulario__input" maxlength="200" minlength="5">
-                    <label for="marca" class="formulario__label">Marca</label>
-                    <select id="marca" name="marca" class="inputEdicion formulario__input">
-                        {{#each marcasDB }}
-                        <option value="{{ IdMarca }}">{{Nombre}}</option>
-                        {{/each}}
-                    </select>    
-                    <label for="categoria" class="formulario__label">Categoria</label>
-                    <select id="categoria" name="categoria" class="inputEdicion formulario__input">
-                        {{#each categoriasDB }}
-                        <option value="{{ IdCategoria }}" >{{Nombre}}</option>
-                        {{/each}}
-                    </select> 
-                    <label for="subcategoria" class="formulario__label">Subcategoria</label>
-                    <select id="subcategoria" name="subcategoria" class="inputEdicion formulario__input">
-                        {{#each subcategoriasDB}}
-                        <option value="{{IdSubcategoria}}"  data-categoria="{{Categoria_IdCategoria}}"  class="subcategoria">{{Nombre}}</option>
-                        {{/each}}
-                    </select> 
-                    <label for="proveedor" class="formulario__label">Proveedor</label>
-                    <select id="proveedor" name="proveedor" class="inputEdicion formulario__input">
-                        {{#each proveedoresDB }}
-                        <option value="{{ IdProveedor }}">{{Nombre}}</option>
-                        {{/each}}
-                    </select> 
-                    <label for="codigo" class="formulario__label">Codigo</label>
-                    <input type="text" name="codigo" id="codigo" class="inputEdicion formulario__input" maxlength="45" minlength="1">     
-                    <label for="garantia" class="formulario__label">Garantia</label>
-                    <input type="text" name="garantia" id="garantia" class="inputEdicion formulario__input" maxlength="45" minlength="1">     
-                    <label for="stock" class="formulario__label">Stock</label>
-                    <input type="number" name="stock" id="stock" class="inputEdicion formulario__input--corto" min="0">
-                    <label for="precio" class="formulario__label">Precio</label>
-                    <input type="number" name="precio" id="precio" class="inputEdicion formulario__input--corto" min="0">
-                    <label for="costo" class="formulario__label">Costo</label>
-                    <input type="number" name="costo" id="costo" class="inputEdicion formulario__input--corto" value="{{productoDB.Costo}}" min="0">  
-                </section>
-            </article>
-        </form>
-        <label for="descripcion" class="formulario__label">Descripcion</label>
-        <textarea form="productForm" class="textoNota" name="descripcion" maxlength="1500"></textarea>
-        <input form="productForm" type="submit" value="Crear" class="campoBoton campoBoton--verdeOscuro">
-        <a href="/producto" class="campoBoton campoBoton--azul">Cancelar</a>
-    </section>
 
-    <script>
-        validarFormularioProducto()
-        funcionMostrarFoto();
-        eventoCategoria();
-    </script>
+<div class="container mb-4">
+    <form class="row" id="productForm" method="POST" action="/producto/crear" enctype="multipart/form-data">
+        <section class="col-12 justify-content-end d-flex mt-3">
+            <a href="/admin" class="btn btn-violeta">Inicio</a>
+        </section>
+        <header class="col-12">
+            <h3 class="bg-dark text-white p-3 my-3 rounded-3">Crear producto</h3>
+        </header>
+        <article class="col-12 col-md-6 text-center">
+            <img src="/assets/img/producto/no-imagen.jpg" alt="producto" class="img-thumbnail mb-3" id="imagenProducto">
+            <br />
+            <button type="button" id="botonInputFileEstilizado" class="btn btn-violeta">
+                Editar foto
+            </button>
+            <input type="file" name="imagen" id="elegirFoto" accept="image/*" class='d-none'>
+
+        </article>
+        <article class="col-12 col-md-6">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">
+                    Nombre
+                </label>
+                <input type="text" class="form-control" id='nombre' name='nombre'
+                    placeholder='Auricular Kingston Hyper X Cloud Stinger Core PS4'
+                    maxlength="200" required>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="" class="form-label">
+                        Codigo del producto
+                    </label>
+                    <input type="text" class="form-control" name='codigo' id='codigo' placeholder='90DC0020-B30000' maxlength="45" required>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="garantia" class="form-label">
+                        Garantia
+                    </label>
+                    <input type="text" class="form-control" name='garantia' id='garantia' placeholder='0 meses' maxlength="45" required>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="marca" class="form-label">Marca</label>
+                    <select name="marca_id" id="marca_id" class="form-select">
+                        {{#each marcas }}
+                        <option value="{{ idmarca }}">{{nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="proveedor" class="form-label">Proveedor</label>
+                    <select name="proveedor_id" id="proveedor_id" class="form-select">
+                        {{#each proveedores }}
+                        <option value="{{ idproveedor }}">{{nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select name="categoria_id" id="categoria" class="form-select">
+                        {{#each categorias }}
+                        <option value="{{ idcategoria }}">{{nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="subcategoria" class="form-label">Subcategoria</label>
+                    <select name="subcategoria_id" id="subcategoria_id" class="form-select">
+                        {{#each subcategorias}}
+                        <option value="{{idsubcategoria}}" data-categoria="{{categoria_id}}" class="subcategoria">
+                            {{nombre}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="stock" class="form-label">
+                        Stock ( unidades )
+                    </label>
+                    <input type="number" class="form-control" id='stock' name='stock' placeholder='00' required>
+                </div>
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="precio" class="form-label">
+                        Precio
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id='precio' name='precio' placeholder='00' required>
+                        <span class="input-group-text">.00</span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="costo" class="form-label">
+                        Costo
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id='costo' name='costo' placeholder="00" required>
+                        <span class="input-group-text">.00</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="col-12">
+            <label for="descripcion" class="form-label">Descripcion</label>
+            <textarea name="descripcion" id="descripcion" cols="30" rows="10" class='form-control mb-3' maxlength="1500"></textarea>
+            <div>
+                <input type="submit" value="Crear Producto" class="btn btn-violeta w-100 mb-3">
+                <a href="/producto" class="btn btn-primary w-100">Cancelar</a>
+            </div>
+        </article>
+    </form>
+</div>
+
+<script>
+    funcionMostrarFoto();
+    eventoCategoria();
+</script>

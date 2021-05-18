@@ -1,26 +1,30 @@
 {{>head}}
-{{> modal }}
-{{> modalLogin}}
-<section class="max1400">
-    <h3 class="titular">
-        <i class="fas fa-tools verde"></i>
-        ARMA TU PC!
-    </h3>
-</section>
 
-<section class="max1400 flex-contenedor">
-    <aside class="infoArmado">
-    </aside>
-    <section class="listaProducto flex-contenedor-start">
-        <a class="marcaLogo">
-            <img src="/assets/img/iconoIntel2.jpg" data-marca='9' data-subcategoria="5">
-        </a>
-        <a class="marcaLogo">
-            <img src="/assets/img/iconoAmd2.jpg" data-marca='10' data-subcategoria="4">
-        </a>
-    </section>
-</section>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="bg-dark text-white p-3 my-3 rounded-3"><i class="fas fa-tools textoVerde me-3"></i>ARMA TU PC!
+            </h3>
+            <section class="row">
+                <aside class="col-12 col-md-4 infoArmado"></aside>
+                <article class="col-12 col-md-8">
+                    <div class='row listaProducto'>
+                        <div class="col-12 col-md-6">
+                            <a class="marcaLogo">
+                                <img src="/assets/img/iconoIntel2.jpg" data-marca='9' data-subcategoria="5" class='w-100 img-grande mb-2'>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a class="marcaLogo">
+                                <img src="/assets/img/iconoAmd2.jpg" data-marca='10' data-subcategoria="4" class='w-100 img-grande mb-2'>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+</div>
 
 <script src='/assets/js/armarpc.js'></script>
-
 {{>footer}}

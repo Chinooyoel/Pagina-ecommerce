@@ -1,34 +1,43 @@
 # Ecommerce de computacion
 El diseño de este proyecto fue copiado de la pagina de computacion [Maximus](https://www.maximus.com.ar/HOME/maximus.aspx).
 
-Esta hecha por html, css, javascript, nodejs, express y mysql. El motor de vista que utilize fue Handlebars.
-
 [Les invito a mirar el proyecto](https://yoel-ecommerce.herokuapp.com/)
 
-Para interactuar la interfaz como administrador, (No van a tener permiso para crear, ni modificar productos, ni usuarios)
+## Construido con :hammer:
+- NodeJs
+- Express
+- Sequelize
+- MySql
+- Handlebars
+- Javascript
+- Bootstraps
+
+Para interactuar con la interfaz del administrador clickea el boton de inicio automatico o ingresa en el login:
 - email: test@test.com
 - password: test
+(No van a tener permiso para crear, ni modificar productos, ni usuarios)
 
-Para interactuar la interfaz como usuario o pueden crearse la cuenta
-- email: usuario@usuario.com
-- password: usuario
-
- Metas completadas
-- CRUD usuario
-- CRUD producto
+ Hecho
+- CRUD de usuarios
+- CRUD de productos
 - Subir una imagen por usuario y producto
+- Roles de usuario
+- Carrito de compras
+- Seccion de armar PC con componentes
+- Busqueda de productos por nombre
+- Busqueda de productos por categoria
+- Busqueda de productos por subcategorias
+- Busqueda de productos por marca
 - Validaciones tanto del lado del cliente y del servidor
-- Busqueda de productos por filtro de marca/categoria/subcategoria
 - Auntenticacion por JWT almacenado en Cookies
-- Carrito de la parte del cliente
-- Permisos de acceso dependiendo del role del usuario loguiado
-- Diseñar la parte de armar pc del cliente
 
-Metas faltantes
+En proceso
 - CRUD de pedidos
-- Crear la parte de pagos, utilizar api de mercadopago
-- Autenticación por Google o Facebook
+- Api de MercadoPago
+- Autenticación por Facebook
 - Mejorar la interfaz de subir imagenes
-- Manejo de errores
-- Mejorar la seguridad del token guardado en las Coockies
+- Enviar un email para verificar la creacion de cuenta
+- Agregar productos a favoritos
+- Asignar administradores
+- Restablecer contreseña mandando un email
 

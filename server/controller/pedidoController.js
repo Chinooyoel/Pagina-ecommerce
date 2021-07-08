@@ -1,7 +1,12 @@
+const { Op } = require("sequelize");
 const Estado = require("../models/Estado");
 const Pedidos = require("../models/Pedidos");
 const PedidosDetalle = require("../models/PedidosDetalle");
 const Productos = require("../models/Productos");
+
+exports.verTablaPedidos = (req, res) => {
+  res.render('tablaPedido');
+}
 
 exports.crearPedido = async (req, res) => {
   const carrito = JSON.parse(req.body.productos);
@@ -92,10 +97,26 @@ exports.obtenerPedido = async (req, res) => {
   const idPedido = req.params.id;
   const idUsuario = req.usuario.idusuario;
 
+  let filtro = [{idpedido: idPedido}]
+
+  //si no hay usuario loguiado
+  if (idUsuario === undefined) {
+    return res.status(401).render("paginaError", {
+      status: 401,
+      mensaje: "Requiere loguiarse",
+    });
+  }
+
+  // El pedido lo va a poder ver el admin o el usuario que hizo el pedido
+  // Si no es el admin, entonces el pedido debe coincidir con el usuario loguiado
+  if( !req.usuario.Admin ){
+    filtro = [...filtro, { usuario_id : idUsuario}];
+  }
+
+
   try {
-    //buscamos el pedido que cumpla con el id del pedido y tenga el mismo id del usuario loguiado
     const pedido = await Pedidos.findOne({
-      where: [{ usuario_id: idUsuario }, { idpedido: idPedido }],
+      where: filtro,
       include: {
         model: Estado,
       },
@@ -128,3 +149,75 @@ exports.obtenerPedido = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.obtenerPedidosJSON = async (req, res) => {
+  const id = req.query.id;
+  const estado = req.query.estado;
+
+  let filtroIdPedido = {};
+  let filtroEstado = {};
+
+  //si existe el id, creamos el filtro
+  if( id ) {
+    filtroIdPedido = { idpedido: id }
+  }
+
+  //si existe el filtro por estado, lo agregamos
+  if( estado != '') {
+    filtroEstado = { 
+      nombre: {
+        [ Op.substring ] : estado
+      }
+    }
+  }
+
+  try {
+    const pedidos = await Pedidos.findAll({
+      where: filtroIdPedido,
+      order: [['fecha', 'DESC']],
+      attributes: ['idpedido', 'fecha', 'total'],
+      include: [
+        {
+          model: Estado,
+          attributes: ['nombre'],
+          where: filtroEstado
+        },
+      ],
+    });
+
+    res.json({ 
+      pedidos
+    })
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.actualizarEstadoPedido = async (req, res) => {
+  const idpedido = req.params.idpedido;
+  const { estado }= req.body;
+  console.log(estado)
+
+  try {
+    //buscamos el estado
+    const estadoDB = await Estado.findOne({
+      where: { 
+        nombre: {
+          [ Op.substring ] : estado
+        } }
+    })
+
+    //actualizamos el pedido con el id del estado buscado
+    await Pedidos.update({ estado_id : estadoDB.idestado }, 
+      {where: { idpedido } })
+
+    res.json({
+      estadoActualizado: estado
+    })
+
+  } catch (error) {
+    console.log(error)
+  }
+
+}

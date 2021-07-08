@@ -129,6 +129,7 @@ exports.obtenerPerfilUsuario = async (req, res) => {
   //buscamos los pedidos por el id del usuario loguiado
   const pedidos = await Pedidos.findAll({
     where: { usuario_id: idUsuario },
+    order: [['fecha', 'DESC']],
     include: {
       model: Estado,
     },
@@ -155,6 +156,7 @@ exports.obtenerPerfilUsuarioPorId = async (req, res) => {
   //buscamos los pedidos por el id del usuario en la URL
   const pedidos = await Pedidos.findAll({
     where: { usuario_id: idUsuario },
+    order: [['fecha', 'DESC']],
     include: {
       model: Estado,
     },

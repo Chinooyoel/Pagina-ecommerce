@@ -15,8 +15,31 @@
                     Total: ${{ pedido.total }}
                 </p>
                 <p class="my-1 h4">
-                    Estado: {{ pedido.estado.nombre }}
+                    Estado: <span id='estado'>{{ pedido.estado.nombre }}</span>
                 </p>
+                {{#if usuario.Admin}}
+                    <form id='formEstadoPedido' data-idpedido={{ pedido.idpedido }}>
+                        <label class='h5'>Actualizar Estado:</label>
+                        <select class="p-1" name='estado'>
+                            <option value='INGRESO'>
+                                INGRESO DEL PEDIDO
+                            </option>
+                            <option value='PREPARACION'>
+                                PREPARACION
+                            </option>
+                            <option value='LISTO PARA RETIRAR'>
+                                LISTO PARA RETIRAR
+                            </option>
+                            <option value='ENTREGADO'>
+                                ENTREGADO
+                            </option>
+                            <option value='CANCELADO'>
+                                CANCELADO
+                            </option>
+                        </select>
+                        <input type='submit' class="btn btn-violeta " value='Actualizar'/>
+                    </form>
+                {{/if}}
             </div>
         </article>
         <article class='mt-3'>
@@ -43,5 +66,9 @@
         </article>
     </div>
 </section>
+
+<script>
+    actualizarEstadoDelPedido();
+</script>
 
 {{> footer }}

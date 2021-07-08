@@ -63,6 +63,57 @@ function mostrarProductoEnTabla(productoArray) {
         </tr>`;
   });
 }
+function funcionBuscarPedidoParaTabla() {
+  let buscadorTabla = document.getElementById("buscarPedido");
+
+  buscadorTabla.addEventListener(
+    "submit",
+    (e) => {
+      e.preventDefault();
+
+      //obtenemos el valor del campo
+      const valorDelBuscador = obtenerCampoDeFormulario(
+        buscadorTabla,
+        "codigo"
+      );
+      const filtroEstado = obtenerCampoDeFormulario(
+        buscadorTabla,
+        "estado"
+      );
+
+        enviarPeticion(
+          "GET",
+          `${window.location.origin}/pedido/obtener?id=${valorDelBuscador}&estado=${filtroEstado}`,
+          (respuesta) => {
+            mostrarPedidoEnTabla(respuesta.pedidos);
+          }
+        );
+    },
+    false
+  );
+}
+function mostrarPedidoEnTabla(pedidoArray) {
+  let tablaPedido = document.getElementById("tablaPedido");
+  tablaPedido.innerHTML = "";
+
+  //si no hay pedidos traidos de la DB
+  if (pedidoArray.length === 0) {
+    return (tablaPedido.innerHTML += `<th colspan="7">No hay resultados de la busqueda</th>`);
+  }
+
+  pedidoArray.forEach((pedido) => {
+    tablaPedido.innerHTML += `<tr>
+            <th>${pedido.idpedido}</th>
+            <th>${pedido.fecha}</th>
+            <th class="d-none d-md-table-cell">Efectivo</th>
+            <th>${pedido.estado.nombre}</th>
+            <th>$${pedido.total}</th>
+            <th>
+                <a href="/pedido/${pedido.idpedido}" class="btn btn-violeta">Editar Pedido</a></th>
+        </tr>`;
+  });
+}
+
 function funcionMostrarFoto() {
   let botonInputFileEstilizado = document.getElementById(
     "botonInputFileEstilizado"
@@ -593,4 +644,33 @@ function mostrarAlerta(alertaDOM, mensaje) {
   setTimeout(() => {
     alertaDOM.style.display = "none";
   }, 3000);
+}
+
+
+function actualizarEstadoDelPedido() {
+  const formEstadoPedido = document.getElementById('formEstadoPedido');
+
+  //elemento estado
+  const estado = document.getElementById('estado');
+
+  formEstadoPedido.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    //obtenemos el id del pedido
+    const idpedido = formEstadoPedido.dataset.idpedido;
+
+    // creamos la peticion
+    const miPeticion = new Request(`/pedido/actualizar-estado/${idpedido}`, {
+      method: "POST",
+      body: new FormData(formEstadoPedido),
+    });
+
+    //hacemos la peticion
+    let resultado = await fetch(miPeticion);
+    let respuesta = await resultado.json();
+
+    //actualizamos el estado
+    estado.innerHTML = respuesta.estadoActualizado;
+
+  })
 }

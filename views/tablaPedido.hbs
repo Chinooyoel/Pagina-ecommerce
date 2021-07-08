@@ -1,0 +1,83 @@
+{{> head }}
+<section class="container">
+    <div class="row">
+        <section class="col-12 justify-content-end d-flex mt-3">
+            <a href="/admin" class="btn btn-violeta">Inicio</a>
+        </section>
+        <section class="col-12">
+            <h3 class="p-3 my-3 bg-dark text-white rounded-3">Panel de pedidos</h3>
+
+            <form action="" class="row justify-content-center" id="buscarPedido">
+                <div class="col-12 col-sm-8 col-lg-5 d-flex">
+                    <input type="text" class="form-control" name='codigo' placeholder='Ingrese el codigo del pedido'>
+                    <select class='select-control' name='estado'>
+                        <option value=''>
+                            Filtrar por estado
+                        </option>
+                        <option value=''>
+                            TODAS
+                        </option>
+                        <option value='INGRESO'>
+                            INGRESO DEL PEDIDO
+                        </option>
+                        <option value='PREPARACION'>
+                            PREPARACION
+                        </option>
+                        <option value='LISTO PARA RETIRAR'>
+                            LISTO PARA RETIRAR
+                        </option>
+                        <option value='ENTREGADO'>
+                            ENTREGADO
+                        </option>
+                        <option value='CANCELADO'>
+                            CANCELADO
+                        </option>
+                    </select>
+                    <button class="btn btn-violeta px-4">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+
+
+            <article class="table-responsive my-3">
+                <table class="table table-striped table-bordered text-center align-item-center">
+                    <thead>
+                        <tr class='bg-dark text-white'>
+                            <th scope='col'>Código</th>
+                            <th scope='col'>Fecha</th>
+                            <th scope='col' class='d-none d-md-table-cell'>Metodo de pago</th>
+                            <th scope='col'>Estado</th>
+                            <th scope='col' class='d-none d-md-table-cell'>Total</th>
+                            <th scope='col'>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPedido"></tbody>
+                    {{!-- <tbody>
+                        {{!-- {{#each pedidos}}
+                        <tr>
+                            <th>{{ idpedido }}</th>
+                            <th>{{ fecha }}</th>
+                            <th class='d-none d-md-table-cell'>efectivo</th>
+                            <th>{{ estado.nombre }}</th>
+                            <th class='d-none d-md-table-cell'>${{ total }}</th>
+                            <th>
+                                <a href="/pedido/{{ idpedido }}" class="btn btn-violeta">Mas info</a>
+                            </th>
+                        </tr>
+                        {{ else }}
+                        <th class="text-center" colspan="6">* No hay pedidos hechos *</th>
+                        {{/each}} --}}
+                    </tbody>
+                </table>
+            </article>
+        </section>
+    </div>
+
+</section>
+
+<script>
+    funcionBuscarPedidoParaTabla();
+</script>
+
+{{> footer }}

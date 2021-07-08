@@ -10,7 +10,6 @@
 
     <link href="/assets/estilos/estilo.css" rel="stylesheet">
     <link href="/assets/estilos/lightbox.css" rel="stylesheet">
-    <link href="/assets/estilos/barraProgreso.css" rel="stylesheet">
 
     <script src="/assets/js/carritoControlador.js"></script>
     <script src="/assets/js/main.js"></script>
@@ -114,7 +113,7 @@
                 class="d-none d-md-flex align-items-center justify-content-between text-white flex-grow-1 flex-lg-grow-0 my-2">
                 <div class='pe-4'>
                     {{#if usuario.Logueado }}
-                    <a href="/usuario/perfil" class='textoVerde'>
+                    <a href="/usuario/perfil/{{usuario.idusuario}}" class='textoVerde'>
                         <i class="fas fa-user me-2"></i> MI CUENTA
                     </a>
                     <br />
@@ -138,8 +137,18 @@
             <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto text-center">
                     {{#if usuario.Admin}}
-                    <li class="nav-item">
-                        <a class="nav-link textoVerde" href="/admin">ADMINISTRACION</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle textoVerde" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            ADMINISTRACION
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href='/admin'>INICIO</a></li>
+                            <li><a class="dropdown-item" href="/producto/crear">CREAR PRODUCTO</a></li>
+                            <li><a class="dropdown-item" href="/pedido/ver-tabla">VER TABLA DE PEDIDOS</a></li>
+                            <li><a class="dropdown-item" href="/producto">VER TABLA DE PRODUCTOS</a></li>
+                            <li><a class="dropdown-item" href="/usuario">VER TABLA DE USUARIOS</a></li>
+                        </ul>
                     </li>
                     {{/if}}
                     <li class="nav-item">

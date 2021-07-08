@@ -6,8 +6,8 @@ window.onload = () => {
 
 let carrito = leerCarrito();
 
-// ----------------------------------------FUNCIONES------------------------------------
-//FUNCION DE PRODUCTOS
+
+// -------------------------------------------------- FUNCIONES DE PRODUCTOS--------------------------------------------
 function funcionBuscarProductoParaTabla() {
   let buscadorTabla = document.getElementById("buscarProducto");
 
@@ -63,56 +63,6 @@ function mostrarProductoEnTabla(productoArray) {
         </tr>`;
   });
 }
-function funcionBuscarPedidoParaTabla() {
-  let buscadorTabla = document.getElementById("buscarPedido");
-
-  buscadorTabla.addEventListener(
-    "submit",
-    (e) => {
-      e.preventDefault();
-
-      //obtenemos el valor del campo
-      const valorDelBuscador = obtenerCampoDeFormulario(
-        buscadorTabla,
-        "codigo"
-      );
-      const filtroEstado = obtenerCampoDeFormulario(
-        buscadorTabla,
-        "estado"
-      );
-
-        enviarPeticion(
-          "GET",
-          `${window.location.origin}/pedido/obtener?id=${valorDelBuscador}&estado=${filtroEstado}`,
-          (respuesta) => {
-            mostrarPedidoEnTabla(respuesta.pedidos);
-          }
-        );
-    },
-    false
-  );
-}
-function mostrarPedidoEnTabla(pedidoArray) {
-  let tablaPedido = document.getElementById("tablaPedido");
-  tablaPedido.innerHTML = "";
-
-  //si no hay pedidos traidos de la DB
-  if (pedidoArray.length === 0) {
-    return (tablaPedido.innerHTML += `<th colspan="7">No hay resultados de la busqueda</th>`);
-  }
-
-  pedidoArray.forEach((pedido) => {
-    tablaPedido.innerHTML += `<tr>
-            <th>${pedido.idpedido}</th>
-            <th>${pedido.fecha}</th>
-            <th class="d-none d-md-table-cell">Efectivo</th>
-            <th>${pedido.estado.nombre}</th>
-            <th>$${pedido.total}</th>
-            <th>
-                <a href="/pedido/${pedido.idpedido}" class="btn btn-violeta">Editar Pedido</a></th>
-        </tr>`;
-  });
-}
 
 function funcionMostrarFoto() {
   let botonInputFileEstilizado = document.getElementById(
@@ -137,6 +87,7 @@ function funcionMostrarFoto() {
 }
 
 //funcion para el buscador de productos
+// -------------------------------------------------- FUNCIONES DEL BUSCADOR GENERAL --------------------------------------------
 function funcionBuscadorGeneral() {
   const buscadoresGenerales =
     document.getElementsByClassName("buscadorGeneral");
@@ -226,7 +177,8 @@ function eventoCategoria() {
   });
 }
 
-//FUNCION DE USUARIOS
+
+// -------------------------------------------------- FUNCIONES DE USUARIO --------------------------------------------
 function funcionBuscarUsuario() {
   const buscador = document.getElementById("buscarUsuario");
 
@@ -273,7 +225,38 @@ function mostrarUsuarioEnTabla(usuarioArray) {
   });
 }
 
-//FUNCIONES DE VISTAS, RESPONSIVE
+function actualizarRolUsuario() {
+  const formUsuarioRol = document.getElementById('formUsuarioRol');
+
+  //si no existe el form, porque el usuario no es admin
+  if( !formUsuarioRol ) return;
+
+  //elemento rol
+  const rol = document.getElementById('rol');
+
+  formUsuarioRol.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    //obtenemos el id del usuario a actualizar
+    const idusuario = formUsuarioRol.dataset.idusuario;
+
+    // creamos la peticion
+    const miPeticion = new Request(`/usuario/actualizar-rol/${idusuario}`, {
+      method: "POST",
+      body: new FormData(formUsuarioRol),
+    });
+
+    //hacemos la peticion
+    let resultado = await fetch(miPeticion);
+    let respuesta = await resultado.json();
+
+    //actualizamos el estado
+    rol.innerHTML = respuesta.rolActualizado;
+
+  })
+}
+
+// -------------------------------------------------- FUNCIONES DE VISTAS, RESPONSIVE --------------------------------------------
 function enviarPeticion(metodo, url, callback) {
   let xhttp = new XMLHttpRequest();
 
@@ -288,7 +271,7 @@ function enviarPeticion(metodo, url, callback) {
   xhttp.send();
 }
 
-//FUNCION DE LOGUEO
+// -------------------------------------------------- FUNCIONES DE LOGUEO --------------------------------------------
 function usuarioLoguiadoRedirigir() {
   const token = leerCookie("token");
   //Si existe el token, el usuario esta loguiado por lo tanto redirigimos
@@ -420,7 +403,7 @@ function registrarse() {
   });
 }
 
-//FUNCIONES CARRITO
+// -------------------------------------------------- FUNCIONES DEL CARRITO --------------------------------------------
 function leerCarrito() {
   if (!localStorage.carrito) {
     return new Carrito([], 0, 0);
@@ -617,38 +600,11 @@ function eventoEnviarCarrito() {
   });
 }
 
-//funcion para leerCookie
-function leerCookie(nombre) {
-  var nombreIgual = nombre + "=";
-  var ca = document.cookie.split(";");
-
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-
-    while (c.charAt(0) == " ") c = c.substring(1, c.length);
-
-    if (c.indexOf(nombreIgual) == 0)
-      return c.substring(nombreIgual.length, c.length);
-  }
-  return null;
-}
-
-//funcion de alertas
-function mostrarAlerta(alertaDOM, mensaje) {
-  //mostramos el alerta
-  alertaDOM.style.display = "block";
-
-  alertaDOM.innerHTML = mensaje;
-
-  //despues de 3 segundos ocultamos la alerta
-  setTimeout(() => {
-    alertaDOM.style.display = "none";
-  }, 3000);
-}
-
-
 function actualizarEstadoDelPedido() {
   const formEstadoPedido = document.getElementById('formEstadoPedido');
+
+  //si no existe el form, porque el usuario no es admin
+  if( !formEstadoPedido ) return;
 
   //elemento estado
   const estado = document.getElementById('estado');
@@ -674,3 +630,88 @@ function actualizarEstadoDelPedido() {
 
   })
 }
+
+// -------------------------------------------------- FUNCION DE PEDIDOS --------------------------------------------
+function funcionBuscarPedidoParaTabla() {
+  let buscadorTabla = document.getElementById("buscarPedido");
+
+  buscadorTabla.addEventListener(
+    "submit",
+    (e) => {
+      e.preventDefault();
+
+      //obtenemos el valor del campo
+      const valorDelBuscador = obtenerCampoDeFormulario(
+        buscadorTabla,
+        "codigo"
+      );
+      const filtroEstado = obtenerCampoDeFormulario(
+        buscadorTabla,
+        "estado"
+      );
+
+        enviarPeticion(
+          "GET",
+          `${window.location.origin}/pedido/obtener?id=${valorDelBuscador}&estado=${filtroEstado}`,
+          (respuesta) => {
+            mostrarPedidoEnTabla(respuesta.pedidos);
+          }
+        );
+    },
+    false
+  );
+}
+function mostrarPedidoEnTabla(pedidoArray) {
+  let tablaPedido = document.getElementById("tablaPedido");
+  tablaPedido.innerHTML = "";
+
+  //si no hay pedidos traidos de la DB
+  if (pedidoArray.length === 0) {
+    return (tablaPedido.innerHTML += `<th colspan="7">No hay resultados de la busqueda</th>`);
+  }
+
+  pedidoArray.forEach((pedido) => {
+    tablaPedido.innerHTML += `<tr>
+            <th>${pedido.idpedido}</th>
+            <th>${pedido.fecha}</th>
+            <th class="d-none d-md-table-cell">Efectivo</th>
+            <th>${pedido.estado.nombre}</th>
+            <th>$${pedido.total}</th>
+            <th>
+                <a href="/pedido/${pedido.idpedido}" class="btn btn-violeta">Editar Pedido</a></th>
+        </tr>`;
+  });
+}
+
+//funcion para leerCookie
+function leerCookie(nombre) {
+  var nombreIgual = nombre + "=";
+  var ca = document.cookie.split(";");
+
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+
+    while (c.charAt(0) == " ") c = c.substring(1, c.length);
+
+    if (c.indexOf(nombreIgual) == 0)
+      return c.substring(nombreIgual.length, c.length);
+  }
+  return null;
+}
+
+// -------------------------------------------------- FUNCIONES DE ALERTAS--------------------------------------------
+function mostrarAlerta(alertaDOM, mensaje) {
+  //mostramos el alerta
+  alertaDOM.style.display = "block";
+
+  alertaDOM.innerHTML = mensaje;
+
+  //despues de 3 segundos ocultamos la alerta
+  setTimeout(() => {
+    alertaDOM.style.display = "none";
+  }, 3000);
+}
+
+
+
+

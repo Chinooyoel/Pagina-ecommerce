@@ -84,6 +84,32 @@ exports.actualizarUsuario = async (req, res) => {
   }
 };
 
+exports.actualizarRolUsuario = async (req,res) => {
+  const idUsuarioActualizar = req.params.idusuario;
+  const { rol }= req.body;
+
+  //si el rol es invalido
+  if( ['ESPECTADOR', 'USUARIO'].indexOf(rol) === -1 ){
+    return res.status(401).render("paginaError", {
+      status: 401,
+      mensaje: "El rol es invalido",
+    });
+  }
+
+  try {
+    //actualizamos el rol del usuario
+    await Usuarios.update({ rol }, 
+      {where: { idusuario: idUsuarioActualizar} })
+
+    res.json({
+      rolActualizado: rol
+    })
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 exports.buscarUsuariosPorEmail = async (req, res) => {
   const palabra = req.params.data;
 
@@ -115,32 +141,6 @@ exports.buscarUsuariosPorEmail = async (req, res) => {
   }
 };
 
-exports.obtenerPerfilUsuario = async (req, res) => {
-  const idUsuario = req.usuario.idusuario;
-  //Si no hay usuario loguiado
-  if (idUsuario === undefined) {
-    console.log(idUsuario);
-    return res.status(401).render("paginaError", {
-      status: 401,
-      mensaje: "Requiere loguiarse",
-    });
-  }
-
-  //buscamos los pedidos por el id del usuario loguiado
-  const pedidos = await Pedidos.findAll({
-    where: { usuario_id: idUsuario },
-    order: [['fecha', 'DESC']],
-    include: {
-      model: Estado,
-    },
-  });
-
-  res.render("cuentaUsuario", {
-    usuario: req.usuario,
-    pedidos,
-  });
-};
-
 exports.mostrarTablaDeUsuarios = (req, res) => {
   res.render("tablaUsuarios", {
     usuario: req.usuario,
@@ -148,14 +148,42 @@ exports.mostrarTablaDeUsuarios = (req, res) => {
 };
 
 exports.obtenerPerfilUsuarioPorId = async (req, res) => {
-  const idUsuario = req.params.id;
+  const idUsuarioURL = req.params.id;
+  const idUsuarioLoguiado = req.usuario.idusuario;
 
-  //buscamos el usuario
-  const usuario = await Usuarios.findOne({where: { idusuario: idUsuario }});
+  //Si no hay usuario loguiado
+  if (idUsuarioLoguiado === undefined) {
+    return res.status(401).render("paginaError", {
+      status: 401,
+      mensaje: "Requiere loguiarse",
+    });
+  }
+
+  //si el usuario que esta loguiado no es el admin y tampoco coincide el id del usuario loguiado con el que quiere buscar
+  // no va a tener permiso para ver el perfil
+  if( !req.usuario.Admin && idUsuarioLoguiado != idUsuarioURL){
+    return res.status(401).render("paginaError", {
+      status: 401,
+      mensaje: "No tienes permisos para ver este usuario",
+    });
+  }
+
+  const usuarioPerfil = await Usuarios.findOne({
+    where: { idusuario: idUsuarioURL },
+    attributes: ['idusuario','nombre', 'email', 'rol']
+  })
+
+  //si el admin busca un usuario q no existe, lanzamos error
+  if(!usuarioPerfil){
+    return res.status(401).render("paginaError", {
+      status: 401,
+      mensaje: "No existe el usuario",
+    });
+  }
 
   //buscamos los pedidos por el id del usuario en la URL
   const pedidos = await Pedidos.findAll({
-    where: { usuario_id: idUsuario },
+    where: { usuario_id: idUsuarioURL },
     order: [['fecha', 'DESC']],
     include: {
       model: Estado,
@@ -163,7 +191,8 @@ exports.obtenerPerfilUsuarioPorId = async (req, res) => {
   });
 
   res.render("cuentaUsuario", {
-    usuario,
+    usuario: req.usuario,
+    usuarioPerfil,
     pedidos,
   });
 }

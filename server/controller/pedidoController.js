@@ -5,7 +5,9 @@ const PedidosDetalle = require("../models/PedidosDetalle");
 const Productos = require("../models/Productos");
 
 exports.verTablaPedidos = (req, res) => {
-  res.render('tablaPedido');
+  res.render('tablaPedido',{
+    usuario: req.usuario
+  });
 }
 
 exports.crearPedido = async (req, res) => {

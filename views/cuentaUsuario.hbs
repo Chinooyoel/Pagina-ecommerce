@@ -11,9 +11,26 @@
                 </div>
                 <div class="col-12 col-md-6 d-flex align-items-center">
                     <div>
-                        <p class='my-0'><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+                        <p class='my-0'><strong>Nombre:</strong> {{ usuarioPerfil.nombre }}</p>
                         <br>
-                        <p class='my-0'><strong>Email:</strong> {{ usuario.email }}</p>
+                        <p class='my-0'><strong>Email:</strong> {{ usuarioPerfil.email }}</p>
+                        <br/>
+                        <p class='my-0'><strong>Rol: </strong> <span id='rol'>{{ usuarioPerfil.rol }}</span> </p>
+                        <br/>
+                        {{#if usuario.Admin}}
+                            <form id='formUsuarioRol' data-idusuario={{ usuarioPerfil.idusuario }}>
+                                <label class='h5'>Actualizar Rol:</label>
+                                <select class="p-1" name='rol'>
+                                    <option value='USUARIO'>
+                                        USUARIO
+                                    </option>
+                                    <option value='ESPECTADOR'>
+                                        VENDEDOR
+                                    </option>
+                                </select>
+                                <input type='submit' class="btn btn-violeta " value='Actualizar'/>
+                            </form>
+                        {{/if}}
                     </div>
             </article>
 
@@ -53,5 +70,9 @@
         </section>
     </div>
 </div>
+
+<script>
+    actualizarRolUsuario();
+</script>
 
 {{> footer }}

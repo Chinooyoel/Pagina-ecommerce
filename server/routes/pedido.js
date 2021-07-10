@@ -6,14 +6,14 @@ let router = express.Router();
 // /pedido/ver-tabla
 router.get('/ver-tabla', verTablaPedidos);
 
-// /pedido/crear
-router.post('/crear', crearPedido)
-
 // /pedido/admin
 router.get('/obtener', verificarRole, obtenerPedidosJSON);
 
 // /pedido/:id
 router.get('/:id', obtenerPedido);
+
+// /pedido/crear
+router.post('/crear', crearPedido)
 
 // /pedido/actualizar-estado
 router.post('/actualizar-estado/:idpedido', verificarAdminRole, actualizarEstadoPedido)

@@ -28,11 +28,16 @@ exports.crearPedido = async (req, res) => {
   let total = 0;
 
   try {
+    //buscamos el id del estado "INGRESO DE PEDIDO"
+    const estado = await Estado.findOne({
+      where: { nombre: 
+        {[Op.substring] : 'INGRESO DEL PEDIDO'}}
+    })
+
     //creamos el pedido
     const pedido = await Pedidos.create({
       usuario_id: idUsuario,
-      //el estado con id 2 es 'PENDIENTE'
-      estado_id: 2,
+      estado_id: estado.idestado,
     });
 
     //recorremos los productos

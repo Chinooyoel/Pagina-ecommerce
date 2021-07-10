@@ -9,12 +9,24 @@ exports.verRegistrarse = ( req, res ) => {
   res.render('/')
 }
 
+exports.verCrearVendedor = ( req, res ) => {
+  res.render('crearVendedor')
+}
 exports.crearUsuario = async (req, res) => {
     //validamos los campos con express-validator
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
       return res.status(400).json({ errores: errores.array() });
     }
+
+  //El rol de forma predeterminada va a ser un usuario
+  let rol = 'USUARIO';
+
+  //si el admin esta loguiado, quiere decir que no se esta registrando un usuario comun
+  //sino que el admin esta registrando un vendedor
+  if(req.usuario.Admin){
+    rol = 'ESPECTADOR'
+  }
 
   const { nombre, email, password } = req.body;
 
@@ -38,6 +50,7 @@ exports.crearUsuario = async (req, res) => {
       nombre,
       email,
       password: passwordEncriptada,
+      rol
     });
 
     res.json({

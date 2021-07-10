@@ -30,6 +30,7 @@ Para interactuar con la interfaz del administrador clickea el boton de inicio au
 - Busqueda de productos por marca
 - Validaciones tanto del lado del cliente y del servidor
 - Auntenticacion por JWT almacenado en Cookies
+- Asignar vendedores
 
 En proceso
 - CRUD de pedidos
@@ -37,7 +38,5 @@ En proceso
 - Autenticación por Facebook
 - Mejorar la interfaz de subir imagenes
 - Enviar un email para verificar la creacion de cuenta
-- Agregar productos a favoritos
-- Asignar administradores
 - Restablecer contreseña mandando un email
 

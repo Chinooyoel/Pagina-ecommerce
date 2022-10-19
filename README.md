@@ -40,3 +40,10 @@ En proceso
 - Enviar un email para verificar la creacion de cuenta
 - Restablecer contreseña mandando un email
 
+## Modo desarrollo
+```
+    nvm install 16.18.0
+    nvm use 16.18.0
+    npm install
+    npm run dev
+```

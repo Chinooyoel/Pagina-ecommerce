@@ -1,6 +1,6 @@
-const express = require("express");
-const { crearPedido, obtenerPedido, obtenerPedidosJSON, verTablaPedidos, actualizarEstadoPedido } = require("../controller/pedidoController");
-const { verificarRole, verificarAdminRole } = require("../middleware/autenticacion");
+const express = require('express');
+const { crearPedido, obtenerPedido, obtenerPedidosJSON, verTablaPedidos, actualizarEstadoPedido } = require('../controller/pedidoController');
+const { verificarRole, verificarAdminRole } = require('../middleware/autenticacion');
 let router = express.Router();
 
 // /pedido/ver-tabla
@@ -13,9 +13,9 @@ router.get('/obtener', verificarRole, obtenerPedidosJSON);
 router.get('/:id', obtenerPedido);
 
 // /pedido/crear
-router.post('/crear', crearPedido)
+router.post('/crear', crearPedido);
 
 // /pedido/actualizar-estado
-router.post('/actualizar-estado/:idpedido', verificarAdminRole, actualizarEstadoPedido)
+router.post('/actualizar-estado/:idpedido', verificarAdminRole, actualizarEstadoPedido);
 
 module.exports = router;

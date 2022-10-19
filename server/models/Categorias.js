@@ -3,25 +3,25 @@ const db = require('../mysql/mysql');
 const Subcategorias = require('../models/Subcategorias');
 
 const Categorias = db.define('categorias', {
-    idcategoria: {
-        type: DataTypes.TINYINT.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    nombre: {
-        type: DataTypes.STRING(50),
-        unique: true,
-        allowNull: false
-    }
-})
+	idcategoria: {
+		type: DataTypes.TINYINT.UNSIGNED,
+		autoIncrement: true,
+		primaryKey: true
+	},
+	nombre: {
+		type: DataTypes.STRING(50),
+		unique: true,
+		allowNull: false
+	}
+});
 
 //establecemos la relacion 1(categorias) a muchos(subcategorias)
 Categorias.hasMany(Subcategorias, {
-    foreignKey: 'categoria_id'
-})
+	foreignKey: 'categoria_id'
+});
 Subcategorias.belongsTo(Categorias, {
-    foreignKey: 'categoria_id'
-})
+	foreignKey: 'categoria_id'
+});
 
 
 

@@ -9,7 +9,6 @@ exports.login = async (req, res) => {
 	if (!errores.isEmpty()) {
 		return res.status(400).json({ errores: errores.array() });
 	}
-  
 	const { email, password } = req.body;
 
 	try {
@@ -43,10 +42,7 @@ exports.login = async (req, res) => {
 		}
 
 		//creamos el token
-		let token = Token.create({
-			email: user.email,
-			role: user.rol,
-		},24);
+		let token = Token.create({ email: user.email, role: user.rol }, 24);
 
 		res.json({
 			message: 'Credenciales validas',

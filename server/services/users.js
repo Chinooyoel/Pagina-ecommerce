@@ -1,12 +1,11 @@
-const Generics = require('../repository/generics');
-const Users = require('../models/Usuarios');
+const UsersRepository = require('../repository/users');
 
 class UsersService {
 
-	static async  findByEmail (email) {
-		return await Generics.findOne(Users, {email});
+	static async findByEmail (email) {
+		return await UsersRepository.findByEmail(email);
 	}
 }
 
 
-module.export = UsersService;
+module.exports = UsersService;

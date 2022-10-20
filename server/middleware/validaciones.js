@@ -21,7 +21,7 @@ exports.validarProducto = [
 	check('garantia', 'La garantia excede lo maximo de caracteres permitidos (45)').isLength({max: 45})
 ];
 
-exports.validarLogin = [
+exports.validateLogin = [
 	check('email', 'El email es obligatorio').not().isEmpty(),
 	check('password', 'La password es obligatoria').not().isEmpty(),
 	check('email', 'El email no tiene formato de email').isEmail(),

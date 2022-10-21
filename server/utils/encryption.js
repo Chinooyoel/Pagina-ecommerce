@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 
 class Encryption{
 
-	static encrypt(body, durationHours) {
+	static encrypt(password) {
+		return bcrypt.hashSync(password, 10);
 	}
 
 	static isValid(password, passwordToValidate) {

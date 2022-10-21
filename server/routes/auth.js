@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { login } = require('../controller/loginController');
+const AuthController = require('../modules/auth/authController');
 const { validateLogin } = require('../middleware/validaciones');
 
 //Comprueba el usuario y el password y retorna el token
-// /login
-router.post('/', validateLogin, login);
+// /auth/login
+router.post('/login', validateLogin, AuthController.login);
 
 module.exports = router;

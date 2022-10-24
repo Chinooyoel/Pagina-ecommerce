@@ -1,7 +1,7 @@
 const express = require('express');
 const { crearPedido, obtenerPedido, obtenerPedidosJSON, verTablaPedidos, actualizarEstadoPedido } = require('../controller/pedidoController');
 const { verificarRole, verificarAdminRole } = require('../middleware/autenticacion');
-let router = express.Router();
+const router = express.Router();
 
 // /pedido/ver-tabla
 router.get('/ver-tabla', verTablaPedidos);

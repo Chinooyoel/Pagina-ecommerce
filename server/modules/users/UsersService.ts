@@ -1,20 +1,21 @@
-const UsersRepository = require('./UsersRepository');
-const Encryption = require('../../utils/encryption');
-const { HTTP_CODE } = require('../../utils/const');
-const HTTPResponseError = require('../../utils/httpReponseError');
-const { findUsersByEmail } = require('./UsersRepository');
+import UsersRepository from './UsersRepository';
+import HTTPResponseError from '../../utils/httpReponseError';
+import Encryption from '../../utils/encryption';
+import { HTTP_CODE } from '../../utils/const';
+import UserDTO from './UserDTO';
+import { UserData, UserDataWithUser, UserWithOrders } from '../../@types';
 
-class UsersService {
-	static async findByEmail (email) {
+export default class UsersService {
+	static async findByEmail (email:string) {
 		return await UsersRepository.findByEmail(email);
 	}
 
-	static async findUsersByEmail (email) {
+	static async findUsersByEmail (email:string) {
 		//buscamos los usuarios que tengan la palabra en el email
-		return await findUsersByEmail(email);
+		return await UsersRepository.findUsersByEmail(email);
 	}
 
-	static async findUserByIdWithTheirOrders(userData){
+	static async findUserByIdWithTheirOrders(userData: UserData): Promise<UserWithOrders>{
 		//si el usuario que esta loguiado no es el admin y tampoco coincide el id del usuario loguiado con el que quiere buscar
 		// no va a tener permiso para ver el perfil
 		if(  userData.id !== userData.idUserLogged && !userData.adminPermissions){
@@ -26,9 +27,9 @@ class UsersService {
 		return userFound;
 	}
 
-	static async createUser ( user, adminPermissions ) {
+	static async createUser ( user: UserDTO, adminPermissions: boolean ) {
 		//si el admin esta loguiado sino que el admin esta registrando un vendedor
-		if(user.rol.include['VENDOR', 'ADMIN'] && adminPermissions)
+		if(user.rol !== 'USUARIO' && adminPermissions)
 			throw new HTTPResponseError(HTTP_CODE.Forbidden, 'Not permissions');
 		
 
@@ -46,7 +47,7 @@ class UsersService {
 		return await UsersRepository.create(user);
 	}
 
-	static async updateUser ( userData ) {
+	static async updateUser ( userData: UserDataWithUser) {
 		if( userData.id !== userData.idUserLogged && !userData.adminPermissions)
 			throw new HTTPResponseError(HTTP_CODE.Forbidden, 'Not permissions');
 
@@ -54,5 +55,3 @@ class UsersService {
 	}
 }
 
-
-module.exports = UsersService;

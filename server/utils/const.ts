@@ -1,6 +1,6 @@
 
 
-const HTTP_CODE = {
+export const HTTP_CODE = {
 	BadRequest: 400,
 	Unauthorized: 401,
 	PaymentRequired:402,
@@ -10,8 +10,4 @@ const HTTP_CODE = {
 	NotImplemented: 501,
 	BadGateway: 502,
 	ServiceUnavailable: 503
-};
-
-module.exports = {
-	HTTP_CODE
 };

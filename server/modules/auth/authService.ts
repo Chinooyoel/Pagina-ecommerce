@@ -1,11 +1,11 @@
-const UsersService = require('../users/UsersService');
-const { HTTP_CODE } = require('../../utils/const');
-const Encryption = require('../../utils/encryption');
-const Token = require('../../utils/token');
-const HTTPResponseError = require('../../utils/httpReponseError');
+import Encryption from '../../utils/encryption';
+import HTTPResponseError from '../../utils/httpReponseError';
+import UsersService from '../users/UsersService';
+import Token from '../../utils/token';
+import { HTTP_CODE } from '../../utils/const';
 
-class AuthService {
-	static async login ({email, password}) {
+export default class AuthService {
+	static async login ({email, password}: {email: string, password: string}) {
 		//buscamos el usuario
 		const user = await UsersService.findByEmail(email);
 
@@ -26,10 +26,8 @@ class AuthService {
 			throw new HTTPResponseError(HTTP_CODE.Unauthorized, 'Credentials invalid' );
 
 		//creamos el token
-		let token = Token.create({ email: user.email, role: user.rol }, 24);
+		const token = Token.create({ email: user.email, role: user.rol }, 24);
 
 		return token;
 	}
 }
-
-module.exports = AuthService;

@@ -10,7 +10,7 @@ export default class AuthService {
 		const user = await UsersService.findByEmail(email);
 
 		//comprobamos que existe el usuario
-		if (user === null) 
+		if (!user) 
 			throw new HTTPResponseError(HTTP_CODE.Unauthorized, 'Credentials invalid' );
 
 		//comprobamos si el usuario esta bloqueado

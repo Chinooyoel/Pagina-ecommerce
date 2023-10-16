@@ -5,8 +5,8 @@ class Encryption {
   }
 
   static isValid (password, passwordToValidate) {
-    return bcrypt.compareSync(password, passwordToValidate, 10);
+    return bcrypt.compareSync(password, bcrypt.hashSync(passwordToValidate, 10));
   }
 }
 
-exports.module = Encryption;
+module.exports = Encryption;

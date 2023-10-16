@@ -1,3 +1,6 @@
+if (process.env.NODE_DEV !== 'production') {
+  require('dotenv').config();
+}
 const { puerto } = require('./config/config');
 const hbs = require('hbs');
 const express = require('express');

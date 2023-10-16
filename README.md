@@ -42,8 +42,8 @@ En proceso
 
 ## Modo desarrollo
 ```
-    nvm install 16.18.0
-    nvm use 16.18.0
+    nvm install 18.18.2
+    nvm use 18.18.2
     npm install
     npm run dev
 ```

@@ -1,0 +1,74 @@
+{{> head }}
+
+<section class="container">
+    <div class="row">
+        <article class="col">
+            <h3 class="bg-dark text-white p-3 my-3 rounded-3">Pedido N° {{ pedido.idpedido }}</h3>
+            <div class="text-center">
+                <p class="my-1 h4">
+                    Fecha del pedido: {{ pedido.fecha }}
+                </p>
+                <p class="my-1 h4">
+                    Medio de pago: {{ pedido.medios_pago }} efectivo
+                </p>
+                <p class="my-1 h4">
+                    Total: ${{ pedido.total }}
+                </p>
+                <p class="my-1 h4">
+                    Estado: <span id='estado'>{{ pedido.estado.nombre }}</span>
+                </p>
+                {{#if usuario.Admin}}
+                    <form id='formEstadoPedido' data-idpedido={{ pedido.idpedido }}>
+                        <label class='h5'>Actualizar Estado:</label>
+                        <select class="p-1" name='estado'>
+                            <option value='INGRESO'>
+                                INGRESO DEL PEDIDO
+                            </option>
+                            <option value='PREPARACION'>
+                                PREPARACION
+                            </option>
+                            <option value='LISTO PARA RETIRAR'>
+                                LISTO PARA RETIRAR
+                            </option>
+                            <option value='ENTREGADO'>
+                                ENTREGADO
+                            </option>
+                            <option value='CANCELADO'>
+                                CANCELADO
+                            </option>
+                        </select>
+                        <input type='submit' class="btn btn-violeta " value='Actualizar'/>
+                    </form>
+                {{/if}}
+            </div>
+        </article>
+        <article class='mt-3'>
+            {{#each productos}}
+            <a href="{{getUrl 'PRODUCT_DETAIL_VIEW' product.productId }}">
+                <figure class="row mb-3 border p-2 sombraVerde">
+                    <div class="col-12 col-md-3 col-lg-2">
+                        <img src="/assets/img/producto/{{ producto.img }}" class='img-thumbnail w-100 img-producto'>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7 d-flex align-items-center text-center text-md-start ">
+                        <h3 class='h3 w-100'>{{ producto.nombre }}</h3>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex align-items-center">
+                        <figcaption class='text-center text-md-start w-100'>
+                            <p class='my-0 w-100'><strong>P.Unitario: ${{ preciounitario }}</strong></p>
+                            <p class='my-0 w-100'><strong>Cantidad: {{ cantidad }}</strong></p>
+                            <p class='my-0 w-100'><strong>P.Total: <span class="textoRojo">${{multiplicar preciounitario
+                                        cantidad }}.00</span></strong></p>
+                        </figcaption>
+                    </div>
+                </figure>
+            </a>
+            {{/each}}
+        </article>
+    </div>
+</section>
+
+<script>
+    actualizarEstadoDelPedido();
+</script>
+
+{{> footer }}

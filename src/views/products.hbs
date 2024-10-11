@@ -1,0 +1,147 @@
+{{> head }}
+<section class="container">
+    <div class='row'>
+        <aside class='col col-md-3 my-3'>
+            <ul class='filtros-ul text-center text-md-start'>
+                <li class='h5'>Ordenar productos</li>
+                <select name="ordenar" id="ordenar">
+                    <option value="">Ordenar por</option>
+                    <option
+                        value="{{getUrl 'PRODUCTS_VIEW' wordFilter categoryFilter subcategoryFilter brandFilter 'asc'}}">
+                        Menor-precio</option>
+                    <option
+                        value="{{getUrl 'PRODUCTS_VIEW' wordFilter categoryFilter subcategoryFilter brandFilter 'desc'}}">
+                        Mayor precio</option>
+                </select>
+            </ul>
+            <button class="accordion-button collapsed border border-5 my-2 d-md-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                FILTRAR
+            </button>
+            <div id="collapseOne" class="accordion-collapse collapse d-md-block" aria-labelledby="headingOne">
+                <ul class='filtros-ul'>
+                    <li class='h5'>Categoria</li>
+                    {{#each categories}}
+                    <li>
+                        <a
+                            href="{{getUrl 'PRODUCTS_VIEW' wordFilter categoryId subcategoryFilter brandFilter null}}">{{
+                            name }} ( {{ dataValues.quantity }} )</a>
+                    </li>
+                    {{/each}}
+                </ul>
+                <ul class='filtros-ul'>
+                    <li class='h5'>Subcategoria</li>
+                    {{#each subcategories}}
+                    <li>
+                        <a
+                            href="{{getUrl 'PRODUCTS_VIEW' wordFilter categoryFilter subcategoryId brandFilter null}}">{{
+                            name }} ( {{ dataValues.quantity }} )</a>
+                    </li>
+                    {{/each}}
+                </ul>
+                <ul class='filtros-ul'>
+                    <li class='h5'>Marca</li>
+                    {{#each brands}}
+                    <li>
+                        <a
+                            href="{{getUrl 'PRODUCTS_VIEW' wordFilter categoryFilter subcategoryId brandId null}}">{{
+                            name }} ( {{ dataValues.quantity }} )</a>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{!-- <ul className='filtros-ul'>
+                    <li className='h5'>Marca</li>
+                    <li>
+                        <input type='checkbox' className='me-2' />
+                        <label>Marca <span className='text-muted'>(33)</span></label>
+                    </li>
+                    <li>
+                        <input type='checkbox' className='me-2' />
+                        <label>Marca <span className='text-muted'>(33)</span></label>
+                    </li>
+                </ul> --}}
+            </div>
+        </aside>
+        <!--************SECCION PRODUCTOS**********-->
+        <section class="col-12 col-md-9 my-3">
+            <div class="flex-wrap d-flex">
+                {{#each products }}
+                <a class="card text-center sombraVerde p-2 w-producto" href="{{getUrl 'PRODUCT_DETAIL_VIEW' productId}}">
+                    <img class="card-img-top" src="/assets/img/producto/{{ image }}" alt="" />
+                    <section class='card-body' as="section">
+                        <p class="text-uppercase my-0">{{ name }}</p>
+                    </section>
+                    <div>
+                        <p class="textoVerde h3 my-0">ARS {{ price }}</p>
+                        <p>
+                            <strong>18 cuotas de ${{ getPriceInPayments price 18 }}.00</strong>
+                        </p>
+                        <button class="btn btn-violeta w-100">VER PRODUCTO</button>
+                    </div>
+                </a>
+                {{ else }}
+                <p class="text-center w-100">* No hay resultados para esta busqueda *</p>
+                {{/each}}
+            </div>
+        </section>
+    </div>
+</section>
+
+
+<script>
+    ordenarProductos();
+</script>
+
+{{> footer }}
+
+
+
+        {{!-- <section class="encabezado">
+            <div>
+                <i class="fa fa-arrow-circle-right"></i>
+                <a>Resultado</a>
+            </div>
+            <div>
+                <select name="ordenar" id="ordenar">
+                    <option value="">Ordenar por</option>
+                    <option
+                        value="/producto/buscar/palabra={{ wordFilter }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=asc">
+                        Menor-precio</option>
+                    <option
+                        value="/producto/buscar/palabra={{ wordFilter }}/idcat={{ categoriaFiltro }}/idsub={{ subcategoriaFiltro }}/idmarca={{ marcaFiltro }}/orden=desc">
+                        Mayor precio</option>
+                </select>
+                <a id="botonVistaCuadricula"><i class='fas fa-th encabezado--grande verde'></i></a>
+                <a id="botonVistaFila"><i class='fas fa-align-justify encabezado--grande verde'></i></a>
+            </div>
+        </section> --}}
+        <!--************ASIDE CATEGORIA**********-->
+        {{!-- <aside class="categoria col-12 col-md-3 my-3">
+            <ul class="categoria__especificacion">
+                <li class="categoria__especificacion--verde">Categoria</li>
+                <li>
+                    {{#each categorias}}
+                    <a href="/producto/buscar/palabra={{ ../wordFilter }}/idcat={{ idcategoria }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ ../marcaFiltro }}/orden=-1"
+                        class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
+                    {{/each}}
+                </li>
+            </ul>
+            <ul class="categoria__especificacion">
+                <li class="categoria__especificacion--verde">Subategoria</li>
+                <li>
+                    {{#each subcategorias}}
+                    <a href="/producto/buscar/palabra={{ ../wordFilter }}/idcat={{ ../categoriaFiltro }}/idsub={{ idsubcategoria }}/idmarca={{ ../marcaFiltro }}/orden=-1"
+                        class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
+                    {{/each}}
+                </li>
+            </ul>
+            <ul class="categoria__especificacion">
+                <li class="categoria__especificacion--verde">Marca</li>
+                <li>
+                    {{#each marcas}}
+                    <a href="/producto/buscar/palabra={{ ../wordFilter }}/idcat={{ ../categoriaFiltro }}/idsub={{ ../subcategoriaFiltro }}/idmarca={{ idmarca }}/orden=-1"
+                        class="categoria__especificacion__link">{{ nombre }} ( {{ dataValues.cantidad }} )</a>
+                    {{/each}}
+                </li>
+            </ul>
+        </aside> --}}

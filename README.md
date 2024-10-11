@@ -1,9 +1,11 @@
 # Ecommerce de computacion
+
 El diseño de este proyecto fue copiado de la pagina de computacion [Maximus](https://www.maximus.com.ar/HOME/maximus.aspx).
 
 [Les invito a mirar el proyecto](https://yoel-ecommerce.herokuapp.com/)
 
 ## Construido con :hammer:
+
 - NodeJs
 - Express
 - Sequelize
@@ -13,11 +15,13 @@ El diseño de este proyecto fue copiado de la pagina de computacion [Maximus](ht
 - Bootstraps
 
 Para interactuar con la interfaz del administrador clickea el boton de inicio automatico o ingresa en el login:
+
 - email: test@test.com
 - password: test
-(No van a tener permiso para crear, ni modificar productos, ni usuarios)
+  (No van a tener permiso para crear, ni modificar productos, ni usuarios)
 
- Hecho
+Hecho
+
 - CRUD de usuarios
 - CRUD de productos
 - Subir una imagen por usuario y producto
@@ -33,6 +37,7 @@ Para interactuar con la interfaz del administrador clickea el boton de inicio au
 - Asignar vendedores
 
 En proceso
+
 - CRUD de pedidos
 - Api de MercadoPago
 - Autenticación por Facebook
@@ -41,6 +46,7 @@ En proceso
 - Restablecer contreseña mandando un email
 
 ## Modo desarrollo
+
 ```
     nvm install 16.18.0
     nvm use 16.18.0

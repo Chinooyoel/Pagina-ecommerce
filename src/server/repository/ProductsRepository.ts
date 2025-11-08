@@ -117,7 +117,7 @@ export default class ProductsRepository {
 
 	static async updateById(
 		id: number,
-		product: ProductAttributes,
+		product: Partial<ProductAttributes>,
 	): Promise<ProductAttributes> {
 		const result = await Product.update(product, {
 			where: { productId: id },

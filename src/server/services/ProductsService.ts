@@ -1,13 +1,11 @@
 import ProductsRepository from '../repository/ProductsRepository'
 import { Filters } from '../@types'
-import { Product } from '../models/product'
-import { NotFound } from '../utils/errors'
+import { Product, ProductAttributes } from '../models/product'
+import { BusinessError, NotFound } from '../utils/errors'
 
 export default class ProductsService {
 	static async findOneById(id: number) {
-		const product = await ProductsRepository.findOneById(id)
-		if (!product) throw new NotFound('Product not found')
-		return product
+		return await ProductsRepository.findOneById(id)
 	}
 
 	static async findAllByWord(word: string) {
@@ -34,10 +32,8 @@ export default class ProductsService {
 		})
 	}
 
-	static async updateById(id: number, product: Product) {
-		const updatedProduct = await ProductsRepository.updateById(id, product)
-		if (!updatedProduct) throw new NotFound('Product Not Found')
-		return updatedProduct
+	static async updateById(id: number, product: Partial<ProductAttributes>) {
+		return await ProductsRepository.updateById(id, product)
 	}
 
 	static async create(product: Product) {
@@ -45,8 +41,15 @@ export default class ProductsService {
 	}
 
 	static async softDelete(id: number): Promise<void> {
-		const product = await ProductsRepository.findOneById(id)
-		if (!product) throw new NotFound('Product Not Found')
 		await ProductsRepository.softDelete(id)
+	}
+
+	static async updateStock(
+		product: ProductAttributes,
+		qty: number,
+	): Promise<void> {
+		if (product.stock < qty) throw new BusinessError('Product does not stock')
+		product.stock = product.stock - qty
+		await ProductsService.updateById(product.productId, product)
 	}
 }

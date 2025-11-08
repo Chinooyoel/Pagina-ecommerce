@@ -12,6 +12,7 @@ export default class ProductsController {
 	static async showViewProductDetail(req: Request, res: Response) {
 		try {
 			const product = await ProductsService.findOneById(Number(req.params.id))
+			if (!product) throw new NotFound('Product not found')
 			const relatedProducts = await ProductsService.findRelatedProducts({
 				id: product.productId,
 				subcategoryId: product.subcategoryId ?? 1,
